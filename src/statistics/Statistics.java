@@ -38,6 +38,16 @@ public class Statistics implements IStatistics {
     }
 
     public void buildBarPlotFile() {
+        try {
+            String barplot = new String(Files.readAllBytes(Paths.get("src/statistics/RTemplates/barplot.R.tpl")));
+            barplot = barplot.replaceAll(Const.VAR_FILENAME,Const.instance.path);
+
+            PrintWriter writer = new PrintWriter(new File(Const.instance.barplot_file));
+            writer.print(barplot);
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         String scenDesc = "c(round(2579/4278,digits=2)*100";
     }
 
@@ -50,7 +60,6 @@ public class Statistics implements IStatistics {
         }
         try {
             String boxplot = new String(Files.readAllBytes(Paths.get("src/statistics/RTemplates/boxplot.R.tpl")));
-
             boxplot = boxplot.replaceAll(Const.VAR_DATADIR,Const.instance.path);
             boxplot = boxplot.replaceAll(Const.VAR_SCENARIODESCRIPTION_BOXPLOT, scenDesc);
             boxplot = boxplot.replaceAll(Const.VAR_FILENAME, Const.instance.createBoxplotName(scenCount));

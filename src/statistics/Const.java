@@ -15,6 +15,7 @@ public enum Const {
 
     public String path = (new File("")).getAbsolutePath()+"/data";
     public String boxplot_file = "data/r_out/boxplot.r";
+    public String barplot_file = "data/r_out/barplot.r";
 
     public String createBoxplotName(int countScenario) {
         String name = "boxplot_scenario_1";

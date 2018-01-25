@@ -73,6 +73,7 @@ public class Application {
         application.execute();
         Statistics statistics = new Statistics();
         statistics.writeCSVFile();
+        statistics.buildBarPlotFile();
         statistics.buildBoxPlotRFile();
         application.shutdownHSQLDB();
     }
