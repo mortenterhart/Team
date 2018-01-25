@@ -1,5 +1,7 @@
 package main;
 
+import random.MersenneTwisterFast;
+
 public enum Configuration {
     instance;
 
@@ -10,4 +12,6 @@ public enum Configuration {
     public String dataFilePath = dataDirectory + "TSP280.txt";
 
     public String databaseFile = dataDirectory + "datastore.db";
+
+    public MersenneTwisterFast mersenneTwister;
 }
