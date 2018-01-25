@@ -1,2 +1,8 @@
 
 *.class
+
+*.csv
+
+
+data/r_out/*.r
+
