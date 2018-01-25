@@ -58,12 +58,12 @@ public class Statistics implements IStatistics {
         try {
             String boxplot = new String(Files.readAllBytes(Paths.get("src/statistics/RTemplates/boxplot.R.tpl")));
 
-            boxplot = boxplot.replaceAll("\\[DATADIR\\]",(new File("")).getAbsolutePath()+"/data");
-            boxplot = boxplot.replaceAll("\\[SCENARIODESCRIPTION\\]", scenDesc);
-            boxplot = boxplot.replaceAll("\\[FILENAME\\]", "boxplot_scenario_"+boxplot_name+".pdf");
-            boxplot = boxplot.replaceAll("\\[SCENARIOSSHORT\\]", scenariosshort);
-            boxplot = boxplot.replaceAll("\\[NAMES\\]", scenarionames);
-            PrintWriter writer = new PrintWriter(new File("data/r_out/boxplot.r"));
+            boxplot = boxplot.replaceAll(Const.VAR_DATADIR,Const.instance.path);
+            boxplot = boxplot.replaceAll(Const.VAR_SCENARIODESCRIPTION_BOXPLOT, scenDesc);
+            boxplot = boxplot.replaceAll(Const.VAR_FILENAME, Const.instance.createBoxplotName(scenCount));
+            boxplot = boxplot.replaceAll(Const.VAR_SCENARIOSHORT, scenariosshort);
+            boxplot = boxplot.replaceAll(Const.VAR_NAMES, scenarionames);
+            PrintWriter writer = new PrintWriter(new File(Const.instance.boxplot_file));
             writer.print(boxplot);
             writer.flush();
         }catch (IOException e){
