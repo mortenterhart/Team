@@ -16,24 +16,55 @@ public class CycleCrossover implements ICrossover {
         ArrayList<City> cities1 = tour01.getCities();
         ArrayList<City> cities2 = tour02.getCities();
 
-        Tour child = new Tour();
+        Tour child1 = new Tour();
+        Tour child2 = new Tour();
 
-        int idx = 0;
-        do {
+
+        int idx = 0, startIdx = 0;
+        int cycleCount = 0;
+        int cycleLength = 0;
+        boolean cityDone[] = new boolean[length1];
+
+        while (true) {
             City c = cities2.get(idx);
-            // if city was found in tour2, add city to child
-            child.addCity(idx, cities1.get(idx));
-            idx = cities1.indexOf(c); //get next index
-        } while (idx != 0);
+            int nextIdx = cities1.indexOf(c);
 
-        for(int i = 0; i < length2; i++) {
-            City c = tour02.getCity(i);
-            if(!child.containsCity(c)) {
-                child.addCity(i, c);
+            cityDone[idx] = true;
+
+            if(cycleCount % 2 == 0) {
+                child1.addCity(idx, cities1.get(idx));
+                child2.addCity(idx, cities2.get(idx));
             }
+            else {
+                child1.addCity(idx, cities2.get(idx));
+                child2.addCity(idx, cities1.get(idx));
+            }
+
+            if(nextIdx == idx) { // check for all cycles done, only one remains
+                break;
+            }
+            if(nextIdx == startIdx) { //generate next Idx, if cycle at end
+                for(int i = startIdx; i < length1; i++) { //loop through all remaining start indices
+                    if(!cityDone[i]) {//check that new index is not already part of a cycle
+                        startIdx = i; //start new cycle
+                        idx = i;
+                        cycleCount++;
+                    }
+                    else if(i == length1 - 1) {
+                        break; //no remaining index found
+                    }
+                }
+            }
+            else
+                idx = nextIdx; //continue cycle
+
+            cycleLength++;
         }
 
-        return child;
+        if(child1.compareTo(child2) > 0) //if child 1 is stronger
+            return child1;
+        else
+            return child2;
     }
 
     public String toString() {
