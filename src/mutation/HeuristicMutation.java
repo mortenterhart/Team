@@ -4,77 +4,81 @@ import base.City;
 import base.Tour;
 import random.MersenneTwisterFast;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.TreeMap;
+import java.util.*;
 
 public class HeuristicMutation implements IMutation {
-    private HashMap<Double, ArrayList<City>> finalCities;
     public Tour doMutation(Tour tour) {
         MersenneTwisterFast mersenneTwisterFast = new MersenneTwisterFast();
         int count = mersenneTwisterFast.nextInt(0, tour.getCities().size()-1);
 
-        TreeMap<Integer, City> cities = new TreeMap<>();
+        ArrayList<Integer> indexCities = new ArrayList<>();
         System.out.println("count: " + count);
-        while (cities.size()!=count){
-            int key = mersenneTwisterFast.nextInt(0,tour.getCities().size()-1);
-            cities.put(key, tour.getCity(key));
+        while (indexCities.size()!=count){
+            int key = mersenneTwisterFast.nextInt(1,tour.getCities().size()-1);
+            if(indexCities.contains(key))
+                continue;
+            indexCities.add(key);
 
         }
 
-        this.finalCities = new HashMap<>();
-        this.finalCities.put(tour.getFitness(), tour.getCities());
-        permute(finalCities.get(tour.getFitness()).toArray(), tour);
-        System.out.println(finalCities.keySet());
+        ArrayList<City> permutateCities = new ArrayList<>();
+        for (int index: indexCities) {
+            permutateCities.add(tour.getCity(index));
+        }
 
+        ArrayList<ArrayList<City>> permutatedCityLists= permute(permutateCities);
 
+        int fak = permutatedCityLists.size();
+        System.out.println(fak);
 
-
-
-
-
-
+        ArrayList<ArrayList<City>> cityLists = new ArrayList<>();
+        for (int i = 0; i < fak; i++){
+            ArrayList<City> cities = new ArrayList<>();
+            for (City city: tour.getCities()) {
+                cities.add(city);
+            }
+            cityLists.add(cities);
+        }
+        Tour tempTour = new Tour();
+        Double tempFitness = 0.0;
+        int k = 0;
+        for (int i = 0; i < fak; i++){
+            for (int index: indexCities) {
+                cityLists.get(i).set(index, permutatedCityLists.get(i).get(k++));
+            }
+            tempTour.setCities(cityLists.get(i));
+            if(tempTour.getFitness() >= tempFitness){
+                tempFitness = tempTour.getFitness();
+                tour.setCities(cityLists.get(i));
+            }
+        }
 
         return tour;
     }
 
-    public void permute(Object[] arr, Tour tour){
-        permuteHelper(arr, 0, tour);
-    }
+    public static ArrayList<ArrayList<City>> permute(List<City> list) {
 
-    private void permuteHelper(Object[] arr, int index, Tour tour){
-        if(index >= arr.length - 1){ //If we are at the last element - nothing left to permute
-            //System.out.println(Arrays.toString(arr));
-            //Print the array
-            System.out.print("[");
-            for(int i = 0; i < arr.length - 1; i++){
-                System.out.print(arr[i] + ", ");
+        if (list.size() == 0) {
+            ArrayList<ArrayList<City>> result = new ArrayList<ArrayList<City>>();
+            result.add(new ArrayList<City>());
+            return result;
+        }
+
+        ArrayList<ArrayList<City>> returnMe = new ArrayList<ArrayList<City>>();
+
+        City firstElement = list.remove(0);
+
+        ArrayList<ArrayList<City>> recursiveReturn = permute(list);
+        for (List<City> li : recursiveReturn) {
+
+            for (int index = 0; index <= li.size(); index++) {
+                ArrayList<City> temp = new ArrayList<City>(li);
+                temp.add(index, firstElement);
+                returnMe.add(temp);
             }
-            if(arr.length > 0)
-                System.out.print(arr[arr.length - 1]);
-            System.out.println("]");
-            return;
+
         }
-
-        for(int i = index; i < arr.length; i++){ //For each index in the sub array arr[index...end]
-
-            //Swap the elements at indices index and i
-            Object t = arr[index];
-            arr[index] = arr[i];
-            arr[i] = t;
-
-//            tour.setCities(new ArrayList<City>(Arrays.asList(arr)));
-
-            this.finalCities.put(tour.getFitness(), tour.getCities());
-            //Recurse on the sub array arr[index+1...end]
-            permuteHelper(arr, index+1, tour);
-
-            //Swap the elements back
-            t = arr[index];
-            arr[index] = arr[i];
-            arr[i] = t;
-        }
+        return returnMe;
     }
 
     public String toString() {
