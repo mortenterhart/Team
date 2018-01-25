@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -42,6 +44,20 @@ public class Statistics implements IStatistics {
     }
 
     public void buildBoxPlotRFile() {
+        String scenDesc = "";
+        int scenCount = 3;
+        for(int i=1; i <= scenCount ; i++){
+            scenDesc += "s0"+i+" <- as.numeric(read.csv(\"data/data_scenario_0"+i+".csv\",header=FALSE)) ";
+            scenDesc += System.getProperty("line.separator");
+        }
+        try {
+            String boxplot = new String(Files.readAllBytes(Paths.get("RTemplates/boxplot.R.tpl")));
+            boxplot.replaceAll("[DATADIR]","data");
+            boxplot.replaceAll("[SCENARIODESCRIPTION]", scenDesc);
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public void buildDotPlotRFile() {
