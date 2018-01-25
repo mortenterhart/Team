@@ -3,3 +3,6 @@
 .idea/modules.xml
 .idea/TSP.iml
 .idea/misc.xml
+*.class
+TSP.iml
+.idea/libraries/lib.xml
