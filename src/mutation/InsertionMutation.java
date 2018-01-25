@@ -12,32 +12,22 @@ public class InsertionMutation implements IMutation {
     public Tour doMutation(Tour tour) {
 
         MersenneTwisterFast mtf = new MersenneTwisterFast();
-
-
         ArrayList<City> cities = tour.getCities();
 
         //get random point to pick object out
-        int extractPoint = mtf.nextInt(0,cities.size()-1);
+        int extractPoint = mtf.nextInt(0, cities.size() - 1);
         //get random point to insert picked-out object
-        int insertPoint = mtf.nextInt(0,cities.size()-1);
-
+        int insertPoint = mtf.nextInt(0, cities.size() - 1);
 
         City tempCity = cities.get(extractPoint);
 
-        if(insertPoint<extractPoint)
-        {
+        if (insertPoint < extractPoint) {
             cities.remove(extractPoint);
             cities.add(insertPoint, tempCity);
-        }
-        else{
+        } else {
             cities.add(insertPoint, tempCity);
             cities.remove(extractPoint);
         }
-
-
-
-
-
 
         return tour;
     }

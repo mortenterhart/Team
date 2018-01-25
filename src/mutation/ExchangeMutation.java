@@ -8,11 +8,13 @@ import java.util.ArrayList;
 
 public class ExchangeMutation implements IMutation {
     public Tour doMutation(Tour tour) {
+
         MersenneTwisterFast mersenneTwisterFast = new MersenneTwisterFast();
         int indexFirstCity = mersenneTwisterFast.nextInt(0, tour.getCities().size() - 1);
-        int indexSecondCity = mersenneTwisterFast.nextInt(0, tour.getCities().size() - 1);
-        while (indexSecondCity==indexFirstCity)
+        int indexSecondCity;
+        do{
             indexSecondCity = mersenneTwisterFast.nextInt(0, tour.getCities().size() - 1);
+        }while(indexSecondCity==indexFirstCity);
 
         ArrayList<City> finalCities = tour.getCities();
 

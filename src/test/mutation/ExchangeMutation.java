@@ -11,6 +11,8 @@ import java.util.ArrayList;
 public class ExchangeMutation {
     @Test
     public void testExchangeMutation(){
+
+        //init test vaiables
         Tour tour = new Tour();
         ArrayList<City> oldCities = new ArrayList<City>();
         ArrayList<City> cities = new ArrayList<City>();

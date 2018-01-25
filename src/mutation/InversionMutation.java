@@ -8,36 +8,27 @@ import java.util.ArrayList;
 
 public class InversionMutation implements IMutation {
     public Tour doMutation(Tour tour) {
-        MersenneTwisterFast mtf = new MersenneTwisterFast();
 
+        MersenneTwisterFast mtf = new MersenneTwisterFast();
         ArrayList<City> cities = tour.getCities();
 
         int point1;
         int point2;
 
+        //Avoid getting the same pointss
         do {
             point1 = mtf.nextInt(0, cities.size() - 1);
             point2 = mtf.nextInt(0, cities.size() - 1);
         } while (point1 == point2);
 
 
-        int startPoint;
-        int endPoint;
+        //check witch int ist hight
+        int startPoint = point1 < point2 ? point1 : point2;
+        int endPoint = point1 > point2 ? point1 : point2;
 
-        if (point1 < point2) {
-            startPoint = point1;
-            endPoint = point2;
-        } else {
-            startPoint = point2;
-            endPoint = point1;
-        }
-
-        System.out.println("StartPoint: " + startPoint);
-        System.out.println("EndPoint: " + endPoint);
 
         City tempCity = null;
-
-        for (int i = 0; i < (endPoint - startPoint) / 2+0.5; i++) {
+        for (int i = 0; i < (endPoint - startPoint) / 2 + 0.5; i++) {
             tempCity = cities.get(startPoint + i);
             cities.set(startPoint + i, cities.get(endPoint - i));
             cities.set(endPoint - i, tempCity);

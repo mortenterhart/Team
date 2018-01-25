@@ -12,6 +12,7 @@ public class InsertionMutation {
     @Test
     public void testDoMutation()
     {
+        //init test vaiables
         Tour tour = new Tour();
         ArrayList<City> oldCities = new ArrayList<City>();
         ArrayList<City> cities = new ArrayList<City>();
@@ -19,7 +20,6 @@ public class InsertionMutation {
             oldCities.add(new City(i,i,i));
             cities.add(new City(i,i,i));
         }
-
         tour.setCities(cities);
         IMutation insertionMutation = new mutation.InsertionMutation();
 

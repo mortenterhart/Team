@@ -12,6 +12,8 @@ public class DisplacementMutation {
 
     @Test
     public void testDisplacementMutation(){
+
+        //init test vaiables
         Tour tour = new Tour();
         ArrayList<City> oldCities = new ArrayList<City>();
         ArrayList<City> cities = new ArrayList<City>();

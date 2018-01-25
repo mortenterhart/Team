@@ -8,13 +8,14 @@ import java.util.ArrayList;
 
 public class DisplacementMutation implements IMutation {
     public Tour doMutation(Tour tour) {
+
         MersenneTwisterFast twisterFast = new MersenneTwisterFast();
-        //get start index
-        int startIndex = twisterFast.nextInt(0, tour.getCities().size()-1);
-        //get end index
-        int endIndex = twisterFast.nextInt(0, tour.getCities().size()-1);
-        while (endIndex == startIndex)
-            endIndex = twisterFast.nextInt(0, tour.getCities().size()-1);
+        int startIndex = twisterFast.nextInt(0, tour.getCities().size() - 1);
+        int endIndex;
+        do {
+            endIndex = twisterFast.nextInt(0, tour.getCities().size() - 1);
+        } while (endIndex == startIndex);
+
 
         //swap startIndex and endIndex if endIndex is smaller
         if (startIndex > endIndex) {
@@ -23,25 +24,22 @@ public class DisplacementMutation implements IMutation {
             endIndex = swap;
         }
         ArrayList<City> finalCities = tour.getCities();
+        ArrayList<City> tempCities = new ArrayList<>();
 
-        //TODO rename
-        ArrayList<City> helpCities = new ArrayList<>();
-
-        int difference = endIndex-startIndex;
-        for (int i = 0; i <= difference; i++)
-        {
-            helpCities.add(finalCities.get(startIndex));
+        int difference = endIndex - startIndex;
+        for (int i = 0; i <= difference; i++) {
+            tempCities.add(finalCities.get(startIndex));
             finalCities.remove(startIndex);
         }
 
         //get random insertPoint
-        int insertPoint = twisterFast.nextInt(0, tour.getCities().size()-1);
-        while (insertPoint==startIndex)
-            insertPoint = twisterFast.nextInt(0, tour.getCities().size()-1);
+        int insertPoint;
+        do {
+            insertPoint = twisterFast.nextInt(0, tour.getCities().size() - 1);
+        } while (insertPoint == startIndex);
 
-        for (int i = 0; i < helpCities.size() ; i++)
-        {
-            finalCities.add(insertPoint+i, helpCities.get(i));
+        for (int i = 0; i < tempCities.size(); i++) {
+            finalCities.add(insertPoint + i, tempCities.get(i));
         }
 
         tour.setCities(finalCities);
