@@ -9,12 +9,11 @@ import java.util.*;
 public class HeuristicMutation implements IMutation {
     public Tour doMutation(Tour tour) {
         MersenneTwisterFast mersenneTwisterFast = new MersenneTwisterFast();
-        int count = mersenneTwisterFast.nextInt(0, tour.getCities().size()-1);
+        int count = mersenneTwisterFast.nextInt(2, tour.getCities().size()-1);
 
         ArrayList<Integer> indexCities = new ArrayList<>();
-        System.out.println("count: " + count);
         while (indexCities.size()!=count){
-            int key = mersenneTwisterFast.nextInt(1,tour.getCities().size()-1);
+            int key = mersenneTwisterFast.nextInt(0,tour.getCities().size()-1);
             if(indexCities.contains(key))
                 continue;
             indexCities.add(key);
@@ -29,13 +28,15 @@ public class HeuristicMutation implements IMutation {
         ArrayList<ArrayList<City>> permutatedCityLists= permute(permutateCities);
 
         int fak = permutatedCityLists.size();
-        System.out.println(fak);
 
         ArrayList<ArrayList<City>> cityLists = new ArrayList<>();
+
+        //copy ArrayList
         for (int i = 0; i < fak; i++){
             ArrayList<City> cities = new ArrayList<>();
             for (City city: tour.getCities()) {
                 cities.add(city);
+
             }
             cityLists.add(cities);
         }
@@ -45,8 +46,15 @@ public class HeuristicMutation implements IMutation {
         for (int i = 0; i < fak; i++){
             for (int index: indexCities) {
                 cityLists.get(i).set(index, permutatedCityLists.get(i).get(k++));
+
             }
+            k = 0;
+
+        }
+        for (int i = 0; i < fak; i++)
+        {
             tempTour.setCities(cityLists.get(i));
+            System.out.println("i: " + i + " fitness: " + tempTour.getFitness());
             if(tempTour.getFitness() >= tempFitness){
                 tempFitness = tempTour.getFitness();
                 tour.setCities(cityLists.get(i));

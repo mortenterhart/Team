@@ -15,7 +15,7 @@ public class HeuristicMutation {
         Tour tour = new Tour();
         ArrayList<City> oldCities = new ArrayList<City>();
         ArrayList<City> cities = new ArrayList<City>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 10; i++) {
             oldCities.add(new City(i, i, i));
             cities.add(new City(i, i, i));
         }
