@@ -24,4 +24,20 @@ public enum Const {
         return name + ".pdf";
     }
 
+    public String createScenarioShortname(int countScenario) {
+        String scenariosshort = "s01";
+        for (int i = 2; i <= countScenario; i++) {
+            scenariosshort += ",s0"+i;
+        }
+        return scenariosshort;
+    }
+
+    public String createScenarioName(int countScenario) {
+        String scenarionames = "\"Szenario 1\"";
+        for (int i = 2; i <= countScenario; i++) {
+            scenarionames += ",\"Szenario "+ i + "\"";
+        }
+        return scenarionames;
+    }
+
 }

@@ -48,22 +48,14 @@ public class Statistics implements IStatistics {
             scenDesc += "s0"+i+" <- as.numeric(read.csv(\"data/data_scenario_0"+i+".csv\",header=FALSE)) ";
             scenDesc += System.getProperty("line.separator");
         }
-        String scenariosshort = "s01";
-        String scenarionames = "\"Szenario 1\"";
-        String boxplot_name = "01";
-        for (int i = 2; i <= scenCount; i++) {
-            scenariosshort += ",s0"+i;
-            scenarionames += ",\"Szenario "+ i + "\"";
-            boxplot_name += "_0"+i;
-        }
         try {
             String boxplot = new String(Files.readAllBytes(Paths.get("src/statistics/RTemplates/boxplot.R.tpl")));
 
             boxplot = boxplot.replaceAll(Const.VAR_DATADIR,Const.instance.path);
             boxplot = boxplot.replaceAll(Const.VAR_SCENARIODESCRIPTION_BOXPLOT, scenDesc);
             boxplot = boxplot.replaceAll(Const.VAR_FILENAME, Const.instance.createBoxplotName(scenCount));
-            boxplot = boxplot.replaceAll(Const.VAR_SCENARIOSHORT, scenariosshort);
-            boxplot = boxplot.replaceAll(Const.VAR_NAMES, scenarionames);
+            boxplot = boxplot.replaceAll(Const.VAR_SCENARIOSHORT, Const.instance.createScenarioShortname(scenCount));
+            boxplot = boxplot.replaceAll(Const.VAR_NAMES, Const.instance.createScenarioName(scenCount));
             PrintWriter writer = new PrintWriter(new File(Const.instance.boxplot_file));
             writer.print(boxplot);
             writer.flush();
