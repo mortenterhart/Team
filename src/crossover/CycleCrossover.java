@@ -67,7 +67,7 @@ public class CycleCrossover implements ICrossover {
             }
         }
 
-        if(child1.compareTo(child2) > 0) //if child 1 is stronger
+        if(child1.compareTo(child2) < 0) //if child 1 is stronger
             return child1;
         else
             return child2;
