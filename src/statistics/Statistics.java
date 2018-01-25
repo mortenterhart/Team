@@ -38,6 +38,7 @@ public class Statistics implements IStatistics {
     }
 
     public void buildBarPlotFile() {
+        String scenDesc = "c(round(2579/4278,digits=2)*100";
     }
 
     public void buildBoxPlotRFile() {
