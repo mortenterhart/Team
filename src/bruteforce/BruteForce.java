@@ -6,17 +6,14 @@ import data.InstanceReader;
 import data.TSPLIBReader;
 import main.Configuration;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class BruteForce {
     private List<City> availableCities = null;
     private Comparator<City> cityComparator = new CityComparator ();
     private Set<Tour> tourSet = new HashSet<> ();
 
-    private double tourCountLimit = 4e9;
+    private double tourCountLimit = 0;
     private int breakLimit = 1000;
     private int breakCount = 0;
 
@@ -25,16 +22,36 @@ public class BruteForce {
     }
 
     public void fillSet() {
-        Tour baseTour = new Tour();
+        Tour baseTour = new Tour ();
         availableCities.sort (cityComparator);
-        for (int i = 1; i <= availableCities.size(); i++) {
-            baseTour.addCity (availableCities.get(i));
+        for (int i = 1; i <= availableCities.size (); i++) {
+            baseTour.addCity (availableCities.get (i));
         }
 
-
         do {
+            Collections.shuffle (baseTour.getCities (), Configuration.instance.random);
+            tourSet.add (baseTour);
+        } while (tourSet.size () <= tourCountLimit);
+    }
 
-        } while()
+    public Tour minimalTour() {
+        Tour minimumTour = null;
+        double lowestDistance = Double.MAX_VALUE;
+        for (Tour testTour : tourSet) {
+            double testDistance = testTour.getFitness ();
+            if (testDistance < lowestDistance) {
+                minimumTour = testTour;
+                lowestDistance = testDistance;
+                breakCount = 0;
+            } else {
+                breakCount++;
+            }
+
+            if (breakCount < breakLimit) {
+                break;
+            }
+        }
+        return minimumTour;
     }
 
     private void loadCities() {
@@ -51,12 +68,16 @@ public class BruteForce {
         System.out.println ();
     }
 
+    public void setTourCountLimit(double limit) {
+        tourCountLimit = limit;
+    }
+
     public List<City> getAvailableCities() {
         return availableCities;
     }
 
     public static void main(String[] args) {
         BruteForce bruteForceApplication = new BruteForce ();
-        bruteForceApplication.findBestRoute ();
+        bruteForceApplication.setTourCountLimit (4e9);
     }
 }
