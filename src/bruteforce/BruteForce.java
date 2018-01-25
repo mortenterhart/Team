@@ -6,19 +6,17 @@ import data.InstanceReader;
 import data.TSPLIBReader;
 import main.Configuration;
 
-import java.math.BigInteger;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class BruteForce {
     private List<City> availableCities = null;
-    private Tour bestRoute = null;
     private Comparator<City> cityComparator = new CityComparator ();
-    private double bestDistance = Double.MAX_VALUE;
+    private Set<Tour> tourSet = new HashSet<> ();
 
-    private Tour currentRoute = null;
-
-    private double iterationLimit = 4e9;
+    private double tourCountLimit = 4e9;
     private int breakLimit = 1000;
     private int breakCount = 0;
 
@@ -26,29 +24,17 @@ public class BruteForce {
         loadCities ();
     }
 
-    public void initRoute() {
+    public void fillSet() {
+        Tour baseTour = new Tour();
         availableCities.sort (cityComparator);
-    }
-
-    public Tour findBestRoute() {
-        for (int i = 0; i < iterationLimit; i++) {
-            nextPermutation ();
-            double routeDistance = currentRoute.getFitness ();
-            if (routeDistance < bestDistance) {
-                bestRoute = currentRoute;
-                bestDistance = routeDistance;
-            } else {
-                breakCount++;
-            }
-
-            if (breakCount > breakLimit) {
-                return bestRoute;
-            }
+        for (int i = 1; i <= availableCities.size(); i++) {
+            baseTour.addCity (availableCities.get(i));
         }
-        return bestRoute;
-    }
 
-    private void nextPermutation() {
+
+        do {
+
+        } while()
     }
 
     private void loadCities() {
