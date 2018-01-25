@@ -9,6 +9,7 @@ import data.InstanceReader;
 import data.TSPLIBReader;
 import mutation.IMutation;
 import selection.ISelection;
+import statistics.Statistics;
 
 public class Application {
     private ArrayList<City> availableCities;
@@ -70,6 +71,8 @@ public class Application {
         application.loadData();
         application.initConfiguration();
         application.execute();
+        Statistics statistics = new Statistics();
+        statistics.writeCSVFile();
         application.shutdownHSQLDB();
     }
 }

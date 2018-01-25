@@ -1,9 +1,6 @@
 package data;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 import main.Configuration;
 
@@ -84,5 +81,21 @@ public enum HSQLDBManager {
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
         }
+    }
+
+    public ResultSet getResultSet(String sqlStatement) {
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.createStatement();
+            boolean result = statement.execute(sqlStatement);
+            if (!result)
+                System.out.println("error executing " + sqlStatement);
+            resultSet = statement.getResultSet();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
     }
 }
