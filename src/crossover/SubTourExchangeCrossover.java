@@ -11,22 +11,22 @@ public class SubTourExchangeCrossover implements ICrossover {
     public Tour doCrossover(Tour tour01,Tour tour02) {
         MersenneTwisterFast random = new MersenneTwisterFast();
 
-        List<City> tourCities1 = tour01.getCities();
-        List<City> tourCities2 = tour02.getCities();
+        ArrayList<City> tourCities1 = tour01.getCities();
+        ArrayList<City> tourCities2 = tour02.getCities();
         int lastIndex = tour01.getSize()-1;
 
-        int firstSplit = random.nextInt(1, lastIndex-1);
-        int secondSplit = random.nextInt(firstSplit +1, lastIndex);
+        int firstSplit = random.nextInt(1, lastIndex-2);
+        int secondSplit = random.nextInt(firstSplit +1, lastIndex-1);
 
-        List<City> base1 = tourCities1.subList(firstSplit, secondSplit);
-        List<City> base2 = tourCities2.subList(firstSplit, secondSplit);
+        ArrayList<City> base1 = CloneSubListCity(tourCities1, firstSplit, secondSplit);
+        ArrayList<City> base2 = CloneSubListCity(tourCities2, firstSplit, secondSplit);
 
-        List<City> shuffledBase1 = base1.subList(0, 1);
-        List<City> shuffledBase2 =  base2.subList(0, 1);
+        ArrayList<City> shuffledBase1 = CloneSubListCity(base1, 0, 1);
+        ArrayList<City> shuffledBase2 =  CloneSubListCity(base2, 0, 1);
 
         for (int i = 0; i < base1.size(); i++)
         {
-            int position = random.nextInt(0, shuffledBase1.size());
+            int position = random.nextInt(0, shuffledBase1.size()-1);
 
             shuffledBase1.add(position, base1.get(i));
             shuffledBase2.add(position, base2.get(i));
@@ -45,8 +45,8 @@ public class SubTourExchangeCrossover implements ICrossover {
         Tour childTour1 = new Tour();
         Tour childTour2 = new Tour();
 
-        childTour1.setCities((ArrayList)tourCities1);
-        childTour2.setCities((ArrayList)tourCities2);
+        childTour1.setCities(tourCities1);
+        childTour2.setCities(tourCities2);
 
         switch (childTour1.compareTo(childTour2))
         {
@@ -55,6 +55,18 @@ public class SubTourExchangeCrossover implements ICrossover {
             default: return childTour1;
         }
 
+    }
+
+    private ArrayList<City> CloneSubListCity(ArrayList<City> list, int startIndex, int endIndex)
+    {
+        ArrayList<City> clonedList = new ArrayList<>();
+
+        for (int i = startIndex; i < endIndex; i++)
+        {
+            clonedList.add(list.get(i));
+        }
+
+        return clonedList;
     }
 
     public String toString() {
