@@ -14,14 +14,12 @@ public class CycleCrossover extends CrossoverTest {
     @Test
     public void testSize() {
         crossover.CycleCrossover cc = new crossover.CycleCrossover();
-        // TODO: 25.01.2018  insert tour here
         checkSize(cc, generateTestTour(), generateTestTour());
     }
 
     @Test
     public void testAllCityStillContained() {
         crossover.CycleCrossover cc = new crossover.CycleCrossover();
-        // TODO: 25.01.2018  insert tour here
         checkAllCityStillContained(cc, generateTestTour(), generateTestTour());
     }
 
