@@ -3,6 +3,7 @@ package test.mutation;
 import base.City;
 import base.Tour;
 import mutation.IMutation;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -25,11 +26,24 @@ public class InversionMutation {
         IMutation inversionMutation = new mutation.InversionMutation();
 
         tour = inversionMutation.doMutation(tour);
+        ArrayList<City> newCities = tour.getCities();
 
-        for(City c : tour.getCities())
-        {
-            System.out.println(c.toString());
-        }
+
+        int sum = 0;
+        for(City c : newCities)
+            sum = sum + c.getId();
+
+        Assert.assertEquals(45, sum );
+
+        //check if sequence is equal
+        Boolean isEqual = true;
+        for(int i=0; i<newCities.size(); i++)
+            if(newCities.get(i).getX() != oldCities.get(i).getX())
+                isEqual = false;
+
+
+        Assert.assertEquals(false, isEqual);
+
 
     }
 

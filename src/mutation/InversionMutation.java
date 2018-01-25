@@ -12,31 +12,35 @@ public class InversionMutation implements IMutation {
 
         ArrayList<City> cities = tour.getCities();
 
-        int point1 = mtf.nextInt(0, cities.size()-1);
-        int point2 = mtf.nextInt(0, cities.size()-1);
+        int point1;
+        int point2;
+
+        do {
+            point1 = mtf.nextInt(0, cities.size() - 1);
+            point2 = mtf.nextInt(0, cities.size() - 1);
+        } while (point1 == point2);
+
 
         int startPoint;
         int endPoint;
 
-        if(point1<point2)
-        {
+        if (point1 < point2) {
             startPoint = point1;
             endPoint = point2;
-        }else
-        {
+        } else {
             startPoint = point2;
             endPoint = point1;
         }
+
         System.out.println("StartPoint: " + startPoint);
         System.out.println("EndPoint: " + endPoint);
 
         City tempCity = null;
 
-        for(int i = 0; i<(endPoint-startPoint)/2; i++)
-        {
-            tempCity = cities.get(startPoint+i);
-            cities.set(startPoint+i, cities.get(endPoint-i));
-            cities.set(endPoint-i, tempCity);
+        for (int i = 0; i < (endPoint - startPoint) / 2+0.5; i++) {
+            tempCity = cities.get(startPoint + i);
+            cities.set(startPoint + i, cities.get(endPoint - i));
+            cities.set(endPoint - i, tempCity);
         }
 
         return tour;
