@@ -61,9 +61,3 @@ public class RouletteWheelSelection implements ISelection {
         return getClass().getSimpleName();
     }
 }
-
-/*
-    MersenneTwisterFast mersenneTwisterFast = new MersenneTwisterFast();
-        mersenneTwisterFast.nextDouble(0,1);
-
-        */
