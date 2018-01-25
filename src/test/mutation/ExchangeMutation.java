@@ -43,6 +43,17 @@ public class ExchangeMutation {
                 isEqual = false;
 
         Assert.assertEquals(false, isEqual);
-        
+
+        int oldId = -1;
+        int newId = -1;
+        for (int i = 0; i<newCities.size(); i++){
+            if (oldCities.get(i).getId() != newCities.get(i).getId())
+            {
+                oldId = i;
+                newId = newCities.get(i).getId();
+            }
+        }
+
+        Assert.assertEquals(oldId, newCities.get(newId).getId());
     }
 }
