@@ -15,15 +15,19 @@ public class Statistics implements IStatistics {
     public void writeCSVFile() {
         //ResultSet rs = HSQLDBManager.instance.getResultSet("SELECT * FROM DATA");
         try {
-
-            PrintWriter writer = new PrintWriter(new File("data/ichsuchedich.csv"));
-            for (int i = 100; i > 0; i--) {
-                writer.println(i);
-
-            //while (rs.next()) {
-                //writer.println(rs.getString("id"));
+            for (int i = 0; i < 3; i++) {
+                PrintWriter writer = new PrintWriter(new File("data/data_scenario_"+i+".csv"));
+                PrintWriter barplotwriter = new PrintWriter(new File("data/data_scenario_"+i+"_barplot.csv"));
+                for (int j = 100; j > 0; j--) {
+                    writer.println(j);
+                    barplotwriter.print(j+",");
+                    //while (rs.next()) {
+                    //writer.println(rs.getString("id"));
+                }
+                writer.flush();
+                barplotwriter.flush();
             }
-            writer.flush();
+
 //        } catch (SQLException e) {
 //            e.printStackTrace();
         } catch (IOException e) {
