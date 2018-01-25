@@ -16,9 +16,8 @@ public class CycleCrossover implements ICrossover {
         ArrayList<City> cities1 = tour01.getCities();
         ArrayList<City> cities2 = tour02.getCities();
 
-        Tour child1 = new Tour();
-        Tour child2 = new Tour();
-
+        Tour child1 = new Tour(280);
+        Tour child2 = new Tour(280);
 
         int idx = 0, startIdx = 0;
         int cycleCount = 0;
@@ -44,7 +43,7 @@ public class CycleCrossover implements ICrossover {
                 break;
             }
             if(nextIdx == startIdx) { //generate next Idx, if cycle at end
-                for(int i = startIdx; i < length1; i++) { //loop through all remaining start indices
+                for(int i = 0; i < length1; i++) { //loop through all remaining start indices
                     if(!cityDone[i]) {//check that new index is not already part of a cycle
                         startIdx = i; //start new cycle
                         idx = i;
@@ -59,6 +58,13 @@ public class CycleCrossover implements ICrossover {
                 idx = nextIdx; //continue cycle
 
             cycleLength++;
+        }
+
+        for(int i = 0; i < length1; i++) { //loop through all indices
+            if (!cityDone[i]) {//check for the element that was not processed
+                child1.addCity(i, cities1.get(i));
+                child2.addCity(i, cities2.get(i));
+            }
         }
 
         if(child1.compareTo(child2) > 0) //if child 1 is stronger
