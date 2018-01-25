@@ -11,22 +11,23 @@ public class PartiallyMatchedCrossover implements ICrossover {
     public Tour doCrossover(Tour tour01,Tour tour02) {
         MersenneTwisterFast random = new MersenneTwisterFast();
 
-        List<City> tourCities1 = tour01.getCities();
-        List<City> tourCities2 = tour02.getCities();
+        ArrayList<City> tourCities1 = tour01.getCities();
+        ArrayList<City> tourCities2 = tour02.getCities();
         int lastIndex = tour01.getSize()-1;
 
-        int firstSplit = random.nextInt(1, lastIndex-1);
-        int secondSplit = random.nextInt(firstSplit +1, lastIndex);
+        int firstSplit = random.nextInt(1, lastIndex-2);
+        int secondSplit = random.nextInt(firstSplit +1, lastIndex-1);
 
-        List<City> base1 = tourCities1.subList(firstSplit, secondSplit);
-        List<City> base2 = tourCities2.subList(firstSplit, secondSplit);
+        ArrayList<City> base1 = CloneSubListCity(tourCities1, firstSplit, secondSplit);
+        ArrayList<City> base2 = CloneSubListCity(tourCities2, firstSplit, secondSplit);
 
-        List<City> child1 = tourCities1.subList(0, firstSplit);
+        ArrayList<City> child1 = CloneSubListCity(tourCities1, 0, firstSplit);
         child1.addAll(base2);
-        child1.addAll(tourCities1.subList(secondSplit, lastIndex));
-        List<City> child2 = tourCities2.subList(0, firstSplit);
+        child1.addAll(CloneSubListCity(tourCities1, secondSplit, lastIndex+1));
+
+        ArrayList<City> child2 = CloneSubListCity(tourCities2, 0, firstSplit);
         child2.addAll(base1);
-        child2.addAll(tourCities2.subList(secondSplit, lastIndex));
+        child2.addAll(CloneSubListCity(tourCities2, secondSplit, lastIndex+1));
 
         for (int i = 0; i < firstSplit; i++)
         {
@@ -61,8 +62,8 @@ public class PartiallyMatchedCrossover implements ICrossover {
         Tour childTour1 = new Tour();
         Tour childTour2 = new Tour();
 
-        childTour1.setCities((ArrayList)child1);
-        childTour2.setCities((ArrayList)child2);
+        childTour1.setCities(child1);
+        childTour2.setCities(child2);
 
         switch (childTour1.compareTo(childTour2))
         {
@@ -72,6 +73,17 @@ public class PartiallyMatchedCrossover implements ICrossover {
         }
     }
 
+    private ArrayList<City> CloneSubListCity(ArrayList<City> list, int startIndex, int endIndex)
+    {
+        ArrayList<City> clonedList = new ArrayList<>();
+
+        for (int i = startIndex; i < endIndex; i++)
+        {
+            clonedList.add(list.get(i));
+        }
+
+        return clonedList;
+    }
 
     public String toString() {
         return getClass().getSimpleName();
