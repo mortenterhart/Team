@@ -1,4 +1,3 @@
-
 *.class
 
 *.csv
@@ -9,4 +8,7 @@ data/r_out/*.r
 
 .idea/workspace.xml
 
-.idea/workspace.xml
+.idea/
+.DS_Store
+*.swp
+

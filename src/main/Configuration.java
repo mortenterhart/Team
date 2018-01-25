@@ -10,4 +10,8 @@ public enum Configuration {
     public String dataFilePath = dataDirectory + "TSP280.txt";
 
     public String databaseFile = dataDirectory + "datastore.db";
+
+    //Selection
+    public double choosePercentageOfTributes = 0.5;
+    public boolean killDefeatedTributes = true;
 }
