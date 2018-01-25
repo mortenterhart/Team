@@ -3,10 +3,7 @@ package statistics;
 import data.HSQLDBManager;
 import org.hsqldb.util.CSVWriter;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.ResultSet;
@@ -50,11 +47,25 @@ public class Statistics implements IStatistics {
             scenDesc += "s0"+i+" <- as.numeric(read.csv(\"data/data_scenario_0"+i+".csv\",header=FALSE)) ";
             scenDesc += System.getProperty("line.separator");
         }
+        String scenariosshort = "s01";
+        String scenarionames = "\"Szenario 1\"";
+        String boxplot_name = "01";
+        for (int i = 2; i <= scenCount; i++) {
+            scenariosshort += ",s0"+i;
+            scenarionames += ",\"Szenario "+ i + "\"";
+            boxplot_name += "_0"+i;
+        }
         try {
-            String boxplot = new String(Files.readAllBytes(Paths.get("RTemplates/boxplot.R.tpl")));
-            boxplot.replaceAll("[DATADIR]","data");
-            boxplot.replaceAll("[SCENARIODESCRIPTION]", scenDesc);
+            String boxplot = new String(Files.readAllBytes(Paths.get("src/statistics/RTemplates/boxplot.R.tpl")));
 
+            boxplot = boxplot.replaceAll("\\[DATADIR\\]",(new File("")).getAbsolutePath()+"/data");
+            boxplot = boxplot.replaceAll("\\[SCENARIODESCRIPTION\\]", scenDesc);
+            boxplot = boxplot.replaceAll("\\[FILENAME\\]", "boxplot_scenario_"+boxplot_name+".pdf");
+            boxplot = boxplot.replaceAll("\\[SCENARIOSSHORT\\]", scenariosshort);
+            boxplot = boxplot.replaceAll("\\[NAMES\\]", scenarionames);
+            PrintWriter writer = new PrintWriter(new File("data/r_out/boxplot.r"));
+            writer.print(boxplot);
+            writer.flush();
         }catch (IOException e){
             e.printStackTrace();
         }
