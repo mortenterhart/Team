@@ -9,6 +9,7 @@ import data.InstanceReader;
 import data.TSPLIBReader;
 import mutation.IMutation;
 import selection.ISelection;
+import statistics.Statistics;
 
 public class Application {
     private ArrayList<City> availableCities;
@@ -61,7 +62,7 @@ public class Application {
 
     public void execute() {
         System.out.println("--- GeneticAlgorithm.execute()");
-        HSQLDBManager.instance.insert("hello world");
+        HSQLDBManager.instance.insertTest("hello world");
     }
 
     public static void main(String... args) {
@@ -70,6 +71,9 @@ public class Application {
         application.loadData();
         application.initConfiguration();
         application.execute();
+        Statistics statistics = new Statistics();
+        statistics.writeCSVFile();
+        statistics.buildBoxPlotRFile();
         application.shutdownHSQLDB();
     }
 }
