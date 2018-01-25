@@ -28,7 +28,7 @@ public class ExchangeMutation {
 
         //count ids to check if all cities are contained
         int sum = 0;
-        for(City c : oldCities)
+        for(City c : newCities)
             sum = sum + c.getId();
 
         Assert.assertEquals(45, sum );
