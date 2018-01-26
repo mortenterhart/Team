@@ -5,7 +5,6 @@ import base.Tour;
 import random.MersenneTwisterFast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PositionBasedCrossover implements ICrossover {
     public Tour doCrossover(Tour tour01,Tour tour02) {

@@ -4,7 +4,6 @@ import base.City;
 import base.Tour;
 import random.MersenneTwisterFast;
 
-import java.util.List;
 import java.util.ArrayList;
 
 public class PartiallyMatchedCrossover implements ICrossover {
