@@ -1,23 +1,21 @@
 package main;
 
+import java.awt.*;
+import java.io.ObjectInputFilter;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-
 import base.City;
 import base.Tour;
+import bruteforce.BruteForce;
 import crossover.ICrossover;
 import data.HSQLDBManager;
 import data.InstanceReader;
 import data.TSPLIBReader;
 import mutation.IMutation;
-import random.MersenneTwisterFast;
 import selection.ISelection;
-import statistics.Statistics;
 
 public class Application {
     private ArrayList<City> availableCities;
-    private ArrayList<Tour> startingTours;
     private double[][] distances;
 
     private ISelection selection;
@@ -60,30 +58,6 @@ public class Application {
         System.out.println();
     }
 
-    public void generateStartingTours()
-    {
-        ArrayList<Tour> tours = new ArrayList<>();
-        MersenneTwisterFast random = new MersenneTwisterFast();
-
-        for (int i = 0; i < 50; i++)
-        {
-            ArrayList<City> cities = new ArrayList<>();
-
-            for(City city : availableCities)
-            {
-                cities.add(city);
-            }
-
-            Collections.shuffle(cities, random);
-
-            Tour tour = new Tour();
-            tour.setCities(cities);
-            tours.add(tour);
-        }
-
-        startingTours = tours;
-    }
-
     public void initConfiguration() {
         System.out.println("--- GeneticAlgorithm.initConfiguration()");
         System.out.println();
@@ -91,19 +65,31 @@ public class Application {
 
     public void execute() {
         System.out.println("--- GeneticAlgorithm.execute()");
-        HSQLDBManager.instance.insertTest("hello world");
+        HSQLDBManager.instance.insert("hello world");
     }
 
     public static void main(String... args) {
-        Application application = new Application();
+        Application application = new Application ();
         application.startupHSQLDB();
         application.loadData();
-        application.generateStartingTours();
-        application.initConfiguration();
-        application.execute();
-        Statistics statistics = new Statistics();
-        statistics.writeCSVFile();
-        statistics.buildBoxPlotRFile();
+
+        if (Configuration.instance.startBruteForce) {
+            if (Configuration.instance.isDebug) {
+                System.out.println("--- Started Bruteforce");
+            }
+
+            BruteForce bruteForceApplication = new BruteForce (application.availableCities,
+                    Configuration.instance.numberOfIterations);
+            bruteForceApplication.setBreakLimit (Configuration.instance.breakLimit);
+            Tour bestFoundTour = bruteForceApplication.minimalTour ();
+
+            if (Configuration.instance.isDebug) {
+                System.out.println ("--- Finished Bruteforce!");
+            }
+        } else {
+            application.initConfiguration();
+            application.execute();
+        }
         application.shutdownHSQLDB();
     }
 }
