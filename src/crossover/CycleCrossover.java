@@ -16,8 +16,8 @@ public class CycleCrossover implements ICrossover {
         ArrayList<City> cities1 = tour01.getCities();
         ArrayList<City> cities2 = tour02.getCities();
 
-        Tour child1 = new Tour(280);
-        Tour child2 = new Tour(280);
+        Tour child1 = new Tour(length1);
+        Tour child2 = new Tour(length1);
 
         int idx = 0, startIdx = 0;
         int cycleCount = 0;
