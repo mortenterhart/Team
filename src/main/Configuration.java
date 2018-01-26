@@ -1,5 +1,7 @@
 package main;
 
+import random.MersenneTwisterFast;
+
 public enum Configuration {
     instance;
 
@@ -11,8 +13,17 @@ public enum Configuration {
 
     public String databaseFile = dataDirectory + "datastore.db";
 
-    //Selection
+    public MersenneTwisterFast mersenneTwister = new MersenneTwisterFast();
+
+    // Show additional debugging information
+    public boolean isDebug = false;
+
+    // BruteForce
+    public boolean startBruteForce = true;
+    public double numberOfIterations = 1000;
+    public int breakLimit = 1000;
+
+    // Selection
     public double choosePercentageOfTributes = 0.5;
     public boolean killDefeatedTributes = true;
-
 }

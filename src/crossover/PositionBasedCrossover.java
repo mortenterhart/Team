@@ -2,23 +2,24 @@ package crossover;
 
 import base.City;
 import base.Tour;
+import main.Configuration;
 import random.MersenneTwisterFast;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class PositionBasedCrossover implements ICrossover {
     public Tour doCrossover(Tour tour01,Tour tour02) {
-        MersenneTwisterFast random = new MersenneTwisterFast();
+        MersenneTwisterFast random = Configuration.instance.mersenneTwister;
 
-        List<City> tourCities1 = tour01.getCities();
-        List<City> tourCities2 = tour02.getCities();
+        ArrayList<City> tourCities1 = CloneSubListCity(tour01.getCities(), 0, tour01.getSize());
+        ArrayList<City> tourCities2 = CloneSubListCity(tour02.getCities(), 0, tour02.getSize());
         int lastIndex = tour01.getSize()-1;
 
-        int firstSplit = random.nextInt(1, lastIndex-1);
-        int secondSplit = random.nextInt(firstSplit +1, lastIndex);
+        int firstSplit = random.nextInt(1, lastIndex-2);
+        int secondSplit = random.nextInt(firstSplit +1, lastIndex-1);
 
-        List<City> base1 = tourCities1.subList(firstSplit, secondSplit);
-        List<City> base2 = tourCities2.subList(firstSplit, secondSplit);
+        ArrayList<City> base1 = CloneSubListCity(tourCities1, firstSplit, secondSplit);
+        ArrayList<City> base2 = CloneSubListCity(tourCities2, firstSplit, secondSplit);
 
         Tour child1 = new Tour();
         Tour child2 = new Tour();
@@ -38,7 +39,7 @@ public class PositionBasedCrossover implements ICrossover {
             child2.addCity(base2.get(i));
         }
 
-        for (int i = secondSplit; i < lastIndex+1; i++)
+        for (int i = firstSplit; i < tourCities1.size(); i++)
         {
             child1.addCity(tourCities2.get(i));
             child2.addCity(tourCities1.get(i));
@@ -52,6 +53,18 @@ public class PositionBasedCrossover implements ICrossover {
             default: return child1;
         }
 
+    }
+
+    private ArrayList<City> CloneSubListCity(ArrayList<City> list, int startIndex, int endIndex)
+    {
+        ArrayList<City> clonedList = new ArrayList<>();
+
+        for (int i = startIndex; i < endIndex; i++)
+        {
+            clonedList.add(list.get(i));
+        }
+
+        return clonedList;
     }
 
     public String toString() {

@@ -33,6 +33,13 @@ public class Tour implements Comparable<Tour> {
         return cities.contains(city);
     }
 
+    @Override
+    public Object clone() {
+        Tour newTour = new Tour();
+        newTour.setCities(this.cities);
+        return newTour;
+    }
+
     public double getFitness() {
         double distance = 0.0;
 
