@@ -20,7 +20,7 @@ public enum Configuration {
 
     // BruteForce
     public boolean startBruteForce = true;
-    public double numberOfIterations = 1000;
+    public double numberOfTourElements = 1000;
     public int breakLimit = 1000;
 
     // Selection

@@ -65,12 +65,12 @@ public class Application {
 
     public void execute() {
         System.out.println("--- GeneticAlgorithm.execute()");
-        HSQLDBManager.instance.insert("hello world");
+        HSQLDBManager.instance.insertTest("hello world");
     }
 
-    public static void main(String... args) {
+    public static void main(String ... args) {
         Application application = new Application ();
-        application.startupHSQLDB();
+        //application.startupHSQLDB();
         application.loadData();
 
         if (Configuration.instance.startBruteForce) {
@@ -79,9 +79,10 @@ public class Application {
             }
 
             BruteForce bruteForceApplication = new BruteForce (application.availableCities,
-                    Configuration.instance.numberOfIterations);
+                    Configuration.instance.numberOfTourElements);
             bruteForceApplication.setBreakLimit (Configuration.instance.breakLimit);
-            Tour bestFoundTour = bruteForceApplication.minimalTour ();
+            Tour bestFoundTour = bruteForceApplication.minimalTourAll ();
+            System.out.println ("\nFitness of best tour: " + bestFoundTour.getFitness ());
 
             if (Configuration.instance.isDebug) {
                 System.out.println ("--- Finished Bruteforce!");
@@ -90,6 +91,6 @@ public class Application {
             application.initConfiguration();
             application.execute();
         }
-        application.shutdownHSQLDB();
+        //application.shutdownHSQLDB();
     }
 }
