@@ -68,7 +68,7 @@ public class Application {
 
     public static void main(String... args) {
         Application application = new Application ();
-        application.startupHSQLDB();
+        // application.startupHSQLDB();
         application.loadData();
 
         if (Configuration.instance.startBruteForce) {
@@ -80,6 +80,8 @@ public class Application {
                     Configuration.instance.numberOfIterations);
             bruteForceApplication.setBreakLimit (Configuration.instance.breakLimit);
             Tour bestFoundTour = bruteForceApplication.minimalTour ();
+            System.out.println ("\n" + bestFoundTour);
+            System.out.println ("Fitness Value: " + bestFoundTour.getFitness ());
 
             if (Configuration.instance.isDebug) {
                 System.out.println ("--- Finished Bruteforce!");
@@ -88,6 +90,7 @@ public class Application {
             application.initConfiguration();
             application.execute();
         }
-        application.shutdownHSQLDB();
+
+        // application.shutdownHSQLDB();
     }
 }

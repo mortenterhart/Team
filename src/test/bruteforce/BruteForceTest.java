@@ -16,23 +16,6 @@ public class BruteForceTest {
 
     @Test
     public void testFillSet() {
-        BruteForce bruteForce = new BruteForce (new ArrayList<City>(), 10);
-        List<City> availableCities = bruteForce.getAvailableCities ();
 
-        // Expected Value
-        List<Integer> expectedCityIds = new ArrayList<> ();
-        for (City city : availableCities) {
-            expectedCityIds.add (city.getId ());
-        }
-        Collections.sort(expectedCityIds);
-
-        // Actual Value
-        //bruteForce.initRoute ();
-        List<Integer> actualCityIds = new ArrayList<> ();
-        for (City city : bruteForce.getAvailableCities ()) {
-            actualCityIds.add (city.getId ());
-        }
-
-        assertEquals(expectedCityIds, actualCityIds);
     }
 }
