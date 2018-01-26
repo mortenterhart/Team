@@ -24,7 +24,8 @@ public class CycleCrossover implements ICrossover {
         int cycleLength = 0;
         boolean cityDone[] = new boolean[length1];
 
-        while (true) {
+        boolean running = true;
+        while (running) {
             City c = cities2.get(idx);
             int nextIdx = cities1.indexOf(c);
 
@@ -50,6 +51,7 @@ public class CycleCrossover implements ICrossover {
                         cycleCount++;
                     }
                     else if(i == length1 - 1) {
+                        running = false;
                         break; //no remaining index found
                     }
                 }
