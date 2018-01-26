@@ -21,7 +21,7 @@ public class HeuristicMutation implements IMutation {
         ArrayList<Integer> pickedOutIndeciesBackup = new ArrayList<>();
         int key;
         for (int i = 0; i < count; i++) {
-            key = mersenneTwisterFast.nextInt(0, tour.getCities().size() - 1);
+            key = mersenneTwisterFast.nextInt(0, tour.getCities().size()-1);
             if (pickedOutIndecies.contains(key)) {
                 count++;
                 continue;
@@ -40,8 +40,8 @@ public class HeuristicMutation implements IMutation {
         ArrayList<City> tempCities = (ArrayList<City>)tour.getCities().clone();
 
         ArrayList<Integer> tempPermuatedPickedOutIndecies;
-        double maxFittness = 0;
-        ArrayList<City> maxFittnessCityList = null;
+        double minFittness = 1000000;
+        ArrayList<City> minFittnessCityList = null;
 
         for(int i=0; i<fak;i++)
         {
@@ -54,14 +54,14 @@ public class HeuristicMutation implements IMutation {
             }
             tour.setCities(tempCities);
             double tempFittness = tour.getFitness();
-            if(tempFittness>maxFittness)
+            if(tempFittness<minFittness)
             {
-                maxFittness = tempFittness;
-                maxFittnessCityList = (ArrayList<City>)tempCities.clone();
+                minFittness = tempFittness;
+                minFittnessCityList = (ArrayList<City>)tempCities.clone();
             }
         }
 
-        tour.setCities(maxFittnessCityList);
+        tour.setCities(minFittnessCityList);
 
 //        endTime = System.currentTimeMillis();
 //        System.out.println(endTime-startTime);
