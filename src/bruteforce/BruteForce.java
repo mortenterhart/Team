@@ -12,7 +12,6 @@ public class BruteForce {
     private List<Tour> randomTours;
 
     private double tourCountLimit = 0;
-    private int breakLimit = 1000;
 
     public BruteForce() {
         availableCities = new ArrayList<>();
@@ -20,7 +19,6 @@ public class BruteForce {
         randomTours = new ArrayList<>();
 
         tourCountLimit = Configuration.instance.numberOfTourElements;
-        breakLimit = Configuration.instance.breakLimit;
     }
 
     public BruteForce(List<City> cities) {
@@ -46,17 +44,13 @@ public class BruteForce {
     private Tour minimalDistanceTourInRange(double fromIndex, double toIndex) {
         Tour minimumTour = null;
         double lowestDistance = Double.MAX_VALUE;
-        int breakCount = 0;
 
-        for (double index = fromIndex; index < toIndex && breakCount <= breakLimit; index++) {
+        for (double index = fromIndex; index < toIndex; index++) {
             Tour testTour = randomTours.get((int) index);
             double testDistance = testTour.getFitness();
             if (testDistance < lowestDistance) {
                 minimumTour = testTour;
                 lowestDistance = testDistance;
-                breakCount = 0;
-            } else {
-                breakCount++;
             }
         }
         return minimumTour;
@@ -101,10 +95,6 @@ public class BruteForce {
 
     public void setTourCountLimit(double limit) {
         tourCountLimit = limit;
-    }
-
-    public void setBreakLimit(int limit) {
-        breakLimit = limit;
     }
 
     public List<City> getAvailableCities() {
