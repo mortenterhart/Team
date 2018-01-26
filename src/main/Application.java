@@ -3,14 +3,13 @@ package main;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import base.City;
-import base.Tour;
-import bruteforce.BruteForce;
 import crossover.ICrossover;
 import data.HSQLDBManager;
 import data.InstanceReader;
 import data.TSPLIBReader;
 import mutation.IMutation;
 import selection.ISelection;
+import selection.TournamentSelection;
 
 public class Application {
     private ArrayList<City> availableCities;
@@ -67,30 +66,13 @@ public class Application {
     }
 
     public static void main(String... args) {
-        Application application = new Application ();
-        // application.startupHSQLDB();
+        Application application = new Application();
+        application.startupHSQLDB();
         application.loadData();
-
-        if (Configuration.instance.startBruteForce) {
-            if (Configuration.instance.isDebug) {
-                System.out.println("--- Started Bruteforce");
-            }
-
-            BruteForce bruteForceApplication = new BruteForce (application.availableCities,
-                    Configuration.instance.numberOfIterations);
-            bruteForceApplication.setBreakLimit (Configuration.instance.breakLimit);
-            Tour bestFoundTour = bruteForceApplication.minimalTour ();
-            System.out.println ("\n" + bestFoundTour);
-            System.out.println ("Fitness Value: " + bestFoundTour.getFitness ());
-
-            if (Configuration.instance.isDebug) {
-                System.out.println ("--- Finished Bruteforce!");
-            }
-        } else {
-            application.initConfiguration();
-            application.execute();
-        }
-
-        // application.shutdownHSQLDB();
+        application.initConfiguration();
+        test.selection.TournamentSelection test = new test.selection.TournamentSelection();
+        test.InitializeTest();
+        application.execute();
+        application.shutdownHSQLDB();
     }
 }
