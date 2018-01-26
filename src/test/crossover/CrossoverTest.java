@@ -4,8 +4,9 @@ import base.City;
 import base.Tour;
 import crossover.ICrossover;
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import static org.junit.Assert.*;
+
 import random.MersenneTwisterFast;
 
 import java.util.ArrayList;
