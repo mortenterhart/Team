@@ -127,6 +127,22 @@ public class Statistics implements IStatistics {
     }
 
     public void buildMostFrequentFitnessValuesRFile() {
+        List<Integer> scenario_ids = new ArrayList<>();
+        scenario_ids.add(1);
+        scenario_ids.add(2);
+        scenario_ids.add(3);
+        try {
+            String mff = new String(Files.readAllBytes(Paths.get("src/statistics/RTemplates/mff.R.tpl")));
+            mff = mff.replaceAll(Const.VAR_DATADIR,Const.instance.path);
+            mff = mff.replaceAll(Const.VAR_SCENARIODESCRIPTION,Const.instance.writeCsvInScenarios(scenario_ids));
+            mff = mff.replaceAll(Const.VAR_MFFSCENARIOS,Const.instance.createMffs(scenario_ids));
+
+            PrintWriter writer = new PrintWriter(new File(Const.instance.mff_file));
+            writer.print(mff);
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args){

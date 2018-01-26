@@ -12,6 +12,7 @@ public enum Const {
 
     instance;
 
+    public static String VAR_MFFSCENARIOS = "\\[MFFSCENARIOS\\]";
     public static String VAR_DOTPLOTSCENARIO = "\\[BOXPLOTSCENARIOS\\]";
     public static String VAR_DATADIR = "\\[DATADIR\\]";
     public static String VAR_SCENARIODESCRIPTION = "\\[SCENARIODESCRIPTION\\]";
@@ -26,6 +27,7 @@ public enum Const {
     public String barplot_file = "data/r_out/bar_plot.r";
     public String stripchart_file = "data/r_out/stripchart.r";
     public String dotplox_file = "data/r_out/dot_plot.r";
+    public String mff_file = "data/r_out/analysis.r";
 
     public String createBoxplotName(List<Integer> scenarios) {
         String name = "boxplot_scenario_";
@@ -117,6 +119,15 @@ public enum Const {
         String text = "";
         for (Integer scenario : scenario_ids) {
             text += "plot(s0"+scenario+",col=\"black\",ylab = \"distance\",xlab = \"iterations\",cex = 0.1,main = \"Genetic Algorithms - TSP280 - Scenario "+scenario+"\")";
+            text += System.getProperty("line.separator");
+        }
+        return text;
+    }
+
+    public String createMffs(List<Integer> scenario_ids) {
+        String text = "";
+        for (Integer scenario : scenario_ids) {
+            text += "sort(table(s0"+scenario+"),decreasing=TRUE)[1]";
             text += System.getProperty("line.separator");
         }
         return text;

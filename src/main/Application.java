@@ -73,7 +73,7 @@ public class Application {
         application.execute();
         Statistics statistics = new Statistics();
         statistics.writeCSVFile();
-        statistics.buildDotPlotRFile();
+        statistics.buildMostFrequentFitnessValuesRFile();
         application.shutdownHSQLDB();
     }
 }
