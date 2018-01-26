@@ -60,10 +60,7 @@ public class Statistics implements IStatistics {
     }
 
     public void buildBoxPlotRFile() {
-        List<Integer> scenario_ids = new ArrayList<>();
-        scenario_ids.add(1);
-        scenario_ids.add(2);
-        scenario_ids.add(3);
+        List<Integer> scenario_ids = createScenarios();
         try {
             String boxplot = new String(Files.readAllBytes(Paths.get("src/statistics/RTemplates/boxplot.R.tpl")));
             boxplot = boxplot.replaceAll(Const.VAR_DATADIR,Const.instance.path);
@@ -81,10 +78,7 @@ public class Statistics implements IStatistics {
 
 
     public void buildDotPlotRFile() {
-        List<Integer> scenario_ids = new ArrayList<>();
-        scenario_ids.add(1);
-        scenario_ids.add(2);
-        scenario_ids.add(3);
+        List<Integer> scenario_ids = createScenarios();
 
         try {
             String dotplot = new String(Files.readAllBytes(Paths.get("src/statistics/RTemplates/dotplot.R.tpl")));
@@ -100,10 +94,7 @@ public class Statistics implements IStatistics {
     }
 
     public void buildStripChartRFile() {
-        List<Integer> scenario_ids = new ArrayList<>();
-        scenario_ids.add(1);
-        scenario_ids.add(2);
-        scenario_ids.add(3);
+        List<Integer> scenario_ids = createScenarios();
         try {
             String stripchart = new String(Files.readAllBytes(Paths.get("src/statistics/RTemplates/stripchart.R.tpl")));
             stripchart = stripchart.replaceAll(Const.VAR_DATADIR,Const.instance.path);
@@ -117,12 +108,7 @@ public class Statistics implements IStatistics {
     }
 
     public void buildTTestRFile() {
-        List<Integer> scenario_ids = new ArrayList<>();
-        scenario_ids.add(1);
-        scenario_ids.add(2);
-        scenario_ids.add(3);
-        scenario_ids.add(4);
-        scenario_ids.add(5);
+        List<Integer> scenario_ids = createScenarios();
         try {
             String ttest = Const.instance.buildFileBeginning(scenario_ids,"src/statistics/RTemplates/t_test.R.tpl");
             ttest = ttest.replaceAll(Const.VAR_TTESTSCENARIOS,Const.instance.createTTestText(scenario_ids));
@@ -133,22 +119,34 @@ public class Statistics implements IStatistics {
         }
     }
 
-
-
-    public void buildHistogramRFile() {
-    }
-
-    public void buildMostFrequentFitnessValuesRFile() {
+    private List<Integer> createScenarios() {
         List<Integer> scenario_ids = new ArrayList<>();
         scenario_ids.add(1);
         scenario_ids.add(2);
         scenario_ids.add(3);
-        try {
-            String mff = new String(Files.readAllBytes(Paths.get("src/statistics/RTemplates/mff.R.tpl")));
-            mff = mff.replaceAll(Const.VAR_DATADIR,Const.instance.path);
-            mff = mff.replaceAll(Const.VAR_SCENARIODESCRIPTION,Const.instance.writeCsvInScenarios(scenario_ids));
-            mff = mff.replaceAll(Const.VAR_MFFSCENARIOS,Const.instance.createMffs(scenario_ids));
+        scenario_ids.add(4);
+        scenario_ids.add(5);
+        return scenario_ids;
+    }
 
+
+    public void buildHistogramRFile() {
+        List<Integer> scenario_ids = createScenarios();
+        try {
+            String histogram = Const.instance.buildFileBeginning(scenario_ids,"src/statistics/RTemplates/histogram.R.tpl");
+            histogram = histogram.replaceAll(Const.VAR_FILENAME,Const.instance.createHistogramName(scenario_ids));
+            histogram = histogram.replaceAll(Const.VAR_HISTOGRAMSCENARIOS,Const.instance.createHistogramScenarios(scenario_ids));
+            Const.instance.writeFile(histogram,new File(Const.instance.histogram_file));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void buildMostFrequentFitnessValuesRFile() {
+        List<Integer> scenario_ids = createScenarios();
+        try {
+            String mff = Const.instance.buildFileBeginning(scenario_ids,"src/statistics/RTemplates/mff.R.tpl");
+            mff = mff.replaceAll(Const.VAR_MFFSCENARIOS,Const.instance.createMffs(scenario_ids));
             Const.instance.writeFile(mff, new File(Const.instance.mff_file));
         } catch (IOException e) {
             e.printStackTrace();

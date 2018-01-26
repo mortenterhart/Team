@@ -26,6 +26,7 @@ public enum Const {
     public static String VAR_NAMES = "\\[NAMES\\]";
     public static String VAR_STRIPCHARTSCENARIOS = "\\[STRIPCHARTSCENARIO\\]";
     public static String VAR_TTESTSCENARIOS = "\\[TTESTSCENARIO\\]";
+    public static String VAR_HISTOGRAMSCENARIOS = "\\[SCENARIOHISTOGRAM\\]";
 
 
     public String path = (new File("")).getAbsolutePath()+"/data";
@@ -35,6 +36,7 @@ public enum Const {
     public String dotplox_file = "data/r_out/dot_plot.r";
     public String mff_file = "data/r_out/analysis.r";
     public String ttest_file = "data/r_out/test.r";
+    public String histogram_file = "data/r_out/histogram.r";;
 
     public String createBoxplotName(List<Integer> scenarios) {
         String name = "boxplot_scenario_";
@@ -162,6 +164,23 @@ public enum Const {
                 text += "t.test(s0"+scenario_ids.get(i)+",s0"+scenario_ids.get(j)+")";
                 text += System.getProperty("line.separator");
             }
+        }
+        return text;
+    }
+
+    public String createHistogramName(List<Integer> scenario_ids) {
+        String name = "histogram_scenario";
+        for (Integer scenario : scenario_ids) {
+            name += "_" + scenario;
+        }
+        return name + ".pdf";
+    }
+
+    public String createHistogramScenarios(List<Integer> scenario_ids) {
+        String text = "";
+        for (Integer scenario : scenario_ids) {
+            text += "hist(s0"+scenario+",xlim=c(2500,5000),ylim=c(0,200),xlab = \"distance\",breaks=100,main = \"Genetic Algorithms - TSP280\" - Scenario "+scenario+")";
+            text += System.getProperty("line.separator");
         }
         return text;
     }
