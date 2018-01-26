@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.City;
+import base.Tour;
+import bruteforce.BruteForce;
 import crossover.ICrossover;
 import data.HSQLDBManager;
 import data.InstanceReader;
