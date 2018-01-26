@@ -58,6 +58,8 @@ public class CycleCrossover implements ICrossover {
                 idx = nextIdx; //continue cycle
 
             cycleLength++;
+            if(cycleLength >= 1000000 || cycleCount >= 1000000)
+                throw new Error("stuck in while loop, get me out!");
         }
 
         for(int i = 0; i < length1; i++) { //loop through all indices
