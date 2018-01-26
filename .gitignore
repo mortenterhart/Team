@@ -8,5 +8,6 @@ TSP.iml
 Team01_Travelling_Salesman.iml
 /data/datastore.db.script
 /data/datastore.db.properties
-out
-build
+/data/datastore.db.lck
+/out
+/build
