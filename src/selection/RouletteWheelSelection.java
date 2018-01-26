@@ -94,7 +94,7 @@ public class RouletteWheelSelection implements ISelection {
         int numOfTributes = (int) (wholePopulation.size() * Configuration.instance.choosePercentageOfTributes);
 
         for(int i = 0; i < numOfTributes; i++){
-            int temp = mersenneTwisterFast.nextInt(0, wholePopulation.size());
+            int temp = mersenneTwisterFast.nextInt(0, wholePopulation.size()-1);
             tributes.add(wholePopulation.remove(temp));
         }
         return tributes;
