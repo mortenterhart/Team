@@ -14,6 +14,8 @@ public enum HSQLDBManager {
 
     public void startup() {
         try {
+            // java -cp hsqldb.jar org.hsqldb.util.DatabaseManager
+            // CON URL: jdbc:hsqldb:/Users/marcreinke/Documents/IdeaProjects/Team01_Travelling_Salesman/data/datastore.db
             Class.forName("org.hsqldb.jdbcDriver");
             String databaseURL = driverName + Configuration.instance.databaseFile;
             connection = DriverManager.getConnection(databaseURL,username,password);
@@ -55,18 +57,20 @@ public enum HSQLDBManager {
         sqlStringBuilder.append("id BIGINT NOT NULL").append(",");
         sqlStringBuilder.append("iteration BIGINT NOT NULL").append(",");
         sqlStringBuilder.append("fitness BIGINT NOT NULL").append(",");
+        sqlStringBuilder.append("algoID BIGNT NOT NULL").append(",");
         sqlStringBuilder.append("algorithm VARCHAR(20) NOT NULL").append(",");
         sqlStringBuilder.append("PRIMARY KEY (id)");
         sqlStringBuilder.append(" )");
         update(sqlStringBuilder.toString());
     }
 
-    public String buildSQLStatement(long id,long iteration, long fitness, String algorithm) {
+    public String buildSQLStatement(long id,long iteration, long fitness,long algoID, String algorithm) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("INSERT INTO data (id, iteration, fitness, algorithm) VALUES (");
+        stringBuilder.append("INSERT INTO data (id, iteration, fitness, algoID, algorithm) VALUES (");
         stringBuilder.append(id).append(",");
         stringBuilder.append(iteration).append(",");
         stringBuilder.append(fitness).append(",");
+        stringBuilder.append(algoID).append(",");
         stringBuilder.append("'").append(algorithm).append("'");
         stringBuilder.append(")");
         System.out.println(stringBuilder.toString());
@@ -74,7 +78,7 @@ public enum HSQLDBManager {
     }
 
     public void insertTest(String test) {
-        update(buildSQLStatement(System.nanoTime(),1,1,test));
+        update(buildSQLStatement(System.nanoTime(),1,1,1,test));
     }
 
     public void shutdown() {

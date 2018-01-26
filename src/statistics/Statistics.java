@@ -7,8 +7,17 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import data.HSQLDBManager;
+
 
 public class Statistics implements IStatistics {
+
+    private ArrayList<String> scenarios;
+    private String mean;
+    private String plot;
+    private boolean ttest;
+    private boolean mff;
+
     public void writeCSVFile() {
         //ResultSet rs = HSQLDBManager.instance.getResultSet("SELECT * FROM DATA");
         try {
@@ -49,17 +58,17 @@ public class Statistics implements IStatistics {
     }
 
     public void buildBoxPlotRFile() {
-        List<Integer> scenarios = new ArrayList<>();
-        scenarios.add(1);
-        scenarios.add(2);
-        scenarios.add(3);
+        List<Integer> scenario_ids = new ArrayList<>();
+        scenario_ids.add(1);
+        scenario_ids.add(2);
+        scenario_ids.add(3);
         try {
             String boxplot = new String(Files.readAllBytes(Paths.get("src/statistics/RTemplates/boxplot.R.tpl")));
             boxplot = boxplot.replaceAll(Const.VAR_DATADIR,Const.instance.path);
-            boxplot = boxplot.replaceAll(Const.VAR_SCENARIODESCRIPTION, Const.instance.writeCsvInScenarios(scenarios));
-            boxplot = boxplot.replaceAll(Const.VAR_FILENAME, Const.instance.createBoxplotName(scenarios));
-            boxplot = boxplot.replaceAll(Const.VAR_SCENARIOSHORT, Const.instance.createScenarioShortname(scenarios));
-            boxplot = boxplot.replaceAll(Const.VAR_NAMES, Const.instance.createScenarioName(scenarios));
+            boxplot = boxplot.replaceAll(Const.VAR_SCENARIODESCRIPTION, Const.instance.writeCsvInScenarios(scenario_ids));
+            boxplot = boxplot.replaceAll(Const.VAR_FILENAME, Const.instance.createBoxplotName(scenario_ids));
+            boxplot = boxplot.replaceAll(Const.VAR_SCENARIOSHORT, Const.instance.createScenarioShortname(scenario_ids));
+            boxplot = boxplot.replaceAll(Const.VAR_NAMES, Const.instance.createScenarioName(scenario_ids));
             PrintWriter writer = new PrintWriter(new File(Const.instance.boxplot_file));
             writer.print(boxplot);
             writer.flush();
@@ -99,5 +108,72 @@ public class Statistics implements IStatistics {
     }
 
     public void buildMostFrequentFitnessValuesRFile() {
+    }
+
+    public static void main(String[] args){
+        Statistics stats = new Statistics();
+        stats.generateParams(args);
+        stats.startupHSQLDB();
+        stats.start();
+
+
+    }
+    public void generateParams(String[] args){
+        for(int i = 0; i <= args.length; i++){
+            switch (args[i]){
+                case "-d":
+                    while (!args[i].startsWith("-")){
+                        i++;
+                        scenarios.add(args[i]);
+                    }
+                case "-m":
+                    while (!args[i].startsWith("-")){
+                        i++;
+                        mean = args[i];
+                    }
+                case "-p":
+                    while (!args[i].startsWith("-")){
+                        i++;
+                        plot = args[i];
+                    }
+                case "-t":
+                    while (!args[i].startsWith("-")){
+                        i++;
+                        ttest = true;
+                    }
+                case "-mff":
+                    while (!args[i].startsWith("-")){
+                        i++;
+                        mff = true;
+                    }
+            }
+            i++;
+        }
+
+    }
+
+    public void startupHSQLDB() {
+        HSQLDBManager.instance.startup();
+    }
+
+    public void start(){
+        if (ttest == true){
+            buildTTestRFile();
+        }
+        else{
+            if (mff == true){
+                buildMostFrequentFitnessValuesRFile();
+            }
+            else{
+                switch (plot){
+                    case "bar": buildBarPlotFile();
+                    case "box": buildBoxPlotRFile();
+                    case "strip": buildStripChartRFile();
+                    case "hist": buildHistogramRFile();
+                    case "dot": buildDotPlotRFile();
+                }
+            }
+        }
+
     }
 }
