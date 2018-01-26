@@ -9,6 +9,7 @@ import data.InstanceReader;
 import data.TSPLIBReader;
 import mutation.IMutation;
 import selection.ISelection;
+import selection.TournamentSelection;
 
 public class Application {
     private ArrayList<City> availableCities;
@@ -69,6 +70,8 @@ public class Application {
         application.startupHSQLDB();
         application.loadData();
         application.initConfiguration();
+        test.selection.TournamentSelection test = new test.selection.TournamentSelection();
+        test.InitializeTest();
         application.execute();
         application.shutdownHSQLDB();
     }
