@@ -66,7 +66,7 @@ public class HeuristicMutation implements IMutation {
         ArrayList<City> maxFittnessCityList = null;
 
         //go on here
-        for(long i=0; i<fak;i++)
+        for(int i=0; i<fak;i++)
         {
             tempPermuatedPickedOutIndecies = permuatedPickedOutIndecies.get(i);
             System.out.println("Start with " + i);
