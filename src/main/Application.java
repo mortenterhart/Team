@@ -1,20 +1,17 @@
 package main;
 
-import java.awt.*;
-import java.io.ObjectInputFilter;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import base.City;
-import base.Tour;
-import bruteforce.BruteForce;
 import crossover.ICrossover;
 import data.HSQLDBManager;
 import data.InstanceReader;
 import data.TSPLIBReader;
 import mutation.IMutation;
 import selection.ISelection;
+import selection.TournamentSelection;
 
 public class Application {
     private ArrayList<City> availableCities;
@@ -97,5 +94,6 @@ public class Application {
             application.execute();
         }
         // application.shutdownHSQLDB();
+
     }
 }

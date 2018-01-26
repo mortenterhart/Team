@@ -18,7 +18,7 @@ public class HeuristicMutation {
     public void initTour(){
         this.tour = new Tour();
         ArrayList<City> cities = new ArrayList<City>();
-        for(int i = 0; i<20; i++){
+        for(int i = 0; i<280; i++){
             cities.add(new City(i,i,i));
         }
         this.tour.setCities(cities);
@@ -28,7 +28,7 @@ public class HeuristicMutation {
     public void checkSize(){
         IMutation heuristicMutation = new mutation.HeuristicMutation();
         this.tour = heuristicMutation.doMutation(this.tour);
-        assertEquals(20, tour.getCities().size());
+        assertEquals(280, tour.getCities().size());
     }
 
     @Test

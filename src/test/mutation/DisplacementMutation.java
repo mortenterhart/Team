@@ -16,7 +16,7 @@ public class DisplacementMutation {
     public void initTour(){
         this.tour = new Tour();
         ArrayList<City> cities = new ArrayList<City>();
-        for(int i = 0; i<20; i++){
+        for(int i = 0; i<280; i++){
             cities.add(new City(i,i,i));
         }
         this.tour.setCities(cities);
@@ -26,7 +26,7 @@ public class DisplacementMutation {
     public void checkSize(){
         IMutation displacementMutation = new mutation.DisplacementMutation();
         this.tour = displacementMutation.doMutation(this.tour);
-        assertEquals(20, tour.getCities().size());
+        assertEquals(280, tour.getCities().size());
     }
 
     @Test

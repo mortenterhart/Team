@@ -2,14 +2,14 @@ package crossover;
 
 import base.City;
 import base.Tour;
+import main.Configuration;
 import random.MersenneTwisterFast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SubTourExchangeCrossover implements ICrossover {
     public Tour doCrossover(Tour tour01,Tour tour02) {
-        MersenneTwisterFast random = new MersenneTwisterFast();
+        MersenneTwisterFast random = Configuration.instance.mersenneTwister;
 
         ArrayList<City> tourCities1 = CloneSubListCity(tour01.getCities(), 0, tour01.getSize());
         ArrayList<City> tourCities2 = CloneSubListCity(tour02.getCities(), 0, tour02.getSize());
@@ -24,9 +24,11 @@ public class SubTourExchangeCrossover implements ICrossover {
         ArrayList<City> shuffledBase1 = CloneSubListCity(base1, 0, 1);
         ArrayList<City> shuffledBase2 =  CloneSubListCity(base2, 0, 1);
 
+        int position;
+
         for (int i = 1; i < base1.size(); i++)
         {
-            int position = random.nextInt(0, shuffledBase1.size()-1);
+            position = random.nextInt(0, shuffledBase1.size()-1);
 
             shuffledBase1.add(position, base1.get(i));
             shuffledBase2.add(position, base2.get(i));

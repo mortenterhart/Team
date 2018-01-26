@@ -2,6 +2,7 @@ package mutation;
 
 import base.City;
 import base.Tour;
+import main.Configuration;
 import random.MersenneTwisterFast;
 
 import java.util.*;
@@ -12,7 +13,7 @@ public class HeuristicMutation implements IMutation {
 //        long startTime = System.currentTimeMillis();
 //        long endTime = System.currentTimeMillis();
 
-        MersenneTwisterFast mersenneTwisterFast = new MersenneTwisterFast();
+        MersenneTwisterFast mersenneTwisterFast = Configuration.instance.mersenneTwister;
 
         //use start value 2 to avoid doing nothing
         int count = mersenneTwisterFast.nextInt(2, 8);
@@ -20,7 +21,7 @@ public class HeuristicMutation implements IMutation {
         ArrayList<Integer> pickedOutIndeciesBackup = new ArrayList<>();
         int key;
         for (int i = 0; i < count; i++) {
-            key = mersenneTwisterFast.nextInt(0, tour.getCities().size() - 1);
+            key = mersenneTwisterFast.nextInt(0, tour.getCities().size()-1);
             if (pickedOutIndecies.contains(key)) {
                 count++;
                 continue;
@@ -39,8 +40,8 @@ public class HeuristicMutation implements IMutation {
         ArrayList<City> tempCities = (ArrayList<City>)tour.getCities().clone();
 
         ArrayList<Integer> tempPermuatedPickedOutIndecies;
-        double maxFittness = 0;
-        ArrayList<City> maxFittnessCityList = null;
+        double minFittness = 1000000;
+        ArrayList<City> minFittnessCityList = null;
 
         for(int i=0; i<fak;i++)
         {
@@ -53,14 +54,14 @@ public class HeuristicMutation implements IMutation {
             }
             tour.setCities(tempCities);
             double tempFittness = tour.getFitness();
-            if(tempFittness>maxFittness)
+            if(tempFittness<minFittness)
             {
-                maxFittness = tempFittness;
-                maxFittnessCityList = (ArrayList<City>)tempCities.clone();
+                minFittness = tempFittness;
+                minFittnessCityList = (ArrayList<City>)tempCities.clone();
             }
         }
 
-        tour.setCities(maxFittnessCityList);
+        tour.setCities(minFittnessCityList);
 
 //        endTime = System.currentTimeMillis();
 //        System.out.println(endTime-startTime);

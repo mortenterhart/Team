@@ -13,7 +13,6 @@ public class BruteForce {
 
     private double tourCountLimit = 0;
     private int breakLimit = 1000;
-    private int breakCount = 0;
 
     public BruteForce() {
         availableCities = new ArrayList<>();
@@ -42,7 +41,7 @@ public class BruteForce {
         } while (tourSet.size() < tourCountLimit);
         return new ArrayList<Tour>(tourSet);
     }
-
+    
     private Tour minimalDistanceTourInRange(double fromIndex, double toIndex) {
         Tour minimumTour = null;
         double lowestDistance = Double.MAX_VALUE;
