@@ -1,14 +1,14 @@
 package test.crossover;
 
 import crossover.ICrossover;
-import crossover.SubTourExchangeCrossover;
+import crossover.PartiallyMatchedCrossover;
 import org.junit.Test;
 
-public class SubTourExchangeCrossoverTest extends CrossoverTest {
+public class PartiallyMatchedCrossoverTestBasic extends CrossoverTest_Basic {
 
 
     protected ICrossover getTestInstance() {
-        return new SubTourExchangeCrossover();
+        return new PartiallyMatchedCrossover();
     }
 
     @Test

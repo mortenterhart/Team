@@ -12,7 +12,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public abstract class CrossoverTest {
+public abstract class CrossoverTest_Basic {
 
 
     private TestTourGenerator tourGenerator = new TestTourGenerator();

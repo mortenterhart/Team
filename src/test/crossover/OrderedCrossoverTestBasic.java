@@ -4,7 +4,7 @@ import crossover.ICrossover;
 import crossover.OrderedCrossover;
 import org.junit.Test;
 
-public class OrderedCrossoverTest extends CrossoverTest {
+public class OrderedCrossoverTestBasic extends CrossoverTest_Basic {
 
 
     protected ICrossover getTestInstance() {

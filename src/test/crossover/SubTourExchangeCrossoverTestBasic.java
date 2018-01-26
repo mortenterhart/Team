@@ -1,13 +1,14 @@
 package test.crossover;
 
-import crossover.HeuristicCrossover;
 import crossover.ICrossover;
+import crossover.SubTourExchangeCrossover;
 import org.junit.Test;
 
-public class HeuristicCrossoverTest extends  CrossoverTest{
+public class SubTourExchangeCrossoverTestBasic extends CrossoverTest_Basic {
+
 
     protected ICrossover getTestInstance() {
-        return new HeuristicCrossover();
+        return new SubTourExchangeCrossover();
     }
 
     @Test

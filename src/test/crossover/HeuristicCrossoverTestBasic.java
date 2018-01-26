@@ -1,14 +1,13 @@
 package test.crossover;
 
-import crossover.CycleCrossover;
+import crossover.HeuristicCrossover;
 import crossover.ICrossover;
 import org.junit.Test;
 
-public class CycleCrossoverTest extends CrossoverTest {
-
+public class HeuristicCrossoverTestBasic extends CrossoverTest_Basic {
 
     protected ICrossover getTestInstance() {
-        return new CycleCrossover();
+        return new HeuristicCrossover();
     }
 
     @Test

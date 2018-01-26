@@ -1,14 +1,14 @@
 package test.crossover;
 
+import crossover.CycleCrossover;
 import crossover.ICrossover;
-import crossover.PartiallyMatchedCrossover;
 import org.junit.Test;
 
-public class PartiallyMatchedCrossoverTest extends CrossoverTest {
+public class CycleCrossoverTestBasic extends CrossoverTest_Basic {
 
 
     protected ICrossover getTestInstance() {
-        return new PartiallyMatchedCrossover();
+        return new CycleCrossover();
     }
 
     @Test
