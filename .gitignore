@@ -5,7 +5,7 @@ data/r_out/*.r
 .DS_Store
 *.swp
 TSP.iml
-Team01_Travelling_Salesman.iml
+/Team01_Travelling_Salesman.iml
 /data/datastore.db.script
 /data/datastore.db.properties
 /data/datastore.db.lck
