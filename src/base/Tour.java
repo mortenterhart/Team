@@ -5,6 +5,15 @@ import java.util.ArrayList;
 public class Tour implements Comparable<Tour> {
     private ArrayList<City> cities = new ArrayList<>();
 
+    public Tour() { }
+
+    //crude hack, because otherwise addCity() with index would not work
+    public Tour(int size) {
+        for(int i = 0; i < size; i++) {
+            cities.add(null);
+        }
+    }
+
     public ArrayList<City> getCities() {
         return cities;
     }
@@ -58,8 +67,13 @@ public class Tour implements Comparable<Tour> {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{ Tour : ");
 
-        for (City city : cities)
+        for (City city : cities) {
+            if(city==null){
+                stringBuilder.append("NULL ");
+                continue;
+            }
             stringBuilder.append(city.getId()).append(" ");
+        }
 
         stringBuilder.append(" }");
         return stringBuilder.toString();

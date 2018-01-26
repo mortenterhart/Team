@@ -16,16 +16,16 @@ public class CycleCrossover implements ICrossover {
         ArrayList<City> cities1 = tour01.getCities();
         ArrayList<City> cities2 = tour02.getCities();
 
-        Tour child1 = new Tour();
-        Tour child2 = new Tour();
-
+        Tour child1 = new Tour(length1);
+        Tour child2 = new Tour(length1);
 
         int idx = 0, startIdx = 0;
         int cycleCount = 0;
         int cycleLength = 0;
         boolean cityDone[] = new boolean[length1];
 
-        while (true) {
+        boolean running = true;
+        while (running) {
             City c = cities2.get(idx);
             int nextIdx = cities1.indexOf(c);
 
@@ -44,13 +44,14 @@ public class CycleCrossover implements ICrossover {
                 break;
             }
             if(nextIdx == startIdx) { //generate next Idx, if cycle at end
-                for(int i = startIdx; i < length1; i++) { //loop through all remaining start indices
+                for(int i = 0; i < length1; i++) { //loop through all remaining start indices
                     if(!cityDone[i]) {//check that new index is not already part of a cycle
                         startIdx = i; //start new cycle
                         idx = i;
                         cycleCount++;
                     }
                     else if(i == length1 - 1) {
+                        running = false;
                         break; //no remaining index found
                     }
                 }
@@ -59,9 +60,18 @@ public class CycleCrossover implements ICrossover {
                 idx = nextIdx; //continue cycle
 
             cycleLength++;
+            if(cycleLength >= 1000000 || cycleCount >= 1000000)
+                throw new Error("stuck in while loop, get me out!");
         }
 
-        if(child1.compareTo(child2) > 0) //if child 1 is stronger
+        for(int i = 0; i < length1; i++) { //loop through all indices
+            if (!cityDone[i]) {//check for the element that was not processed
+                child1.addCity(i, cities1.get(i));
+                child2.addCity(i, cities2.get(i));
+            }
+        }
+
+        if(child1.compareTo(child2) < 0) //if child 1 is stronger
             return child1;
         else
             return child2;
