@@ -10,7 +10,8 @@ import java.util.ArrayList;
 
 public class TournamentSelection implements ISelection {
 
-    MersenneTwisterFast realrandom = new MersenneTwisterFast();
+    MersenneTwisterFast realrandom = Configuration.instance.mersenneTwister;
+
     public ArrayList<Tour> doSelection(Population population) {
         ArrayList<Tour> clonedTours = population.getTours();
         ArrayList<Tour> winner = new ArrayList<Tour>();
@@ -96,6 +97,7 @@ public class TournamentSelection implements ISelection {
         }
         return winner;
     }
+
     private void deadOrAlive(boolean deadorNot,ArrayList<Tour> allTours, Tour looser )
     {
         if(!deadorNot)
