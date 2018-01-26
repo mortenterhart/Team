@@ -8,79 +8,110 @@ import java.util.*;
 
 public class HeuristicMutation implements IMutation {
     public Tour doMutation(Tour tour) {
+
+        /*TODO
+        Check if int ist to small for 280!
+         */
+
         MersenneTwisterFast mersenneTwisterFast = new MersenneTwisterFast();
-        int count = mersenneTwisterFast.nextInt(2, tour.getCities().size()-1);
 
-        ArrayList<Integer> indexCities = new ArrayList<>();
-        while (indexCities.size()!=count){
-            int key = mersenneTwisterFast.nextInt(0,tour.getCities().size()-1);
-            if(indexCities.contains(key))
+        //why 2
+        int count = mersenneTwisterFast.nextInt(2, tour.getCities().size() - 1);
+
+        ArrayList<Integer> pickedOutIndecies = new ArrayList<>();
+        ArrayList<Integer> pickedOutIndeciesBackup = new ArrayList<>();
+        int key;
+        for (int i = 0; i < count; i++) {
+            key = mersenneTwisterFast.nextInt(0, tour.getCities().size() - 1);
+            if (pickedOutIndecies.contains(key)) {
+                count--;
                 continue;
-            indexCities.add(key);
-
-        }
-
-        ArrayList<City> permutateCities = new ArrayList<>();
-        for (int index: indexCities) {
-            permutateCities.add(tour.getCity(index));
-        }
-
-        ArrayList<ArrayList<City>> permutatedCityLists= permute(permutateCities);
-
-        int fak = permutatedCityLists.size();
-
-        ArrayList<ArrayList<City>> cityLists = new ArrayList<>();
-
-        //copy ArrayList
-        for (int i = 0; i < fak; i++){
-            ArrayList<City> cities = new ArrayList<>();
-            for (City city: tour.getCities()) {
-                cities.add(city);
-
             }
-            cityLists.add(cities);
+            pickedOutIndecies.add(key);
+            pickedOutIndeciesBackup.add(key);
         }
-        Tour tempTour = new Tour();
-        Double tempFitness = 0.0;
-        int k = 0;
-        for (int i = 0; i < fak; i++){
-            for (int index: indexCities) {
-                cityLists.get(i).set(index, permutatedCityLists.get(i).get(k++));
 
-            }
-            k = 0;
+        //test cases
+        pickedOutIndecies.clear();
+        pickedOutIndeciesBackup.clear();
+        pickedOutIndecies.add(2);
+        pickedOutIndecies.add(4);
+        pickedOutIndecies.add(6);
+        pickedOutIndeciesBackup.add(2);
+        pickedOutIndeciesBackup.add(4);
+        pickedOutIndeciesBackup.add(6);
 
-        }
-        for (int i = 0; i < fak; i++)
+        System.out.println("FoundIndecies: ");
+        System.out.println(pickedOutIndecies.toString());
+        System.out.println("Found Indecies Backup:");
+        System.out.println(pickedOutIndeciesBackup.toString());
+
+
+
+        ArrayList<ArrayList<Integer>> permuatedPickedOutIndecies = permute(pickedOutIndecies);
+
+        System.out.println("Permuated Indecies Lists: ");
+        for(ArrayList<Integer> tempList : permuatedPickedOutIndecies)
+            System.out.println(tempList);
+
+
+        long fak = permuatedPickedOutIndecies.size();
+
+
+        ArrayList<City> oldCities = (ArrayList<City>)tour.getCities().clone();
+        ArrayList<City> tempCities = (ArrayList<City>)tour.getCities().clone();
+
+        ArrayList<Integer> tempPermuatedPickedOutIndecies;
+        double maxFittness = 0;
+        ArrayList<City> maxFittnessCityList = null;
+
+        //go on here
+        for(long i=0; i<fak;i++)
         {
-            tempTour.setCities(cityLists.get(i));
-            System.out.println("i: " + i + " fitness: " + tempTour.getFitness());
-            if(tempTour.getFitness() >= tempFitness){
-                tempFitness = tempTour.getFitness();
-                tour.setCities(cityLists.get(i));
+            tempPermuatedPickedOutIndecies = permuatedPickedOutIndecies.get(i);
+            System.out.println("Start with " + i);
+            System.out.println(tempPermuatedPickedOutIndecies.toString());
+            for(int j=0; j<tempPermuatedPickedOutIndecies.size(); j++)
+            {
+                int insertPointNewList = pickedOutIndeciesBackup.get(j);
+                int pickOutPointOldList = tempPermuatedPickedOutIndecies.get(j);
+                tempCities.set(insertPointNewList, oldCities.get(pickOutPointOldList));
+            }
+            tour.setCities(tempCities);
+            double tempFittness = tour.getFitness();
+            System.out.println("Temp Fittness: "+ tempFittness);
+            if(tempFittness>maxFittness)
+            {
+                maxFittness = tempFittness;
+                maxFittnessCityList = (ArrayList<City>)tempCities.clone();
+                System.out.println("New Max Fittness: " + maxFittness);
             }
         }
+        System.out.println("Final Max Fittness: " + maxFittness);
+
+        tour.setCities(maxFittnessCityList);
 
         return tour;
     }
 
-    public static ArrayList<ArrayList<City>> permute(List<City> list) {
+
+    private ArrayList<ArrayList<Integer>> permute(ArrayList<Integer> list) {
 
         if (list.size() == 0) {
-            ArrayList<ArrayList<City>> result = new ArrayList<ArrayList<City>>();
-            result.add(new ArrayList<City>());
+            ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+            result.add(new ArrayList<Integer>());
             return result;
         }
 
-        ArrayList<ArrayList<City>> returnMe = new ArrayList<ArrayList<City>>();
+        ArrayList<ArrayList<Integer>> returnMe = new ArrayList<ArrayList<Integer>>();
 
-        City firstElement = list.remove(0);
+        int firstElement = list.remove(0);
 
-        ArrayList<ArrayList<City>> recursiveReturn = permute(list);
-        for (List<City> li : recursiveReturn) {
+        ArrayList<ArrayList<Integer>> recursiveReturn = permute(list);
+        for (List<Integer> li : recursiveReturn) {
 
             for (int index = 0; index <= li.size(); index++) {
-                ArrayList<City> temp = new ArrayList<City>(li);
+                ArrayList<Integer> temp = new ArrayList<Integer>(li);
                 temp.add(index, firstElement);
                 returnMe.add(temp);
             }
@@ -88,6 +119,7 @@ public class HeuristicMutation implements IMutation {
         }
         return returnMe;
     }
+
 
     public String toString() {
         return getClass().getSimpleName();
