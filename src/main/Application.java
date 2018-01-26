@@ -2,17 +2,22 @@ package main;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+
 import base.City;
+import base.Tour;
 import crossover.ICrossover;
 import data.HSQLDBManager;
 import data.InstanceReader;
 import data.TSPLIBReader;
 import mutation.IMutation;
+import random.MersenneTwisterFast;
 import selection.ISelection;
 import statistics.Statistics;
 
 public class Application {
     private ArrayList<City> availableCities;
+    private ArrayList<Tour> startingTours;
     private double[][] distances;
 
     private ISelection selection;
@@ -55,6 +60,30 @@ public class Application {
         System.out.println();
     }
 
+    public void generateStartingTours()
+    {
+        ArrayList<Tour> tours = new ArrayList<>();
+        MersenneTwisterFast random = new MersenneTwisterFast();
+
+        for (int i = 0; i < 50; i++)
+        {
+            ArrayList<City> cities = new ArrayList<>();
+
+            for(City city : availableCities)
+            {
+                cities.add(city);
+            }
+
+            Collections.shuffle(cities, random);
+
+            Tour tour = new Tour();
+            tour.setCities(cities);
+            tours.add(tour);
+        }
+
+        startingTours = tours;
+    }
+
     public void initConfiguration() {
         System.out.println("--- GeneticAlgorithm.initConfiguration()");
         System.out.println();
@@ -69,6 +98,7 @@ public class Application {
         Application application = new Application();
         application.startupHSQLDB();
         application.loadData();
+        application.generateStartingTours();
         application.initConfiguration();
         application.execute();
         Statistics statistics = new Statistics();
