@@ -22,7 +22,7 @@ public abstract class CrossoverTest {
     }
 
     protected void checkSizeTestCities() {
-        checkSize(getTestInstance(), tourGenerator.generateTourTestCities(), tourGenerator.generateTourAllCities());
+        checkSize(getTestInstance(), tourGenerator.generateTourTestCities(), tourGenerator.generateTourTestCities());
     }
 
     protected void checkCitiesStillContainedAllCities() {
