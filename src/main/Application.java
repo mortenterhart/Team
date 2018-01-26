@@ -4,6 +4,8 @@ import java.awt.*;
 import java.io.ObjectInputFilter;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
+
 import base.City;
 import base.Tour;
 import bruteforce.BruteForce;
@@ -68,9 +70,13 @@ public class Application {
         HSQLDBManager.instance.insertTest("hello world");
     }
 
+    public List<City> getAvailableCities() {
+        return availableCities;
+    }
+
     public static void main(String ... args) {
         Application application = new Application ();
-        //application.startupHSQLDB();
+        // application.startupHSQLDB();
         application.loadData();
 
         if (Configuration.instance.startBruteForce) {
@@ -78,19 +84,18 @@ public class Application {
                 System.out.println("--- Started Bruteforce");
             }
 
-            BruteForce bruteForceApplication = new BruteForce (application.availableCities,
-                    Configuration.instance.numberOfTourElements);
+            BruteForce bruteForceApplication = new BruteForce (application.availableCities);
             bruteForceApplication.setBreakLimit (Configuration.instance.breakLimit);
             Tour bestFoundTour = bruteForceApplication.minimalTourAll ();
             System.out.println ("\nFitness of best tour: " + bestFoundTour.getFitness ());
 
             if (Configuration.instance.isDebug) {
-                System.out.println ("--- Finished Bruteforce!");
+                System.out.println ("--- Finished Bruteforce");
             }
         } else {
             application.initConfiguration();
             application.execute();
         }
-        //application.shutdownHSQLDB();
+        // application.shutdownHSQLDB();
     }
 }

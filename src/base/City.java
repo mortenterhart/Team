@@ -32,4 +32,12 @@ public class City {
         stringBuilder.append(" }");
         return stringBuilder.toString();
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || ! (object instanceof City)) {
+            return false;
+        }
+        return this.getId() == ((City) object).getId();
+    }
 }

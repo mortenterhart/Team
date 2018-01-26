@@ -15,56 +15,54 @@ public class BruteForce {
     private int breakLimit = 1000;
     private int breakCount = 0;
 
-    public BruteForce(List<City> cities, double numberOfTours) {
+    public BruteForce() {
+        availableCities = new ArrayList<>();
+        cityComparator = new CityComparator();
+        randomTours = new ArrayList<>();
+
+        tourCountLimit = Configuration.instance.numberOfTourElements;
+    }
+
+    public BruteForce(List<City> cities) {
+        this();
         availableCities = cities;
-        tourCountLimit = numberOfTours;
-        cityComparator = new CityComparator ();
-        randomTours = generateRandomTours ();
+        availableCities.sort(cityComparator);
+        randomTours = generateRandomTours();
     }
 
     public List<Tour> generateRandomTours() {
-        Tour baseTour = new Tour ();
-        availableCities.sort (cityComparator);
-        for (City availableCity : availableCities) {
-            baseTour.addCity (availableCity);
-        }
+        Tour baseTour = new Tour();
+        initSortedBaseTour(baseTour);
 
-        Set<Tour> tourSet = new HashSet<> ();
+        List<Tour> tourSet = new ArrayList<>();
         do {
-            Tour randomTour = (Tour) baseTour.clone ();
-            shuffleTour (randomTour);
-            System.out.println("Fitness of random Tour: " + randomTour.getFitness());
-            tourSet.add (randomTour);
-        } while (tourSet.size () <= tourCountLimit);
-        return new ArrayList<Tour> (tourSet);
+            Tour randomTour = (Tour) baseTour.clone();
+            shuffleTour(randomTour);
+            tourSet.add(randomTour);
+        } while (tourSet.size() < tourCountLimit);
+        return new ArrayList<Tour>(tourSet);
     }
 
     private Tour minimalDistanceTourInRange(double fromIndex, double toIndex) {
         Tour minimumTour = null;
         double lowestDistance = Double.MAX_VALUE;
 
-        for (double index = fromIndex; index < toIndex; index++) {
+        for (double index = fromIndex; index < toIndex && breakCount <= breakLimit; index++) {
             Tour testTour = randomTours.get((int) index);
-            System.out.println (testTour.toString ());
-            double testDistance = testTour.getFitness ();
-            System.out.println (testDistance + " < " + lowestDistance);
+            double testDistance = testTour.getFitness();
             if (testDistance < lowestDistance) {
-                //System.out.println ("TestDistance " + testDistance + " is lower than lowestDistance " + lowestDistance);
                 minimumTour = testTour;
                 lowestDistance = testDistance;
                 breakCount = 0;
             } else {
                 breakCount++;
-                // System.out.println ("Increment breakCount");
-            }
-
-            if (breakCount > breakLimit) {
-                //System.out.println ("breakCount: " + breakCount);
-                //System.out.println ("breakLimit: " + breakLimit);
-                break;
             }
         }
         return minimumTour;
+    }
+
+    public void initSortedBaseTour(Tour baseTour) {
+        baseTour.setCities(new ArrayList<>(availableCities));
     }
 
     public Tour minimalTourAll() {
@@ -72,19 +70,28 @@ public class BruteForce {
     }
 
     public Tour minimalTourTop25() {
-        return minimalDistanceTourInRange(0, tourCountLimit / 4);
-    }
-
-    public Tour minimalTourLast25() {
-        return minimalDistanceTourInRange(tourCountLimit * (3 / 4), tourCountLimit);
+        return minimalDistanceTourInRange(0, get25PercentIndex());
     }
 
     public Tour minimalTourMiddle50() {
-        return minimalDistanceTourInRange(tourCountLimit / 4, tourCountLimit * (3 / 4));
+        return minimalDistanceTourInRange(get25PercentIndex(), get75PercentIndex());
     }
 
-    public void shuffleTour(Tour tour) {
-        Collections.shuffle (tour.getCities (), Configuration.instance.mersenneTwister);
+    public Tour minimalTourLast25() {
+        return minimalDistanceTourInRange(get75PercentIndex(), tourCountLimit);
+    }
+
+
+    public static void shuffleTour(Tour tour) {
+        Collections.shuffle(tour.getCities(), Configuration.instance.mersenneTwister);
+    }
+
+    private double get25PercentIndex() {
+        return tourCountLimit / 4.0;
+    }
+
+    private double get75PercentIndex() {
+        return tourCountLimit * (3.0 / 4.0);
     }
 
     public void setAvailableCities(List<City> availableCities) {
