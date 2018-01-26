@@ -45,7 +45,7 @@ public class RouletteWheelSelection {
     @Before
     public void initializeTest(){
 
-        MersenneTwisterFast random = Configuration.instance.mersenneTwisterFast;
+        MersenneTwisterFast random = Configuration.instance.mersenneTwister;
 
         ArrayList<City> cities = new ArrayList<City>();
         ArrayList<Tour> tours = new ArrayList<Tour>();

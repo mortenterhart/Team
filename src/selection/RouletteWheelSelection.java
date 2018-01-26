@@ -43,7 +43,7 @@ public class RouletteWheelSelection implements ISelection {
      * @return winners
      */
     private ArrayList<Tour> turnRouletteWheel(int numOfTributes, ArrayList<Double> roulette, ArrayList<Tour> tributes, ArrayList<Tour> winners) {
-        MersenneTwisterFast mersenneTwisterFast = Configuration.instance.mersenneTwisterFast;
+        MersenneTwisterFast mersenneTwisterFast = Configuration.instance.mersenneTwister;
         double pointer = mersenneTwisterFast.nextDouble(true,true);
         for(int i = 0; i< (numOfTributes/2); i++){  //let half of the tributes win
             for(double r: roulette){
@@ -90,7 +90,7 @@ public class RouletteWheelSelection implements ISelection {
      * @return tributes
      */
     private ArrayList<Tour> getTributes(ArrayList<Tour> wholePopulation, ArrayList<Tour> tributes) {
-        MersenneTwisterFast mersenneTwisterFast = Configuration.instance.mersenneTwisterFast;
+        MersenneTwisterFast mersenneTwisterFast = Configuration.instance.mersenneTwister;
         int numOfTributes = (int) (wholePopulation.size() * Configuration.instance.choosePercentageOfTributes);
 
         for(int i = 0; i < numOfTributes; i++){
