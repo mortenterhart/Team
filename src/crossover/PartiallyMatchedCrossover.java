@@ -2,13 +2,14 @@ package crossover;
 
 import base.City;
 import base.Tour;
+import main.Configuration;
 import random.MersenneTwisterFast;
 
 import java.util.ArrayList;
 
 public class PartiallyMatchedCrossover implements ICrossover {
     public Tour doCrossover(Tour tour01,Tour tour02) {
-        MersenneTwisterFast random = new MersenneTwisterFast();
+        MersenneTwisterFast random = Configuration.instance.mersenneTwister;
 
         ArrayList<City> tourCities1 = CloneSubListCity(tour01.getCities(), 0, tour01.getSize());
         ArrayList<City> tourCities2 = CloneSubListCity(tour02.getCities(), 0, tour02.getSize());
@@ -28,17 +29,19 @@ public class PartiallyMatchedCrossover implements ICrossover {
         child2.addAll(base1);
         child2.addAll(CloneSubListCity(tourCities2, secondSplit, lastIndex+1));
 
+        int baseIndex;
+
         for (int i = 0; i < firstSplit; i++)
         {
             while (base2.contains(child1.get(i)))
             {
-                int baseIndex = base2.indexOf(child1.get(i));
+                baseIndex = base2.indexOf(child1.get(i));
                 child1.set(i, base1.get(baseIndex));
             }
 
             while (base1.contains(child2.get(i)))
             {
-                int baseIndex = base1.indexOf(child2.get(i));
+                baseIndex = base1.indexOf(child2.get(i));
                 child2.set(i, base2.get(baseIndex));
             }
         }
@@ -47,13 +50,13 @@ public class PartiallyMatchedCrossover implements ICrossover {
         {
             while (base2.contains(child1.get(i)))
             {
-                int baseIndex = base2.indexOf(child1.get(i));
+                baseIndex = base2.indexOf(child1.get(i));
                 child1.set(i, base1.get(baseIndex));
             }
 
             while (base1.contains(child2.get(i)))
             {
-                int baseIndex = base1.indexOf(child2.get(i));
+                baseIndex = base1.indexOf(child2.get(i));
                 child2.set(i, base2.get(baseIndex));
             }
         }
