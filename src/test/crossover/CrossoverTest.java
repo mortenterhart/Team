@@ -3,6 +3,7 @@ package test.crossover;
 import base.City;
 import base.Tour;
 import crossover.ICrossover;
+import main.Configuration;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -20,7 +21,7 @@ public class CrossoverTest {
     @Before
     public void InitializeTest()
     {
-        MersenneTwisterFast random = new MersenneTwisterFast();
+        MersenneTwisterFast random = Configuration.instance.mersenneTwister;
 
         ArrayList<City> cities = new ArrayList<>();
         for (int i = 0; i < 50; i++)

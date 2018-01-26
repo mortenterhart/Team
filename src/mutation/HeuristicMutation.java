@@ -2,6 +2,7 @@ package mutation;
 
 import base.City;
 import base.Tour;
+import main.Configuration;
 import random.MersenneTwisterFast;
 
 import java.util.*;
@@ -12,7 +13,7 @@ public class HeuristicMutation implements IMutation {
 //        long startTime = System.currentTimeMillis();
 //        long endTime = System.currentTimeMillis();
 
-        MersenneTwisterFast mersenneTwisterFast = new MersenneTwisterFast();
+        MersenneTwisterFast mersenneTwisterFast = Configuration.instance.mersenneTwister;
 
         //use start value 2 to avoid doing nothing
         int count = mersenneTwisterFast.nextInt(2, 8);
