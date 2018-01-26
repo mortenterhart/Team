@@ -3,8 +3,10 @@ package selection;
 import base.Population;
 import base.Tour;
 
+import java.util.ArrayList;
+
 public class TournamentSelection implements ISelection {
-    public Tour doSelection(Population population) {
+    public ArrayList<Tour> doSelection(Population population) {
         return null;
     }
 
