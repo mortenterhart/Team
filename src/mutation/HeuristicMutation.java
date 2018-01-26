@@ -9,50 +9,27 @@ import java.util.*;
 public class HeuristicMutation implements IMutation {
     public Tour doMutation(Tour tour) {
 
-        /*TODO
-        Check if int ist to small for 280!
-         */
+//        long startTime = System.currentTimeMillis();
+//        long endTime = System.currentTimeMillis();
 
         MersenneTwisterFast mersenneTwisterFast = new MersenneTwisterFast();
 
-        //why 2
-        int count = mersenneTwisterFast.nextInt(2, tour.getCities().size() - 1);
-
+        //use start value 2 to avoid doing nothing
+        int count = mersenneTwisterFast.nextInt(2, 8);
         ArrayList<Integer> pickedOutIndecies = new ArrayList<>();
         ArrayList<Integer> pickedOutIndeciesBackup = new ArrayList<>();
         int key;
         for (int i = 0; i < count; i++) {
             key = mersenneTwisterFast.nextInt(0, tour.getCities().size() - 1);
             if (pickedOutIndecies.contains(key)) {
-                count--;
+                count++;
                 continue;
             }
             pickedOutIndecies.add(key);
             pickedOutIndeciesBackup.add(key);
         }
 
-        //test cases
-        pickedOutIndecies.clear();
-        pickedOutIndeciesBackup.clear();
-        pickedOutIndecies.add(2);
-        pickedOutIndecies.add(4);
-        pickedOutIndecies.add(6);
-        pickedOutIndeciesBackup.add(2);
-        pickedOutIndeciesBackup.add(4);
-        pickedOutIndeciesBackup.add(6);
-
-        System.out.println("FoundIndecies: ");
-        System.out.println(pickedOutIndecies.toString());
-        System.out.println("Found Indecies Backup:");
-        System.out.println(pickedOutIndeciesBackup.toString());
-
-
-
         ArrayList<ArrayList<Integer>> permuatedPickedOutIndecies = permute(pickedOutIndecies);
-
-        System.out.println("Permuated Indecies Lists: ");
-        for(ArrayList<Integer> tempList : permuatedPickedOutIndecies)
-            System.out.println(tempList);
 
 
         long fak = permuatedPickedOutIndecies.size();
@@ -65,12 +42,9 @@ public class HeuristicMutation implements IMutation {
         double maxFittness = 0;
         ArrayList<City> maxFittnessCityList = null;
 
-        //go on here
         for(int i=0; i<fak;i++)
         {
             tempPermuatedPickedOutIndecies = permuatedPickedOutIndecies.get(i);
-            System.out.println("Start with " + i);
-            System.out.println(tempPermuatedPickedOutIndecies.toString());
             for(int j=0; j<tempPermuatedPickedOutIndecies.size(); j++)
             {
                 int insertPointNewList = pickedOutIndeciesBackup.get(j);
@@ -79,17 +53,18 @@ public class HeuristicMutation implements IMutation {
             }
             tour.setCities(tempCities);
             double tempFittness = tour.getFitness();
-            System.out.println("Temp Fittness: "+ tempFittness);
             if(tempFittness>maxFittness)
             {
                 maxFittness = tempFittness;
                 maxFittnessCityList = (ArrayList<City>)tempCities.clone();
-                System.out.println("New Max Fittness: " + maxFittness);
             }
         }
-        System.out.println("Final Max Fittness: " + maxFittness);
 
         tour.setCities(maxFittnessCityList);
+
+//        endTime = System.currentTimeMillis();
+//        System.out.println(endTime-startTime);
+
 
         return tour;
     }
@@ -117,8 +92,12 @@ public class HeuristicMutation implements IMutation {
             }
 
         }
+
+
         return returnMe;
     }
+
+
 
 
     public String toString() {
