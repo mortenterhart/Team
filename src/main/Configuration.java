@@ -13,5 +13,5 @@ public enum Configuration {
 
     public String databaseFile = dataDirectory + "datastore.db";
 
-    public MersenneTwisterFast mersenneTwister;
+    public MersenneTwisterFast mersenneTwister=new MersenneTwisterFast();
 }
