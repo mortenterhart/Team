@@ -23,14 +23,15 @@ public class HeuristicCrossover implements ICrossover {
         unvisitedCities.remove(currentCity);
 
         Tour child = new Tour();
+        child.addCity(currentCity);
 
         while (unvisitedCities.size() > 0) {
             double min = Double.POSITIVE_INFINITY;
             City nearestCity = unvisitedCities.get(0);
-            for(int i = 0; i < unvisitedCities.size(); i++) {
+            for (int i = 0; i < unvisitedCities.size(); i++) {
                 City c = unvisitedCities.get(i);
                 double dist = distanceBetweenCities(currentCity, c);
-                if(dist < min) { //new nearest city found
+                if (dist < min) { //new nearest city found
                     min = dist;
                     nearestCity = c;
                 }
