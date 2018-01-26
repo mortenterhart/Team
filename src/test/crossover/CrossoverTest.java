@@ -4,13 +4,18 @@ import base.City;
 import base.Tour;
 import crossover.ICrossover;
 import org.junit.jupiter.api.Test;
+import static org.junit.Assert.*;
 import random.MersenneTwisterFast;
 
 import java.util.ArrayList;
 
+
 public class CrossoverTest {
 
-    @Test
+    Tour _tour1;
+    Tour _tour2;
+
+
     public void InitializeTest()
     {
         MersenneTwisterFast random = new MersenneTwisterFast();
@@ -21,36 +26,51 @@ public class CrossoverTest {
             cities.add(new City(i, random.nextInt(0, 1000), random.nextInt(0, 1000)));
         }
 
-        Tour test1 = new Tour();
-        test1.setCities(cities);
-        Tour test2 = new Tour();
-        test2.setCities(ShuffleList(cities, random));
-
-        TestPMCrossover(test1, test2);
-        TestPBCrossover(test1, test2);
-        TestSTCrossover(test1, test2);
+        _tour1 = new Tour();
+        _tour1.setCities(cities);
+        _tour2 = new Tour();
+        _tour2.setCities(ShuffleList(cities, random));
     }
 
+    @Test
     private void TestPMCrossover(Tour tour1, Tour tour2)
     {
+        InitializeTest();
+
         ICrossover crossover = new crossover.PartiallyMatchedCrossover();
 
         Tour tour3 = crossover.doCrossover(tour1, tour2);
+
+        assertTrue(tour3.getSize() == tour1.getSize());
     }
 
+    @Test
     private void TestPBCrossover(Tour tour1, Tour tour2)
     {
+        InitializeTest();
+
         ICrossover crossover = new crossover.PositionBasedCrossover();
 
         Tour tour3 = crossover.doCrossover(tour1, tour2);
+
+        assertTrue(tour3.getSize() == tour1.getSize());
     }
 
+    @Test
     private void TestSTCrossover(Tour tour1, Tour tour2)
     {
+        InitializeTest();
+
         ICrossover crossover = new crossover.SubTourExchangeCrossover();
 
         Tour tour3 = crossover.doCrossover(tour1, tour2);
+
+        assertTrue(tour3.getSize() == tour1.getSize());
     }
+
+
+
+
 
 
     private ArrayList<City> ShuffleList(ArrayList<City> list, MersenneTwisterFast random)
