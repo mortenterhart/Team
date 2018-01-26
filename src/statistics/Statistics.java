@@ -13,10 +13,15 @@ import data.HSQLDBManager;
 public class Statistics implements IStatistics {
 
     private ArrayList<String> scenarios;
-    private String measures;
+    private String measures = "";
     private String plot;
     private boolean ttest;
     private boolean mff;
+    private boolean median;
+    private boolean mean;
+    private boolean sd;
+    private boolean range;
+    private boolean interquartilsrange;
     private double quantileStart;
     private double quantileEnd;
     private double iqr;
@@ -46,6 +51,20 @@ public class Statistics implements IStatistics {
     }
 
     public void buildMeasureRFile() {
+        List<Integer> scenario_ids = createScenarios();
+        try {
+            String measurefile = Const.instance.buildFileBeginning(scenario_ids,"src/statistics/RTemplates/measures.R.tpl");
+
+            measurefile = median ? measurefile.replaceAll(Const.VAR_MEDIAN,Const.instance.createMedianScenario(scenario_ids)) : measurefile.replaceAll(Const.VAR_MEDIAN,"");
+            measurefile = mean ? measurefile.replaceAll(Const.VAR_MEAN,Const.instance.createMeanScenario(scenario_ids)) : measurefile.replaceAll(Const.VAR_MEAN,"");
+            measurefile = sd ? measurefile.replaceAll(Const.VAR_SD,Const.instance.createSdScenario(scenario_ids)) : measurefile.replaceAll(Const.VAR_SD,"");
+            measurefile = range ? measurefile.replaceAll(Const.VAR_RANGE,Const.instance.createRangeScenario(scenario_ids)) : measurefile.replaceAll(Const.VAR_RANGE,"");
+            measurefile = interquartilsrange ? measurefile.replaceAll(Const.VAR_INTERQUARTILERANGE,Const.instance.createInterquartilerangeScenario(scenario_ids)) : measurefile.replaceAll(Const.VAR_INTERQUARTILERANGE,"");
+
+            Const.instance.writeFile(measurefile,new File(Const.instance.measure_file));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void buildBarPlotFile() {
@@ -62,13 +81,10 @@ public class Statistics implements IStatistics {
     public void buildBoxPlotRFile() {
         List<Integer> scenario_ids = createScenarios();
         try {
-            String boxplot = new String(Files.readAllBytes(Paths.get("src/statistics/RTemplates/boxplot.R.tpl")));
-            boxplot = boxplot.replaceAll(Const.VAR_DATADIR,Const.instance.path);
-            boxplot = boxplot.replaceAll(Const.VAR_SCENARIODESCRIPTION, Const.instance.writeCsvInScenarios(scenario_ids));
+            String boxplot = Const.instance.buildFileBeginning(scenario_ids,"src/statistics/RTemplates/boxplot.R.tpl");
             boxplot = boxplot.replaceAll(Const.VAR_FILENAME, Const.instance.createBoxplotName(scenario_ids));
             boxplot = boxplot.replaceAll(Const.VAR_SCENARIOSHORT, Const.instance.createScenarioShortname(scenario_ids));
             boxplot = boxplot.replaceAll(Const.VAR_NAMES, Const.instance.createScenarioName(scenario_ids));
-
             Const.instance.writeFile(boxplot, new File(Const.instance.boxplot_file));
         }catch (IOException e){
             e.printStackTrace();
@@ -81,9 +97,7 @@ public class Statistics implements IStatistics {
         List<Integer> scenario_ids = createScenarios();
 
         try {
-            String dotplot = new String(Files.readAllBytes(Paths.get("src/statistics/RTemplates/dotplot.R.tpl")));
-            dotplot = dotplot.replaceAll(Const.VAR_DATADIR,Const.instance.path);
-            dotplot = dotplot.replaceAll(Const.VAR_SCENARIODESCRIPTION,Const.instance.writeCsvInScenarios(scenario_ids));
+            String dotplot = Const.instance.buildFileBeginning(scenario_ids,"src/statistics/RTemplates/dotplot.R.tpl");
             dotplot = dotplot.replaceAll(Const.VAR_FILENAME,Const.instance.createDotplotName(scenario_ids));
             dotplot = dotplot.replaceAll(Const.VAR_DOTPLOTSCENARIO, Const.instance.createDotplotScenarios(scenario_ids));
 
@@ -96,9 +110,7 @@ public class Statistics implements IStatistics {
     public void buildStripChartRFile() {
         List<Integer> scenario_ids = createScenarios();
         try {
-            String stripchart = new String(Files.readAllBytes(Paths.get("src/statistics/RTemplates/stripchart.R.tpl")));
-            stripchart = stripchart.replaceAll(Const.VAR_DATADIR,Const.instance.path);
-            stripchart = stripchart.replaceAll(Const.VAR_SCENARIODESCRIPTION,Const.instance.writeCsvInScenarios(scenario_ids));
+            String stripchart = Const.instance.buildFileBeginning(scenario_ids,"src/statistics/RTemplates/stripchart.R.tpl");
             stripchart = stripchart.replaceAll(Const.VAR_FILENAME,Const.instance.createStripchartName(scenario_ids));
             stripchart = stripchart.replaceAll(Const.VAR_STRIPCHARTSCENARIOS,Const.instance.createStripchartScenarios(scenario_ids));
             Const.instance.writeFile(stripchart, new File(Const.instance.stripchart_file));
@@ -172,7 +184,7 @@ public class Statistics implements IStatistics {
                         i++;
                     }
                     while (!args[i].startsWith("-")) {
-                        scenarios.add(args[i]);
+                        scenarios.add(args[i].replaceAll(",",""));
                         if(i<args.length){
                             if (i >= args.length-1) break;
                             i++;

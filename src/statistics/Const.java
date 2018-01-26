@@ -27,6 +27,11 @@ public enum Const {
     public static String VAR_STRIPCHARTSCENARIOS = "\\[STRIPCHARTSCENARIO\\]";
     public static String VAR_TTESTSCENARIOS = "\\[TTESTSCENARIO\\]";
     public static String VAR_HISTOGRAMSCENARIOS = "\\[SCENARIOHISTOGRAM\\]";
+    public static String VAR_MEDIAN = "\\[MEDIAN\\]";
+    public static String VAR_MEAN = "\\[MEAN\\]";
+    public static String VAR_SD = "\\[SD\\]";
+    public static String VAR_RANGE = "\\[RANGE\\]";
+    public static String VAR_INTERQUARTILERANGE = "\\[INTERQUARTILERANGE\\]";
 
 
     public String path = (new File("")).getAbsolutePath()+"/data";
@@ -36,7 +41,8 @@ public enum Const {
     public String dotplox_file = "data/r_out/dot_plot.r";
     public String mff_file = "data/r_out/analysis.r";
     public String ttest_file = "data/r_out/test.r";
-    public String histogram_file = "data/r_out/histogram.r";;
+    public String histogram_file = "data/r_out/histogram.r";
+    public String measure_file = "data/r_out/measures.r";
 
     public String createBoxplotName(List<Integer> scenarios) {
         String name = "boxplot_scenario_";
@@ -87,8 +93,7 @@ public enum Const {
 
     private List<Integer> getFitnessDataFromDB() {
         List<Integer> list = new ArrayList<>();
-        HSQLDBManager.instance.startup();
-        ResultSet rs = HSQLDBManager.instance.getResultSet("Select * from DATA");
+        ResultSet rs = HSQLDBManager.instance.getResultSet("Select * from data");
         try {
             while(rs.next()) {
                 list.add(rs.getInt("fitness"));
@@ -169,6 +174,27 @@ public enum Const {
         return text;
     }
 
+    public String createMedianScenario(List<Integer> scenario_ids) {
+        String text = "";
+        for (int i = 0; i < scenario_ids.size(); i++) {
+            for (int j = i+1; j < scenario_ids.size(); j++) {
+                text += "c(median(s0"+scenario_ids.get(i)+"),median(s0"+scenario_ids.get(j)+"))";
+                text += System.getProperty("line.separator");
+            }
+        }
+        return text;
+    }
+    public String createMeanScenario(List<Integer> scenario_ids) {
+        String text = "";
+        for (int i = 0; i < scenario_ids.size(); i++) {
+            for (int j = i+1; j < scenario_ids.size(); j++) {
+                text += "c(round(mean(s0"+scenario_ids.get(i)+"),digits = 2),round(mean(s0"+scenario_ids.get(j)+"),digits = 2))";
+                text += System.getProperty("line.separator");
+            }
+        }
+        return text;
+    }
+
     public String createHistogramName(List<Integer> scenario_ids) {
         String name = "histogram_scenario";
         for (Integer scenario : scenario_ids) {
@@ -182,6 +208,37 @@ public enum Const {
         for (Integer scenario : scenario_ids) {
             text += "hist(s0"+scenario+",xlim=c(2500,5000),ylim=c(0,200),xlab = \"distance\",breaks=100,main = \"Genetic Algorithms - TSP280\" - Scenario "+scenario+")";
             text += System.getProperty("line.separator");
+        }
+        return text;
+    }
+
+    public String createSdScenario(List<Integer> scenario_ids) {
+        String text = "";
+        for (int i = 0; i < scenario_ids.size(); i++) {
+            for (int j = i+1; j < scenario_ids.size(); j++) {
+                text += "c(round(sd(s0"+scenario_ids.get(i)+"),digits = 2),round(sd(s0"+scenario_ids.get(j)+"),digits = 2))";
+                text += System.getProperty("line.separator");
+            }
+        }
+        return text;
+    }
+
+    public String createRangeScenario(List<Integer> scenario_ids) {
+        String text = "";
+        for (Integer scenario_id : scenario_ids) {
+            text += "c(max(s0"+scenario_id+") − min(s0"+scenario_id+"))";
+            text += System.getProperty("line.separator");
+        }
+        return text;
+    }
+
+    public String createInterquartilerangeScenario(List<Integer> scenario_ids) {
+        String text = "";
+        for (int i = 0; i < scenario_ids.size(); i++) {
+            for (int j = i+1; j < scenario_ids.size(); j++) {
+                text += "c(quantile(s0"+scenario_ids.get(i)+",0.75) - quantile(s0"+scenario_ids.get(i)+",0.25),quantile(s0"+scenario_ids.get(j)+",0.75) - quantile(s0"+scenario_ids.get(j)+",0.25))";
+                text += System.getProperty("line.separator");
+            }
         }
         return text;
     }
