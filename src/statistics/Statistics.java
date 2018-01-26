@@ -1,14 +1,10 @@
 package statistics;
 
-import data.HSQLDBManager;
-import org.hsqldb.util.CSVWriter;
-
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 
 public class Statistics implements IStatistics {
     public void writeCSVFile() {
@@ -41,14 +37,13 @@ public class Statistics implements IStatistics {
         try {
             String barplot = new String(Files.readAllBytes(Paths.get("src/statistics/RTemplates/barplot.R.tpl")));
             barplot = barplot.replaceAll(Const.VAR_FILENAME,Const.instance.path);
-
+            barplot = barplot.replaceAll(Const.VAR_SCENARIODESCRIPTION, Const.instance.getScenariodescription_barplot());
             PrintWriter writer = new PrintWriter(new File(Const.instance.barplot_file));
             writer.print(barplot);
             writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String scenDesc = "c(round(2579/4278,digits=2)*100";
     }
 
     public void buildBoxPlotRFile() {
@@ -61,7 +56,7 @@ public class Statistics implements IStatistics {
         try {
             String boxplot = new String(Files.readAllBytes(Paths.get("src/statistics/RTemplates/boxplot.R.tpl")));
             boxplot = boxplot.replaceAll(Const.VAR_DATADIR,Const.instance.path);
-            boxplot = boxplot.replaceAll(Const.VAR_SCENARIODESCRIPTION_BOXPLOT, scenDesc);
+            boxplot = boxplot.replaceAll(Const.VAR_SCENARIODESCRIPTION, scenDesc);
             boxplot = boxplot.replaceAll(Const.VAR_FILENAME, Const.instance.createBoxplotName(scenCount));
             boxplot = boxplot.replaceAll(Const.VAR_SCENARIOSHORT, Const.instance.createScenarioShortname(scenCount));
             boxplot = boxplot.replaceAll(Const.VAR_NAMES, Const.instance.createScenarioName(scenCount));
