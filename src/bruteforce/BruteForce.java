@@ -2,8 +2,6 @@ package bruteforce;
 
 import base.City;
 import base.Tour;
-import data.InstanceReader;
-import data.TSPLIBReader;
 import main.Configuration;
 
 import java.util.*;
@@ -15,7 +13,6 @@ public class BruteForce {
 
     private double tourCountLimit = 0;
     private int breakLimit = 1000;
-    private int breakCount = 0;
 
     public BruteForce(List<City> cities, double iterationLimit) {
         availableCities = cities;
@@ -38,6 +35,7 @@ public class BruteForce {
     }
 
     public Tour minimalTour() {
+        int breakCount = 0;
         Tour minimumTour = null;
         double lowestDistance = Double.MAX_VALUE;
         for (Tour testTour : tourSet) {
