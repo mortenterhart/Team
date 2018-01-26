@@ -3,6 +3,11 @@ package statistics;
 import data.HSQLDBManager;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,6 +25,7 @@ public enum Const {
     public static String VAR_SCENARIOSHORT = "\\[SCENARIOSSHORT\\]";
     public static String VAR_NAMES = "\\[NAMES\\]";
     public static String VAR_STRIPCHARTSCENARIOS = "\\[STRIPCHARTSCENARIO\\]";
+    public static String VAR_TTESTSCENARIOS = "\\[TTESTSCENARIO\\]";
 
 
     public String path = (new File("")).getAbsolutePath()+"/data";
@@ -28,6 +34,7 @@ public enum Const {
     public String stripchart_file = "data/r_out/stripchart.r";
     public String dotplox_file = "data/r_out/dot_plot.r";
     public String mff_file = "data/r_out/analysis.r";
+    public String ttest_file = "data/r_out/test.r";
 
     public String createBoxplotName(List<Integer> scenarios) {
         String name = "boxplot_scenario_";
@@ -132,4 +139,31 @@ public enum Const {
         }
         return text;
     }
+
+    public String buildFileBeginning(List<Integer> scenario_ids, String template_path) throws IOException {
+        String text = new String(Files.readAllBytes(Paths.get(template_path)));
+        text = text.replaceAll(Const.VAR_DATADIR,Const.instance.path);
+        text = text.replaceAll(Const.VAR_SCENARIODESCRIPTION,Const.instance.writeCsvInScenarios(scenario_ids));
+        return text;
+    }
+
+    public void writeFile(String ttest, File file) throws FileNotFoundException {
+        PrintWriter writer = new PrintWriter(file);
+        writer.print(ttest);
+        writer.flush();
+    }
+
+    public String createTTestText(List<Integer> scenario_ids) {
+        String text = "";
+        for (int i = 0; i < scenario_ids.size(); i++) {
+            for (int j = i+1; j < scenario_ids.size(); j++) {
+                text += "c(mean(s0"+scenario_ids.get(i)+"),mean(s0"+scenario_ids.get(j)+"))";
+                text += System.getProperty("line.separator");
+                text += "t.test(s0"+scenario_ids.get(i)+",s0"+scenario_ids.get(j)+")";
+                text += System.getProperty("line.separator");
+            }
+        }
+        return text;
+    }
 }
+

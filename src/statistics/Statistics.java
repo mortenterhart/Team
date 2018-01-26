@@ -53,9 +53,7 @@ public class Statistics implements IStatistics {
             String barplot = new String(Files.readAllBytes(Paths.get("src/statistics/RTemplates/barplot.R.tpl")));
             barplot = barplot.replaceAll(Const.VAR_FILENAME,Const.instance.path);
             barplot = barplot.replaceAll(Const.VAR_SCENARIODESCRIPTION, Const.instance.getScenariodescription_barplot());
-            PrintWriter writer = new PrintWriter(new File(Const.instance.barplot_file));
-            writer.print(barplot);
-            writer.flush();
+            Const.instance.writeFile(barplot, new File(Const.instance.barplot_file));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -74,9 +72,7 @@ public class Statistics implements IStatistics {
             boxplot = boxplot.replaceAll(Const.VAR_SCENARIOSHORT, Const.instance.createScenarioShortname(scenario_ids));
             boxplot = boxplot.replaceAll(Const.VAR_NAMES, Const.instance.createScenarioName(scenario_ids));
 
-            PrintWriter writer = new PrintWriter(new File(Const.instance.boxplot_file));
-            writer.print(boxplot);
-            writer.flush();
+            Const.instance.writeFile(boxplot, new File(Const.instance.boxplot_file));
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -97,9 +93,7 @@ public class Statistics implements IStatistics {
             dotplot = dotplot.replaceAll(Const.VAR_FILENAME,Const.instance.createDotplotName(scenario_ids));
             dotplot = dotplot.replaceAll(Const.VAR_DOTPLOTSCENARIO, Const.instance.createDotplotScenarios(scenario_ids));
 
-            PrintWriter writer = new PrintWriter(new File(Const.instance.dotplox_file));
-            writer.print(dotplot);
-            writer.flush();
+            Const.instance.writeFile(dotplot, new File(Const.instance.dotplox_file));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -116,16 +110,30 @@ public class Statistics implements IStatistics {
             stripchart = stripchart.replaceAll(Const.VAR_SCENARIODESCRIPTION,Const.instance.writeCsvInScenarios(scenario_ids));
             stripchart = stripchart.replaceAll(Const.VAR_FILENAME,Const.instance.createStripchartName(scenario_ids));
             stripchart = stripchart.replaceAll(Const.VAR_STRIPCHARTSCENARIOS,Const.instance.createStripchartScenarios(scenario_ids));
-            PrintWriter writer = new PrintWriter(new File(Const.instance.stripchart_file));
-            writer.print(stripchart);
-            writer.flush();
+            Const.instance.writeFile(stripchart, new File(Const.instance.stripchart_file));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void buildTTestRFile() {
+        List<Integer> scenario_ids = new ArrayList<>();
+        scenario_ids.add(1);
+        scenario_ids.add(2);
+        scenario_ids.add(3);
+        scenario_ids.add(4);
+        scenario_ids.add(5);
+        try {
+            String ttest = Const.instance.buildFileBeginning(scenario_ids,"src/statistics/RTemplates/t_test.R.tpl");
+            ttest = ttest.replaceAll(Const.VAR_TTESTSCENARIOS,Const.instance.createTTestText(scenario_ids));
+
+            Const.instance.writeFile(ttest, new File(Const.instance.ttest_file));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+
 
     public void buildHistogramRFile() {
     }
@@ -141,9 +149,7 @@ public class Statistics implements IStatistics {
             mff = mff.replaceAll(Const.VAR_SCENARIODESCRIPTION,Const.instance.writeCsvInScenarios(scenario_ids));
             mff = mff.replaceAll(Const.VAR_MFFSCENARIOS,Const.instance.createMffs(scenario_ids));
 
-            PrintWriter writer = new PrintWriter(new File(Const.instance.mff_file));
-            writer.print(mff);
-            writer.flush();
+            Const.instance.writeFile(mff, new File(Const.instance.mff_file));
         } catch (IOException e) {
             e.printStackTrace();
         }
