@@ -17,34 +17,47 @@ public enum Const {
     public static String VAR_FILENAME = "\\[FILENAME\\]";
     public static String VAR_SCENARIOSHORT = "\\[SCENARIOSSHORT\\]";
     public static String VAR_NAMES = "\\[NAMES\\]";
+    public static String VAR_STRIPCHARTSCENARIOS = "\\[STRIPCHARTSCENARIO\\]";
 
 
     public String path = (new File("")).getAbsolutePath()+"/data";
-    public String boxplot_file = "data/r_out/boxplot.r";
-    public String barplot_file = "data/r_out/barplot.r";
+    public String boxplot_file = "data/r_out/box_plot.r";
+    public String barplot_file = "data/r_out/bar_plot.r";
+    public String stripchart_file = "data/r_out/stripchart.r";
 
-    public String createBoxplotName(int countScenario) {
-        String name = "boxplot_scenario_1";
-        for (int i = 2; i <= countScenario ; i++) {
-            name += "_"+i;
+    public String createBoxplotName(List<Integer> scenarios) {
+        String name = "boxplot_scenario_";
+        for (Integer scenario : scenarios) {
+            name += scenario + "_";
+        }
+        name = name.substring(0,name.length()-1);
+        return name + ".pdf";
+    }
+
+    public String createStripchartName(List<Integer> scenarios) {
+        String name = "stripchart_scenario";
+        for (Integer scenario : scenarios) {
+            name += "_" + scenario;
         }
         return name + ".pdf";
     }
 
-    public String createScenarioShortname(int countScenario) {
-        String scenariosshort = "s01";
-        for (int i = 2; i <= countScenario; i++) {
-            scenariosshort += ",s0"+i;
+    public String createScenarioShortname(List<Integer> scenarios) {
+        String text = "";
+        for (int scenario : scenarios) {
+            text += "s0"+scenario+",";
         }
-        return scenariosshort;
+        text = text.substring(0,text.length()-1);
+        return text;
     }
 
-    public String createScenarioName(int countScenario) {
-        String scenarionames = "\"Szenario 1\"";
-        for (int i = 2; i <= countScenario; i++) {
-            scenarionames += ",\"Szenario "+ i + "\"";
+    public String createScenarioName(List<Integer> scenarios) {
+        String text = "";
+        for (int scenario : scenarios) {
+            text += "\"Szenario "+scenario+"\",";
         }
-        return scenarionames;
+        text = text.substring(0,text.length()-1);
+        return text;
     }
 
     public String getScenariodescription_barplot() {
@@ -72,4 +85,22 @@ public enum Const {
         return list;
     }
 
+    public String writeCsvInScenarios(List<Integer> scenarios) {
+        String scenDesc = "";
+        for (int scenario : scenarios) {
+            scenDesc += "s0"+scenario+" <- as.numeric(read.csv(\"data/data_scenario_"+scenario+".csv\",header=FALSE)) ";
+            scenDesc += System.getProperty("line.separator");
+        }
+        return scenDesc;
+    }
+
+    public String createStripchartScenarios(List<Integer> scenarios) {
+        String text = "";
+        for (Integer scenario : scenarios) {
+            text += "stripchart(s0"+scenario+",xlim=c(2500,5000),main = \"Genetic Algorithms - TSP280 - Scenario "+scenario+"\",method=\"stack\")";
+            text += System.getProperty("line.separator");
+        }
+        String test = "stripchart(s01,xlim=c(2500,5000),main = \"Genetic Algorithms - TSP280 - Scenario 01\",method=\"stack\")";
+        return text;
+    }
 }
