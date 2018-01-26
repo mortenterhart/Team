@@ -15,8 +15,8 @@ public class OrderedCrossover implements ICrossover {
         int start = Math.min(rand1, rand2);
         int end = Math.max(rand1, rand2);
 
-        Tour child1 = new Tour();
-        Tour child2 = new Tour();
+        Tour child1 = new Tour(size);
+        Tour child2 = new Tour(size);
 
         //add slice from parents to children
         for(int i = start; i < end; i++) {
