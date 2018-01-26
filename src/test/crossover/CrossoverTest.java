@@ -7,30 +7,34 @@ import data.InstanceReader;
 import data.TSPLIBReader;
 import main.Configuration;
 import org.junit.Assert;
+import org.junit.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public abstract class CrossoverTest {
 
-    protected Tour generateTestTour() {
-        Tour tour = new Tour();
-        ArrayList<City> cities = new ArrayList<>(availableCities);
-        Collections.shuffle(cities);
-        tour.setCities(cities);
-        return tour;
+
+    private TestTourGenerator tourGenerator = new TestTourGenerator();
+
+    protected void checkSizeAllCities() {
+        checkSize(getTestInstance(), tourGenerator.generateTourAllCities(), tourGenerator.generateTourAllCities());
     }
 
-    protected CrossoverTest() {
-        InstanceReader instanceReader = new InstanceReader(Configuration.instance.dataFilePath);
-        instanceReader.open();
-        TSPLIBReader tspLibReader = new TSPLIBReader(instanceReader);
-
-        availableCities = tspLibReader.getCities();
+    protected void checkSizeTestCities() {
+        checkSize(getTestInstance(), tourGenerator.generateTourTestCities(), tourGenerator.generateTourAllCities());
     }
 
-    static ArrayList<City> availableCities;
+    protected void checkCitiesStillContainedAllCities() {
+        checkCitiesStillContained(getTestInstance(), tourGenerator.generateTourAllCities(), tourGenerator.generateTourAllCities());
+    }
+
+    protected void checkCitiesStillContainedTestCities() {
+        checkCitiesStillContained(getTestInstance(), tourGenerator.generateTourTestCities(), tourGenerator.generateTourTestCities());
+    }
+
+
+    protected abstract ICrossover getTestInstance();
 
     /**
      * checks whether the created tour has the same amount of cities as the parents
@@ -39,7 +43,7 @@ public abstract class CrossoverTest {
      * @param parent1   parent used for generation
      * @param parent2   parent used for generation
      */
-    public void checkSize(ICrossover crossover, Tour parent1, Tour parent2) {
+    private void checkSize(ICrossover crossover, Tour parent1, Tour parent2) {
 
         Tour generatedTour = crossover.doCrossover(parent1, parent2);
 
@@ -54,7 +58,7 @@ public abstract class CrossoverTest {
      * @param parent1   parent used for generation
      * @param parent2   parent used for generation
      */
-    public void checkAllCityStillContained(ICrossover crossover, Tour parent1, Tour parent2) {
+    private void checkCitiesStillContained(ICrossover crossover, Tour parent1, Tour parent2) {
         Tour generatedTour = crossover.doCrossover(parent1, parent2);
 
         //since test data is generated randomly,
