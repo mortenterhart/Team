@@ -2,11 +2,14 @@ package test.selection;
 import base.City;
 import base.Population;
 import base.Tour;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import random.MersenneTwisterFast;
 import selection.ISelection;
 
 import java.util.ArrayList;
+
+import static org.junit.Assert.*;
+
 
 public class TournamentSelection  {
     @Test
@@ -48,10 +51,13 @@ public class TournamentSelection  {
         pop.tours.add(test2);
         TournamentTest(pop);
     }
-    @Test
+
+
     public void TournamentTest(Population pop)
     {
         ISelection tour = new selection.TournamentSelection();
-        tour.doSelection(pop);
+        ArrayList<Tour> temp = tour.doSelection(pop);
+        assertNotNull(temp);
+
     }
 }
