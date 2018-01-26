@@ -15,8 +15,8 @@ import static org.junit.Assert.*;
 public class BruteForceTest {
 
     @Test
-    public void testInitRoute() {
-        BruteForce bruteForce = new BruteForce ();
+    public void testFillSet() {
+        BruteForce bruteForce = new BruteForce (new ArrayList<City>(), 10);
         List<City> availableCities = bruteForce.getAvailableCities ();
 
         // Expected Value
@@ -27,7 +27,7 @@ public class BruteForceTest {
         Collections.sort(expectedCityIds);
 
         // Actual Value
-        bruteForce.initRoute ();
+        //bruteForce.initRoute ();
         List<Integer> actualCityIds = new ArrayList<> ();
         for (City city : bruteForce.getAvailableCities ()) {
             actualCityIds.add (city.getId ());

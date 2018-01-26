@@ -17,20 +17,23 @@ public class BruteForce {
     private int breakLimit = 1000;
     private int breakCount = 0;
 
-    public BruteForce() {
-        loadCities ();
+    public BruteForce(List<City> cities, double iterationLimit) {
+        availableCities = cities;
+        tourCountLimit = iterationLimit;
+        fillSet ();
     }
 
     public void fillSet() {
         Tour baseTour = new Tour ();
         availableCities.sort (cityComparator);
-        for (int i = 1; i <= availableCities.size (); i++) {
-            baseTour.addCity (availableCities.get (i));
+        for (City availableCity : availableCities) {
+            baseTour.addCity (availableCity);
         }
 
         do {
-            Collections.shuffle (baseTour.getCities (), Configuration.instance.random);
-            tourSet.add (baseTour);
+            Tour randomTour = (Tour) baseTour.clone ();
+            shuffleTour (randomTour);
+            tourSet.add (randomTour);
         } while (tourSet.size () <= tourCountLimit);
     }
 
@@ -54,30 +57,23 @@ public class BruteForce {
         return minimumTour;
     }
 
-    private void loadCities() {
-        System.out.println ("--- BruteForceAlgorithm.loadData()");
-        InstanceReader instanceReader = new InstanceReader (Configuration.instance.dataFilePath);
-        instanceReader.open ();
-        TSPLIBReader tspLibReader = new TSPLIBReader (instanceReader);
+    public void shuffleTour(Tour tour) {
+        Collections.shuffle (tour.getCities (), Configuration.instance.mersenneTwister);
+    }
 
-        availableCities = tspLibReader.getCities ();
-        System.out.println ("availableCities (size) : " + availableCities.size ());
-
-        instanceReader.close ();
-
-        System.out.println ();
+    public void setAvailableCities(List<City> availableCities) {
+        this.availableCities = availableCities;
     }
 
     public void setTourCountLimit(double limit) {
         tourCountLimit = limit;
     }
 
-    public List<City> getAvailableCities() {
-        return availableCities;
+    public void setBreakLimit(int limit) {
+        breakLimit = limit;
     }
 
-    public static void main(String[] args) {
-        BruteForce bruteForceApplication = new BruteForce ();
-        bruteForceApplication.setTourCountLimit (4e9);
+    public List<City> getAvailableCities() {
+        return availableCities;
     }
 }
