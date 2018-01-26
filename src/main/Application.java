@@ -84,7 +84,6 @@ public class Application {
             }
 
             BruteForce bruteForceApplication = new BruteForce (application.availableCities);
-            bruteForceApplication.setBreakLimit (Configuration.instance.breakLimit);
             Tour bestFoundTour = bruteForceApplication.minimalTourAll ();
             System.out.println ("\nFitness of best tour: " + bestFoundTour.getFitness ());
 

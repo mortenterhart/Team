@@ -4,6 +4,7 @@ import base.City;
 import base.Tour;
 import main.Configuration;
 
+import java.io.ObjectInputFilter;
 import java.util.*;
 
 public class BruteForce {
@@ -20,6 +21,7 @@ public class BruteForce {
         randomTours = new ArrayList<>();
 
         tourCountLimit = Configuration.instance.numberOfTourElements;
+        breakLimit = Configuration.instance.breakLimit;
     }
 
     public BruteForce(List<City> cities) {
