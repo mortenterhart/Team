@@ -13,5 +13,7 @@ public class Population {
         return tours;
     }
 
-
+    public void setTours(ArrayList<Tour> tours) {
+        this.tours = tours;
+    }
 }
