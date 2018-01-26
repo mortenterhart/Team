@@ -2,6 +2,7 @@ package mutation;
 
 import base.City;
 import base.Tour;
+import main.Configuration;
 import org.junit.Test;
 import random.MersenneTwisterFast;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class InsertionMutation implements IMutation {
     public Tour doMutation(Tour tour) {
 
-        MersenneTwisterFast mtf = new MersenneTwisterFast();
+        MersenneTwisterFast mtf = Configuration.instance.mersenneTwister;
         ArrayList<City> cities = tour.getCities();
 
         //get random point to pick object out

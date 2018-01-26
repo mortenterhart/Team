@@ -2,6 +2,7 @@ package mutation;
 
 import base.City;
 import base.Tour;
+import main.Configuration;
 import random.MersenneTwisterFast;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 public class DisplacementMutation implements IMutation {
     public Tour doMutation(Tour tour) {
 
-        MersenneTwisterFast twisterFast = new MersenneTwisterFast();
+        MersenneTwisterFast twisterFast = Configuration.instance.mersenneTwister;
         int startIndex = twisterFast.nextInt(0, tour.getCities().size() - 1);
         int endIndex;
         do {
