@@ -4,58 +4,38 @@ import base.City;
 import base.Tour;
 import mutation.IMutation;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
-public class ExchangeMutation {
-    @Test
-    public void testExchangeMutation(){
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-        //init test vaiables
-        Tour tour = new Tour();
-        ArrayList<City> oldCities = new ArrayList<City>();
+public class ExchangeMutation {
+    private  Tour tour;
+
+    @Before
+    public void initTour(){
+        this.tour = new Tour();
         ArrayList<City> cities = new ArrayList<City>();
-        for(int i = 0; i<10; i++){
-            oldCities.add(new City(i,i,i));
+        for(int i = 0; i<20; i++){
             cities.add(new City(i,i,i));
         }
+        this.tour.setCities(cities);
+    }
 
-        tour.setCities(cities);
+    @Test
+    public void checkSize(){
         IMutation exchangeMutation = new mutation.ExchangeMutation();
+        this.tour = exchangeMutation.doMutation(this.tour);
+        assertEquals(20, tour.getCities().size());
+    }
 
-        //start test and get response
-        tour = exchangeMutation.doMutation(tour);
-        ArrayList<City> newCities = tour.getCities();
-
-        //count ids to check if all cities are contained
-        int sum = 0;
-        for(City c : newCities)
-            sum = sum + c.getId();
-
-        Assert.assertEquals(45, sum );
-
-        //check if size is equal
-        Assert.assertEquals(newCities.size(), oldCities.size());
-
-        //check if sequence is equal
-        Boolean isEqual = true;
-        for(int i=0; i<newCities.size(); i++)
-            if(newCities.get(i).getX() != oldCities.get(i).getX())
-                isEqual = false;
-
-        Assert.assertEquals(false, isEqual);
-
-        int oldId = -1;
-        int newId = -1;
-        for (int i = 0; i<newCities.size(); i++){
-            if (oldCities.get(i).getId() != newCities.get(i).getId())
-            {
-                oldId = i;
-                newId = newCities.get(i).getId();
-            }
-        }
-
-        Assert.assertEquals(oldId, newCities.get(newId).getId());
+    @Test
+    public void checkNotNull(){
+        IMutation exchangeMutation = new mutation.ExchangeMutation();
+        this.tour = exchangeMutation.doMutation(this.tour);
+        assertNotNull(this.tour.getCities());
     }
 }
