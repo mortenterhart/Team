@@ -87,6 +87,7 @@ public enum Const {
 
     private List<Integer> getFitnessDataFromDB() {
         List<Integer> list = new ArrayList<>();
+        HSQLDBManager.instance.startup();
         ResultSet rs = HSQLDBManager.instance.getResultSet("Select * from DATA");
         try {
             while(rs.next()) {

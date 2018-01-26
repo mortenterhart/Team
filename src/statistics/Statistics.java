@@ -161,8 +161,8 @@ public class Statistics implements IStatistics {
 
 
     }
-    public void generateParams(String[] args){
-        scenarios = new ArrayList<String>();
+    private void generateParams(String[] args){
+        scenarios = new ArrayList<>();
         int i=0;
         while(i<args.length){
             switch (args[i]) {
@@ -237,11 +237,11 @@ public class Statistics implements IStatistics {
 
     }
 
-    public void startupHSQLDB() {
+    private void startupHSQLDB() {
         HSQLDBManager.instance.startup();
     }
 
-    public void start(){
+    private void start(){
         if (measures.startsWith("iqr")){
             iqr = Double.parseDouble(measures.substring(measures.lastIndexOf("=")+1));
         }
@@ -262,11 +262,11 @@ public class Statistics implements IStatistics {
                 quantileEnd = Double.parseDouble(measures.substring(measures.lastIndexOf(",")+1,measures.length()));
             }
         }
-        if (ttest == true){
+        if (ttest){
             buildTTestRFile();
         }
         else{
-            if (mff == true){
+            if (mff){
                 buildMostFrequentFitnessValuesRFile();
             }
             else{
