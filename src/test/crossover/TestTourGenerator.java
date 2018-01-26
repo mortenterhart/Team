@@ -20,7 +20,7 @@ public class TestTourGenerator {
 
     private Tour generateTour(ArrayList<City> cities) {
         Tour tour = new Tour();
-        Collections.shuffle(cities, Configuration.instance.mersenneTwister);
+        Collections.shuffle(cities);
         tour.setCities(cities);
         return tour;
     }
