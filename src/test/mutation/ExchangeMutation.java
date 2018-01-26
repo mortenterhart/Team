@@ -19,7 +19,7 @@ public class ExchangeMutation {
     public void initTour(){
         this.tour = new Tour();
         ArrayList<City> cities = new ArrayList<City>();
-        for(int i = 0; i<20; i++){
+        for(int i = 0; i<280; i++){
             cities.add(new City(i,i,i));
         }
         this.tour.setCities(cities);
@@ -29,7 +29,7 @@ public class ExchangeMutation {
     public void checkSize(){
         IMutation exchangeMutation = new mutation.ExchangeMutation();
         this.tour = exchangeMutation.doMutation(this.tour);
-        assertEquals(20, tour.getCities().size());
+        assertEquals(280, tour.getCities().size());
     }
 
     @Test
