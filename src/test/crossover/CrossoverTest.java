@@ -1,18 +1,18 @@
 package test.crossover;
 
-import base.City;
-import base.Tour;
-import crossover.ICrossover;
-import org.junit.jupiter.api.Test;
-import static org.junit.Assert.*;
-import random.MersenneTwisterFast;
-
-import java.util.ArrayList;
+//import base.City;
+//import base.Tour;
+//import crossover.ICrossover;
+//import org.junit.jupiter.api.Test;
+//import static org.junit.Assert.*;
+//import random.MersenneTwisterFast;
+//
+//import java.util.ArrayList;
 
 
 public class CrossoverTest {
 
-    Tour _tour1;
+   /* Tour _tour1;
     Tour _tour2;
 
 
@@ -87,6 +87,6 @@ public class CrossoverTest {
         }
 
         return shuffledList;
-    }
+    }*/
 
 }
