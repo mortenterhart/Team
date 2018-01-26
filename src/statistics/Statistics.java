@@ -69,6 +69,7 @@ public class Statistics implements IStatistics {
             boxplot = boxplot.replaceAll(Const.VAR_FILENAME, Const.instance.createBoxplotName(scenario_ids));
             boxplot = boxplot.replaceAll(Const.VAR_SCENARIOSHORT, Const.instance.createScenarioShortname(scenario_ids));
             boxplot = boxplot.replaceAll(Const.VAR_NAMES, Const.instance.createScenarioName(scenario_ids));
+
             PrintWriter writer = new PrintWriter(new File(Const.instance.boxplot_file));
             writer.print(boxplot);
             writer.flush();
@@ -80,6 +81,24 @@ public class Statistics implements IStatistics {
 
 
     public void buildDotPlotRFile() {
+        List<Integer> scenario_ids = new ArrayList<>();
+        scenario_ids.add(1);
+        scenario_ids.add(2);
+        scenario_ids.add(3);
+
+        try {
+            String dotplot = new String(Files.readAllBytes(Paths.get("src/statistics/RTemplates/dotplot.R.tpl")));
+            dotplot = dotplot.replaceAll(Const.VAR_DATADIR,Const.instance.path);
+            dotplot = dotplot.replaceAll(Const.VAR_SCENARIODESCRIPTION,Const.instance.writeCsvInScenarios(scenario_ids));
+            dotplot = dotplot.replaceAll(Const.VAR_FILENAME,Const.instance.createDotplotName(scenario_ids));
+            dotplot = dotplot.replaceAll(Const.VAR_DOTPLOTSCENARIO, Const.instance.createDotplotScenarios(scenario_ids));
+
+            PrintWriter writer = new PrintWriter(new File(Const.instance.dotplox_file));
+            writer.print(dotplot);
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void buildStripChartRFile() {

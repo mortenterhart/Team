@@ -12,6 +12,7 @@ public enum Const {
 
     instance;
 
+    public static String VAR_DOTPLOTSCENARIO = "\\[BOXPLOTSCENARIOS\\]";
     public static String VAR_DATADIR = "\\[DATADIR\\]";
     public static String VAR_SCENARIODESCRIPTION = "\\[SCENARIODESCRIPTION\\]";
     public static String VAR_FILENAME = "\\[FILENAME\\]";
@@ -24,6 +25,7 @@ public enum Const {
     public String boxplot_file = "data/r_out/box_plot.r";
     public String barplot_file = "data/r_out/bar_plot.r";
     public String stripchart_file = "data/r_out/stripchart.r";
+    public String dotplox_file = "data/r_out/dot_plot.r";
 
     public String createBoxplotName(List<Integer> scenarios) {
         String name = "boxplot_scenario_";
@@ -100,7 +102,23 @@ public enum Const {
             text += "stripchart(s0"+scenario+",xlim=c(2500,5000),main = \"Genetic Algorithms - TSP280 - Scenario "+scenario+"\",method=\"stack\")";
             text += System.getProperty("line.separator");
         }
-        String test = "stripchart(s01,xlim=c(2500,5000),main = \"Genetic Algorithms - TSP280 - Scenario 01\",method=\"stack\")";
+        return text;
+    }
+
+    public String createDotplotName(List<Integer> scenario_ids) {
+        String text = "boxplot_scenario";
+        for (int scenario : scenario_ids) {
+            text += "_" + scenario;
+        }
+        return text + ".pdf";
+    }
+
+    public String createDotplotScenarios(List<Integer> scenario_ids) {
+        String text = "";
+        for (Integer scenario : scenario_ids) {
+            text += "plot(s0"+scenario+",col=\"black\",ylab = \"distance\",xlab = \"iterations\",cex = 0.1,main = \"Genetic Algorithms - TSP280 - Scenario "+scenario+"\")";
+            text += System.getProperty("line.separator");
+        }
         return text;
     }
 }
