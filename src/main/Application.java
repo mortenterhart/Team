@@ -3,6 +3,8 @@ package main;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import base.City;
+import base.Tour;
+import bruteforce.BruteForce;
 import crossover.ICrossover;
 import data.HSQLDBManager;
 import data.InstanceReader;
@@ -61,15 +63,34 @@ public class Application {
 
     public void execute() {
         System.out.println("--- GeneticAlgorithm.execute()");
-        HSQLDBManager.instance.insert("hello world");
+        HSQLDBManager.instance.insertTest("hello world");
     }
 
     public static void main(String... args) {
-        Application application = new Application();
-        application.startupHSQLDB();
+        Application application = new Application ();
+        // application.startupHSQLDB();
         application.loadData();
-        application.initConfiguration();
-        application.execute();
-        application.shutdownHSQLDB();
+
+        if (Configuration.instance.startBruteForce) {
+            if (Configuration.instance.isDebug) {
+                System.out.println("--- Started Bruteforce");
+            }
+
+            BruteForce bruteForceApplication = new BruteForce (application.availableCities,
+                    Configuration.instance.numberOfIterations);
+            bruteForceApplication.setBreakLimit (Configuration.instance.breakLimit);
+            Tour bestFoundTour = bruteForceApplication.minimalTour ();
+            System.out.println ("\n" + bestFoundTour);
+            System.out.println ("Fitness Value: " + bestFoundTour.getFitness ());
+
+            if (Configuration.instance.isDebug) {
+                System.out.println ("--- Finished Bruteforce!");
+            }
+        } else {
+            application.initConfiguration();
+            application.execute();
+        }
+
+        // application.shutdownHSQLDB();
     }
 }
