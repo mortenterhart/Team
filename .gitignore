@@ -12,3 +12,5 @@ data/r_out/*.r
 .DS_Store
 *.swp
 
+
+.vscode/tasks.json

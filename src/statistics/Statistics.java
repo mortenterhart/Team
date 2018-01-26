@@ -13,10 +13,14 @@ import data.HSQLDBManager;
 public class Statistics implements IStatistics {
 
     private ArrayList<String> scenarios;
-    private String mean;
+    private String measures;
     private String plot;
     private boolean ttest;
     private boolean mff;
+    private double quantileStart;
+    private double quantileEnd;
+    private double iqr;
+    private boolean quantileTo;
 
     public void writeCSVFile() {
         //ResultSet rs = HSQLDBManager.instance.getResultSet("SELECT * FROM DATA");
@@ -154,35 +158,77 @@ public class Statistics implements IStatistics {
 
     }
     public void generateParams(String[] args){
-        for(int i = 0; i <= args.length; i++){
-            switch (args[i]){
+        scenarios = new ArrayList<String>();
+        int i=0;
+        while(i<args.length){
+            switch (args[i]) {
                 case "-d":
-                    while (!args[i].startsWith("-")){
+                    if(i<args.length){
+                        if (i >= args.length-1) break;
                         i++;
+                    }
+                    while (!args[i].startsWith("-")) {
                         scenarios.add(args[i]);
+                        if(i<args.length){
+                            if (i >= args.length-1) break;
+                            i++;
+                        }
                     }
+                    break;
                 case "-m":
-                    while (!args[i].startsWith("-")){
+                    if(i<args.length){
+                        if (i >= args.length-1) break;
                         i++;
-                        mean = args[i];
                     }
+                    while (!args[i].startsWith("-")) {
+                        measures = args[i];
+                        if(i<args.length){
+                            if (i >= args.length-1) break;
+                            i++;
+                        }
+                    }
+                    break;
                 case "-p":
-                    while (!args[i].startsWith("-")){
+                    if(i<args.length){
+                        if (i >= args.length-1) break;
                         i++;
+                    }
+                    while (!args[i].startsWith("-")) {
                         plot = args[i];
+                        if(i<args.length){
+                            if (i >= args.length-1) break;
+                            i++;
+                        }
                     }
+                    break;
                 case "-t":
-                    while (!args[i].startsWith("-")){
+                    if(i<args.length){
+                        if (i >= args.length-1) break;
                         i++;
+                    }
+                    while (!args[i].startsWith("-")) {
                         ttest = true;
+                        if(i<args.length){
+                            if (i >= args.length-1) break;
+                            i++;
+                        }
                     }
-                case "-mff":
-                    while (!args[i].startsWith("-")){
+                    break;
+                case "-a mff":
+                    if(i<args.length){
+                        if (i >= args.length-1) break;
                         i++;
-                        mff = true;
                     }
+                    while (!args[i].startsWith("-")) {
+                        mff = true;
+                        if(i<args.length){
+                            if (i >= args.length-1) break;
+                            i++;
+                        }
+                    }
+                default: i++;
+                    break;
             }
-            i++;
         }
 
     }
@@ -192,6 +238,26 @@ public class Statistics implements IStatistics {
     }
 
     public void start(){
+        if (measures.startsWith("iqr")){
+            iqr = Double.parseDouble(measures.substring(measures.lastIndexOf("=")+1));
+        }
+        if(measures.startsWith("quantile")){
+            int seperatorIndex = measures.length();
+            if (measures.matches("quantile=0\\.[0-9]+-0\\.[0-9]+")){
+                quantileTo = true;
+                seperatorIndex = measures.lastIndexOf("-");
+                measures=measures.replaceAll("-",",");
+            }else{
+                quantileTo = false;
+                if(measures.matches("quantile=0\\.[0-9]+,0\\.[0-9]+")) {
+                    seperatorIndex = measures.lastIndexOf(",");
+                }
+            }
+            quantileStart = Double.parseDouble(measures.substring(measures.lastIndexOf("=")+1,seperatorIndex));
+            if (measures.indexOf(",")>0){
+                quantileEnd = Double.parseDouble(measures.substring(measures.lastIndexOf(",")+1,measures.length()));
+            }
+        }
         if (ttest == true){
             buildTTestRFile();
         }
@@ -211,4 +277,5 @@ public class Statistics implements IStatistics {
         }
 
     }
+
 }
