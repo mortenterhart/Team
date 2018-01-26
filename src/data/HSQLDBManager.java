@@ -1,9 +1,6 @@
 package data;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 import main.Configuration;
 
@@ -56,24 +53,28 @@ public enum HSQLDBManager {
         StringBuilder sqlStringBuilder = new StringBuilder();
         sqlStringBuilder.append("CREATE TABLE data ").append(" ( ");
         sqlStringBuilder.append("id BIGINT NOT NULL").append(",");
-        sqlStringBuilder.append("test VARCHAR(20) NOT NULL").append(",");
+        sqlStringBuilder.append("iteration BIGINT NOT NULL").append(",");
+        sqlStringBuilder.append("fitness BIGINT NOT NULL").append(",");
+        sqlStringBuilder.append("algorithm VARCHAR(20) NOT NULL").append(",");
         sqlStringBuilder.append("PRIMARY KEY (id)");
         sqlStringBuilder.append(" )");
         update(sqlStringBuilder.toString());
     }
 
-    public String buildSQLStatement(long id,String test) {
+    public String buildSQLStatement(long id,long iteration, long fitness, String algorithm) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("INSERT INTO data (id,test) VALUES (");
+        stringBuilder.append("INSERT INTO data (id, iteration, fitness, algorithm) VALUES (");
         stringBuilder.append(id).append(",");
-        stringBuilder.append("'").append(test).append("'");
+        stringBuilder.append(iteration).append(",");
+        stringBuilder.append(fitness).append(",");
+        stringBuilder.append("'").append(algorithm).append("'");
         stringBuilder.append(")");
         System.out.println(stringBuilder.toString());
         return stringBuilder.toString();
     }
 
-    public void insert(String test) {
-        update(buildSQLStatement(System.nanoTime(),test));
+    public void insertTest(String test) {
+        update(buildSQLStatement(System.nanoTime(),1,1,test));
     }
 
     public void shutdown() {
@@ -84,5 +85,21 @@ public enum HSQLDBManager {
         } catch (SQLException sqle) {
             System.out.println(sqle.getMessage());
         }
+    }
+
+    public ResultSet getResultSet(String sqlStatement) {
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.createStatement();
+            boolean result = statement.execute(sqlStatement);
+            if (!result)
+                System.out.println("error executing " + sqlStatement);
+            resultSet = statement.getResultSet();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resultSet;
     }
 }

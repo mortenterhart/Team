@@ -11,8 +11,8 @@ public class PartiallyMatchedCrossover implements ICrossover {
     public Tour doCrossover(Tour tour01,Tour tour02) {
         MersenneTwisterFast random = new MersenneTwisterFast();
 
-        ArrayList<City> tourCities1 = tour01.getCities();
-        ArrayList<City> tourCities2 = tour02.getCities();
+        ArrayList<City> tourCities1 = CloneSubListCity(tour01.getCities(), 0, tour01.getSize());
+        ArrayList<City> tourCities2 = CloneSubListCity(tour02.getCities(), 0, tour02.getSize());
         int lastIndex = tour01.getSize()-1;
 
         int firstSplit = random.nextInt(1, lastIndex-2);

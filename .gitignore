@@ -1,9 +1,15 @@
-# Created by .ignore support plugin (hsz.mobi)
+*.class
+
+*.csv
+
+
+data/r_out/*.r
+
+
+.idea/workspace.xml
+
 .idea/
 .DS_Store
 *.swp
-*.class
 
-# Data Store DB Properties
-/data/datastore.db.properties
-/data/datastore.db.script
+TSP.iml
