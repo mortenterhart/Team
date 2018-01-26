@@ -60,8 +60,13 @@ public class Tour implements Comparable<Tour> {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{ Tour : ");
 
-        for (City city : cities)
+        for (City city : cities) {
+            if(city==null){
+                stringBuilder.append("NULL ");
+                continue;
+            }
             stringBuilder.append(city.getId()).append(" ");
+        }
 
         stringBuilder.append(" }");
         return stringBuilder.toString();
