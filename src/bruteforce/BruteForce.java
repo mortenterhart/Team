@@ -4,7 +4,6 @@ import base.City;
 import base.Tour;
 import main.Configuration;
 
-import java.io.ObjectInputFilter;
 import java.util.*;
 
 public class BruteForce {
