@@ -3,49 +3,37 @@ package test.mutation;
 import base.City;
 import base.Tour;
 import mutation.IMutation;
-import org.junit.Assert;
+import static org.junit.Assert.*;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
 public class DisplacementMutation {
+    private  Tour tour;
 
-    @Test
-    public void testDisplacementMutation(){
-
-        //init test vaiables
-        Tour tour = new Tour();
-        ArrayList<City> oldCities = new ArrayList<City>();
+    @Before
+    public void initTour(){
+        this.tour = new Tour();
         ArrayList<City> cities = new ArrayList<City>();
-        for(int i = 0; i<10; i++){
-            oldCities.add(new City(i,i,i));
+        for(int i = 0; i<20; i++){
             cities.add(new City(i,i,i));
         }
-
-        tour.setCities(cities);
-        IMutation displacementMutation = new mutation.DisplacementMutation();
-
-        //start test and get response
-        tour = displacementMutation.doMutation(tour);
-        ArrayList<City> newCities = tour.getCities();
-
-        //count ids to check if all cities are contained
-        int sum = 0;
-        for(City c : newCities)
-            sum = sum + c.getId();
-
-        Assert.assertEquals(45, sum );
-
-        //check if size is equal
-        Assert.assertEquals(newCities.size(), oldCities.size());
-
-        //check if sequence is equal
-        Boolean isEqual = true;
-        for(int i=0; i<newCities.size(); i++)
-            if(newCities.get(i).getX() != oldCities.get(i).getX())
-                isEqual = false;
-
-        Assert.assertEquals(false, isEqual);
-
+        this.tour.setCities(cities);
     }
+
+    @Test
+    public void checkSize(){
+        IMutation displacementMutation = new mutation.DisplacementMutation();
+        this.tour = displacementMutation.doMutation(this.tour);
+        assertEquals(20, tour.getCities().size());
+    }
+
+    @Test
+    public void checkNotNull(){
+        IMutation displacementMutation = new mutation.DisplacementMutation();
+        this.tour = displacementMutation.doMutation(this.tour);
+        assertNotNull(this.tour.getCities());
+    }
+
 }
