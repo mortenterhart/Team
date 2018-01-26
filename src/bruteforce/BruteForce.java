@@ -45,6 +45,7 @@ public class BruteForce {
     private Tour minimalDistanceTourInRange(double fromIndex, double toIndex) {
         Tour minimumTour = null;
         double lowestDistance = Double.MAX_VALUE;
+        int breakCount = 0;
 
         for (double index = fromIndex; index < toIndex && breakCount <= breakLimit; index++) {
             Tour testTour = randomTours.get((int) index);
