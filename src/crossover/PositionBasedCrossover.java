@@ -27,19 +27,19 @@ public class PositionBasedCrossover implements ICrossover {
         tourCities1.removeAll(base2);
         tourCities2.removeAll(base1);
 
-        for (int i = 0; i < firstSplit; i++)
+        for (int i = 0; i < firstSplit; i++)    //CleanCode: Don't repeat your self
         {
             child1.addCity(tourCities2.get(i));
             child2.addCity(tourCities1.get(i));
         }
 
-        for (int i = 0; i < secondSplit - firstSplit; i++)
+        for (int i = 0; i < secondSplit - firstSplit; i++) //CleanCode: Don't repeat your self
         {
             child1.addCity(base1.get(i));
             child2.addCity(base2.get(i));
         }
 
-        for (int i = firstSplit; i < tourCities1.size(); i++)
+        for (int i = firstSplit; i < tourCities1.size(); i++) //CleanCode: Don't repeat your self
         {
             child1.addCity(tourCities2.get(i));
             child2.addCity(tourCities1.get(i));
