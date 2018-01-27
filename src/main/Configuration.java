@@ -20,7 +20,7 @@ public enum Configuration {
 
     // BruteForce
     public boolean startBruteForce = true;
-    public double numberOfTourElements = 1000;
+    public int numberOfTourElements = 1000;
 
     // Selection
     public double choosePercentageOfTributes = 0.5;
