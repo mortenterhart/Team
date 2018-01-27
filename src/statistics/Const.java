@@ -32,6 +32,7 @@ public enum Const {
     public static String VAR_SD = "\\[SD\\]";
     public static String VAR_RANGE = "\\[RANGE\\]";
     public static String VAR_INTERQUARTILERANGE = "\\[INTERQUARTILERANGE\\]";
+    public static String VAR_QUANTILE = "\\[QUANTILE\\]";
 
 
     public String path = (new File("")).getAbsolutePath()+"/data";
@@ -239,6 +240,35 @@ public enum Const {
                 text += "c(quantile(s0"+scenario_ids.get(i)+",0.75) - quantile(s0"+scenario_ids.get(i)+",0.25),quantile(s0"+scenario_ids.get(j)+",0.75) - quantile(s0"+scenario_ids.get(j)+",0.25))";
                 text += System.getProperty("line.separator");
             }
+        }
+        return text;
+    }
+
+    public String createQuantile(List<Integer> scenario_ids,double quantileStart) {
+        String text = "";
+        for (int i = 0; i < scenario_ids.size(); i++) {
+            for (int j = i+1; j < scenario_ids.size(); j++) {
+                text += "c(quantile(s0"+scenario_ids.get(i)+","+quantileStart+"),quantile(s0"+scenario_ids.get(j)+","+quantileStart+"))";
+                text += System.getProperty("line.separator");
+            }
+        }
+        return text;
+    }
+
+    public String createQuantileTo(List<Integer> scenario_ids, double quantileStart, double quantileEnd) {
+        String text = "";
+        for (int scenario_id : scenario_ids) {
+            text += "quantile(s0"+scenario_id+",probs = c("+quantileStart+","+quantileEnd+"))";
+            text += System.getProperty("line.separator");
+        }
+        return text;
+    }
+
+    public String createQuantileRange(List<Integer> scenario_ids, double quantileStart, double quantileEnd) {
+        String text = "";
+        for (int scenario_id : scenario_ids) {
+            text += "quantile(s0"+scenario_id+",probs = c("+quantileStart+","+(quantileStart+0.25)+","+quantileEnd+"))";
+            text += System.getProperty("line.separator");
         }
         return text;
     }

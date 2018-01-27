@@ -71,9 +71,6 @@ public class Application {
         application.loadData();
         application.initConfiguration();
         application.execute();
-        Statistics statistics = new Statistics();
-        statistics.writeCSVFile();
-        statistics.buildMeasureRFile();
         application.shutdownHSQLDB();
     }
 }

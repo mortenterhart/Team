@@ -6,7 +6,7 @@ getwd()
 [SCENARIODESCRIPTION]
 
 # median
-c(median(s01),median(s02))
+#c(median(s01),median(s02))
 [MEDIAN]
 
 # mean
@@ -25,6 +25,7 @@ c(median(s01),median(s02))
 
 #quantile(s01,probs = c(0.25,0.50,0.75))
 #quantile(s02,probs = c(0.25,0.50,0.75))
+[QUANTILE]
 
 # range
 #c(max(s01) − min(s01))

@@ -13,19 +13,17 @@ import data.HSQLDBManager;
 public class Statistics implements IStatistics {
 
     private ArrayList<String> scenarios;
-    private String measures = "";
-    private String plot;
-    private boolean ttest;
-    private boolean mff;
     private boolean median;
     private boolean mean;
     private boolean sd;
     private boolean range;
     private boolean interquartilsrange;
+    private boolean quantile;
     private double quantileStart;
     private double quantileEnd;
     private double iqr;
     private boolean quantileTo;
+    private boolean quantileRange;
 
     public void writeCSVFile() {
         //ResultSet rs = HSQLDBManager.instance.getResultSet("SELECT * FROM DATA");
@@ -55,11 +53,16 @@ public class Statistics implements IStatistics {
         try {
             String measurefile = Const.instance.buildFileBeginning(scenario_ids,"src/statistics/RTemplates/measures.R.tpl");
 
-            measurefile = median ? measurefile.replaceAll(Const.VAR_MEDIAN,Const.instance.createMedianScenario(scenario_ids)) : measurefile.replaceAll(Const.VAR_MEDIAN,"");
+            measurefile = median ? measurefile.replaceAll(Const.VAR_MEDIAN, Const.instance.createMedianScenario(scenario_ids)) : measurefile.replaceAll(Const.VAR_MEDIAN, "");
             measurefile = mean ? measurefile.replaceAll(Const.VAR_MEAN,Const.instance.createMeanScenario(scenario_ids)) : measurefile.replaceAll(Const.VAR_MEAN,"");
             measurefile = sd ? measurefile.replaceAll(Const.VAR_SD,Const.instance.createSdScenario(scenario_ids)) : measurefile.replaceAll(Const.VAR_SD,"");
             measurefile = range ? measurefile.replaceAll(Const.VAR_RANGE,Const.instance.createRangeScenario(scenario_ids)) : measurefile.replaceAll(Const.VAR_RANGE,"");
             measurefile = interquartilsrange ? measurefile.replaceAll(Const.VAR_INTERQUARTILERANGE,Const.instance.createInterquartilerangeScenario(scenario_ids)) : measurefile.replaceAll(Const.VAR_INTERQUARTILERANGE,"");
+
+            if (quantile) measurefile = measurefile.replaceAll(Const.VAR_QUANTILE, Const.instance.createQuantile(scenario_ids, quantileStart));
+            else if (quantileTo) measurefile = measurefile.replaceAll(Const.VAR_QUANTILE, Const.instance.createQuantileTo(scenario_ids, quantileStart, quantileEnd));
+            else if (quantileRange) measurefile = measurefile.replaceAll(Const.VAR_QUANTILE, Const.instance.createQuantileRange(scenario_ids, quantileStart, quantileEnd));
+            else measurefile = measurefile.replaceAll(Const.VAR_QUANTILE, "");
 
             Const.instance.writeFile(measurefile,new File(Const.instance.measure_file));
         } catch (IOException e) {
@@ -133,11 +136,9 @@ public class Statistics implements IStatistics {
 
     private List<Integer> createScenarios() {
         List<Integer> scenario_ids = new ArrayList<>();
-        scenario_ids.add(1);
-        scenario_ids.add(2);
-        scenario_ids.add(3);
-        scenario_ids.add(4);
-        scenario_ids.add(5);
+        for (String scenario : scenarios) {
+            scenario_ids.add(Integer.parseInt(scenario.substring(1)));
+        }
         return scenario_ids;
     }
 
@@ -165,133 +166,90 @@ public class Statistics implements IStatistics {
         }
     }
 
-    public static void main(String[] args){
+        public static void main(String[] args){
         Statistics stats = new Statistics();
-        stats.generateParams(args);
+        stats.generateParams2(args);
         stats.startupHSQLDB();
-        stats.start();
-
-
     }
-    private void generateParams(String[] args){
-        scenarios = new ArrayList<>();
-        int i=0;
-        while(i<args.length){
-            switch (args[i]) {
-                case "-d":
-                    if(i<args.length){
-                        if (i >= args.length-1) break;
-                        i++;
+
+    private void generateParams2(String[] args) {
+            scenarios = new ArrayList<>();
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].startsWith("-d")) {
+                for (int j = i+1; j < args.length; j++) {
+                    if (!args[j].startsWith("-")) {
+                        scenarios.add(args[j].replaceAll(",",""));
+                    } else {
+                        break;
                     }
-                    while (!args[i].startsWith("-")) {
-                        scenarios.add(args[i].replaceAll(",",""));
-                        if(i<args.length){
-                            if (i >= args.length-1) break;
-                            i++;
+                }
+            } else if(args[i].startsWith("-m")) {
+                for (int j = i+1; j < args.length; j++) {
+                    if(!args[j].startsWith("-")) {
+                        if (args[j].startsWith("median")) median = true;
+                        if (args[j].startsWith("mean")) mean = true;
+                        if (args[j].startsWith("range")) range = true;
+                        if (args[j].startsWith("sd")) sd = true;
+                        if (args[j].startsWith("iqr")) {
+                            interquartilsrange = true;
+                            iqr = Double.parseDouble(args[j].substring(args[j].lastIndexOf("=")+1));
                         }
-                    }
-                    break;
-                case "-m":
-                    if(i<args.length){
-                        if (i >= args.length-1) break;
-                        i++;
-                    }
-                    while (!args[i].startsWith("-")) {
-                        measures = args[i];
-                        if(i<args.length){
-                            if (i >= args.length-1) break;
-                            i++;
+                        if (args[j].startsWith("quantile")) {
+                            if (args[j].matches("quantile=0\\.[0-9]+")) {
+                                quantile = true;
+                                quantileStart = Double.parseDouble(args[j].substring(args[j].lastIndexOf("=")+1));
+                            } else if(args[j].matches("quantile=0\\.[0-9]+-0\\.[0-9]+")) {
+                                quantileRange = true;
+                                quantileStart = Double.parseDouble(args[j].substring(args[j].lastIndexOf("=")+1,args[j].lastIndexOf("-")));
+                                quantileEnd = Double.parseDouble(args[j].substring(args[j].lastIndexOf("-")+1));
+                            } else if(args[j].matches("quantile=0\\.[0-9]+,0\\.[0-9]+")) {
+                                quantileTo = true;
+                                quantileStart = Double.parseDouble(args[j].substring(args[j].lastIndexOf("=")+1,args[j].lastIndexOf(",")));
+                                quantileEnd = Double.parseDouble(args[j].substring(args[j].lastIndexOf(",")+1));
+                            }
                         }
+                    } else {
+                        break;
                     }
-                    break;
-                case "-p":
-                    if(i<args.length){
-                        if (i >= args.length-1) break;
-                        i++;
+                }
+                buildMeasureRFile();
+            } else if(args[i].startsWith("-p")) {
+                for (int j = i+1; j < args.length; j++) {
+                    if(!args[j].startsWith("-")) {
+                        if(args[j].startsWith("bar"))
+                            buildBarPlotFile();
+                        if(args[j].startsWith("box"))
+                            buildBoxPlotRFile();
+                        if(args[j].startsWith("dot"))
+                            buildDotPlotRFile();
+                        if(args[j].startsWith("hist"))
+                            buildHistogramRFile();
+                        if(args[j].startsWith("strip"))
+                            buildStripChartRFile();
+                    } else {
+                        break;
                     }
-                    while (!args[i].startsWith("-")) {
-                        plot = args[i];
-                        if(i<args.length){
-                            if (i >= args.length-1) break;
-                            i++;
+                }
+            } else if(args[i].startsWith("-t")) {
+                buildTTestRFile();
+            } else if(args[i].startsWith("-a")) {
+                for (int j = i+1; j < args.length; j++) {
+                    if(!args[j].startsWith("-")) {
+                        if(args[j].startsWith("mff")) {
+                            buildMostFrequentFitnessValuesRFile();
                         }
+                    } else {
+                        break;
                     }
-                    break;
-                case "-t":
-                    if(i<args.length){
-                        if (i >= args.length-1) break;
-                        i++;
-                    }
-                    while (!args[i].startsWith("-")) {
-                        ttest = true;
-                        if(i<args.length){
-                            if (i >= args.length-1) break;
-                            i++;
-                        }
-                    }
-                    break;
-                case "-a mff":
-                    if(i<args.length){
-                        if (i >= args.length-1) break;
-                        i++;
-                    }
-                    while (!args[i].startsWith("-")) {
-                        mff = true;
-                        if(i<args.length){
-                            if (i >= args.length-1) break;
-                            i++;
-                        }
-                    }
-                default: i++;
-                    break;
+                }
             }
         }
-
     }
+
+
 
     private void startupHSQLDB() {
         HSQLDBManager.instance.startup();
-    }
-
-    private void start(){
-        if (measures.startsWith("iqr")){
-            iqr = Double.parseDouble(measures.substring(measures.lastIndexOf("=")+1));
-        }
-        if(measures.startsWith("quantile")){
-            int seperatorIndex = measures.length();
-            if (measures.matches("quantile=0\\.[0-9]+-0\\.[0-9]+")){
-                quantileTo = true;
-                seperatorIndex = measures.lastIndexOf("-");
-                measures=measures.replaceAll("-",",");
-            }else{
-                quantileTo = false;
-                if(measures.matches("quantile=0\\.[0-9]+,0\\.[0-9]+")) {
-                    seperatorIndex = measures.lastIndexOf(",");
-                }
-            }
-            quantileStart = Double.parseDouble(measures.substring(measures.lastIndexOf("=")+1,seperatorIndex));
-            if (measures.indexOf(",")>0){
-                quantileEnd = Double.parseDouble(measures.substring(measures.lastIndexOf(",")+1,measures.length()));
-            }
-        }
-        if (ttest){
-            buildTTestRFile();
-        }
-        else{
-            if (mff){
-                buildMostFrequentFitnessValuesRFile();
-            }
-            else{
-                switch (plot){
-                    case "bar": buildBarPlotFile();
-                    case "box": buildBoxPlotRFile();
-                    case "strip": buildStripChartRFile();
-                    case "hist": buildHistogramRFile();
-                    case "dot": buildDotPlotRFile();
-                }
-            }
-        }
-
     }
 
 }
