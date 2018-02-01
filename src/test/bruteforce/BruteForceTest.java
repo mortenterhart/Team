@@ -44,7 +44,7 @@ public class BruteForceTest {
     @Test
     public void testGenerateRandomToursCorrectLength() {
         List<Tour> randomTours = bruteForce.getRandomTours();
-        assertEquals(numberIndividuals, randomTours.size(), 0);
+        assertEquals(numberIndividuals, randomTours.size());
     }
 
     @Test
@@ -63,7 +63,7 @@ public class BruteForceTest {
     @Test
     public void testMinimalTourAllCorrectLength() {
         Tour minimalTourAll = bruteForce.minimalTourAll();
-        assertEquals(sortedBaseTour.getSize(), minimalTourAll.getSize(), 0.0);
+        assertEquals(sortedBaseTour.getSize(), minimalTourAll.getSize());
     }
 
     @Test
@@ -81,7 +81,7 @@ public class BruteForceTest {
     @Test
     public void testMinimalTourTop25CorrectLength() {
         Tour minimalTourTop25 = bruteForce.minimalTourTop25();
-        assertEquals(sortedBaseTour.getSize(), minimalTourTop25.getSize(), 0.0);
+        assertEquals(sortedBaseTour.getSize(), minimalTourTop25.getSize());
     }
 
     @Test
@@ -99,7 +99,7 @@ public class BruteForceTest {
     @Test
     public void testMinimalTourMiddle50CorrectLength() {
         Tour minimalTourMiddle50 = bruteForce.minimalTourMiddle50();
-        assertEquals(sortedBaseTour.getSize(), minimalTourMiddle50.getSize(), 0.0);
+        assertEquals(sortedBaseTour.getSize(), minimalTourMiddle50.getSize());
     }
 
     @Test
@@ -117,7 +117,7 @@ public class BruteForceTest {
     @Test
     public void testMinimalTourLast25CorrectLength() {
         Tour minimalTourLast25 = bruteForce.minimalTourLast25();
-        assertEquals(sortedBaseTour.getSize(), minimalTourLast25.getSize(),0.0);
+        assertEquals(sortedBaseTour.getSize(), minimalTourLast25.getSize());
     }
 
     @Test

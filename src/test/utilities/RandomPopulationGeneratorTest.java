@@ -1,11 +1,13 @@
 package test.utilities;
 
 import base.City;
+import base.Population;
 import base.Tour;
-import bruteforce.BruteForce;
 import main.Application;
+import main.Configuration;
 import org.junit.Before;
 import org.junit.Test;
+import random.MersenneTwisterFast;
 import utilities.RandomPopulationGenerator;
 
 import java.util.ArrayList;
@@ -18,7 +20,16 @@ public class RandomPopulationGeneratorTest {
     private Application application;
     private List<City> availableCities;
     private Tour baseTour;
+    private MersenneTwisterFast randomGenerator;
 
+    private int populationSize = 26;
+
+    /**
+     * Loads the available cities from the Application instance and
+     * constructs objects for the list of cities, the base tour which
+     * is used as comparison instance in the tests and the Mersenne
+     * Twister Fast random generator
+     */
     @Before
     public void initialize() {
         application = new Application();
@@ -29,7 +40,88 @@ public class RandomPopulationGeneratorTest {
         baseTour = new Tour();
         baseTour.setCities(new ArrayList<>(availableCities));
 
+        randomGenerator = Configuration.instance.mersenneTwister;
     }
+
+    /*
+     *  Tests for RandomPopulationGenerator.randomPopulation(List<City> cities, int populationSize)
+     *  ===========================================================================================
+     */
+
+    /**
+     * Tests whether the returned random population is not null
+     *
+     * expected result: true
+     */
+    @Test
+    public void testRandomPopulationNotNull() {
+        Population population = RandomPopulationGenerator.randomPopulation(availableCities, populationSize);
+        assertNotNull(population);
+    }
+
+    /**
+     * Tests whether the returned random population has the given size
+     *
+     * expected result: 26 (populationSize)
+     */
+    @Test
+    public void testRandomPopulationCorrectSize() {
+        Population population = RandomPopulationGenerator.randomPopulation(availableCities, populationSize);
+        assertEquals(populationSize, population.getTours().size());
+    }
+
+    /**
+     * Tests whether a random tour out of the returned random population has the
+     * given amount of cities
+     *
+     * expected result: 280
+     */
+    @Test
+    public void testRandomPopulationTourHasCorrectLength() {
+        Population population = RandomPopulationGenerator.randomPopulation(availableCities, populationSize);
+        Tour randomTour = population.getTours().get(randomGenerator.nextInt(0, populationSize - 1));
+        assertEquals(availableCities.size(), randomTour.getSize());
+    }
+
+    /**
+     * Tests whether a random tour out of the returned random population
+     * contains the city with id 42
+     *
+     * expected result: true
+     */
+    @Test
+    public void testRandomPopulationTourContainsCity42() {
+        Population population = RandomPopulationGenerator.randomPopulation(availableCities, populationSize);
+        Tour randomTour = population.getTours().get(randomGenerator.nextInt(0, populationSize - 1));
+        assertTrue(randomTour.containsCity(new City(42, 0.0, 0.0)));
+    }
+
+    /**
+     * Tests whether a random tour out of the returned random population
+     * contains the city with id 281
+     *
+     * expected result: false
+     */
+    @Test
+    public void testRandomPopulationTourNotContainsCity281() {
+        Population population = RandomPopulationGenerator.randomPopulation(availableCities, populationSize);
+        Tour randomTour = population.getTours().get(randomGenerator.nextInt(0, populationSize - 1));
+        assertFalse(randomTour.containsCity(new City(281, 0.0, 0.0)));
+    }
+
+    /**
+     * Tests whether a random tour out of the returned random population
+     * contains all cities that were
+     */
+    @Test
+    public void testRandomPopulationTourContainsAllAvailableCities() {
+        Population population = RandomPopulationGenerator.randomPopulation(availableCities, populationSize);
+        Tour randomTour = population.getTours().get(randomGenerator.nextInt(0, populationSize - 1));
+        assertTrue(tourContainsAllCities(randomTour, baseTour));
+    }
+
+    //@Test
+    //public void
 
     @Test
     public void testShuffleTourNotNull() {

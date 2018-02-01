@@ -2,9 +2,12 @@ package main;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import base.City;
+import base.Population;
 import base.Tour;
 import bruteforce.BruteForce;
 import crossover.ICrossover;
@@ -14,14 +17,18 @@ import data.TSPLIBReader;
 import mutation.IMutation;
 import selection.ISelection;
 import selection.TournamentSelection;
+import utilities.MinimalTourDetector;
+import utilities.RandomPopulationGenerator;
 
 public class Application {
     private ArrayList<City> availableCities;
     private double[][] distances;
 
-    private ISelection selection;
-    private ICrossover crossover;
-    private IMutation mutation;
+    private double minimalFitness = Double.MAX_VALUE;
+    private int sameFitness = 0;
+    private int generationCounter = 0;
+    private int noChangeLimit = 250;
+    private int maximumIterations = 1000;
 
     public void startupHSQLDB() {
         HSQLDBManager.instance.startup();
@@ -66,7 +73,53 @@ public class Application {
 
     public void execute() {
         System.out.println("--- GeneticAlgorithm.execute()");
-        HSQLDBManager.instance.insertTest("hello world");
+        // HSQLDBManager.instance.insertTest("hello world");
+
+        Population population = RandomPopulationGenerator.randomPopulation(availableCities, 26);
+        double bestFitness = Double.MAX_VALUE;
+
+        while (testCondition(bestFitness)) {
+            Tour bestTour = MinimalTourDetector.minimalTourIn(population);
+
+            List<Tour> selectedTours = Configuration.instance.selection.doSelection(population);
+
+            ListIterator<Tour> listIterator = selectedTours.listIterator();
+            while (listIterator.hasNext()) {
+                Tour tour1 = listIterator.next();
+                Tour tour2 = null;
+                if (listIterator.hasNext()) {
+                    tour2 = listIterator.next();
+                    if (Configuration.instance.mersenneTwister.nextBoolean(Configuration.instance.crossoverRatio)) {
+                        population.getTours().add(Configuration.instance.crossover.doCrossover(tour1, tour2));
+                    }
+                }
+            }
+
+            listIterator = population.getTours().listIterator();
+            while (listIterator.hasNext()) {
+                Tour tour = listIterator.next();
+                if (Configuration.instance.mersenneTwister.nextBoolean(Configuration.instance.mutationRatio)) {
+                    listIterator.set(Configuration.instance.mutation.doMutation(tour));
+                }
+            }
+
+            generationCounter++;
+        }
+
+    }
+
+    private boolean testCondition(double populationMinimalFitness) {
+        if (generationCounter > maximumIterations) {
+            return false;
+        }
+
+        if (populationMinimalFitness == minimalFitness) {
+            sameFitness++;
+        } else {
+            sameFitness = 0;
+        }
+
+        return sameFitness <= noChangeLimit;
     }
 
     public List<City> getAvailableCities() {
@@ -74,7 +127,7 @@ public class Application {
     }
 
     public static void main(String ... args) {
-        Application application = new Application ();
+        Application application = new Application();
         // application.startupHSQLDB();
         application.loadData();
 
@@ -83,12 +136,12 @@ public class Application {
                 System.out.println("--- Started Bruteforce");
             }
 
-            BruteForce bruteForceApplication = new BruteForce (application.availableCities);
-            Tour bestFoundTour = bruteForceApplication.minimalTourAll ();
-            System.out.println ("\nFitness of best tour: " + bestFoundTour.getFitness ());
+            BruteForce bruteForceApplication = new BruteForce(application.availableCities);
+            Tour bestFoundTour = bruteForceApplication.minimalTourAll();
+            System.out.println("\nFitness of best tour: " + bestFoundTour.getFitness());
 
             if (Configuration.instance.isDebug) {
-                System.out.println ("--- Finished Bruteforce");
+                System.out.println("--- Finished Bruteforce");
             }
         } else {
             application.initConfiguration();
