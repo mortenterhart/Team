@@ -27,8 +27,7 @@ public class Application {
     private double minimalFitness = Double.MAX_VALUE;
     private int sameFitness = 0;
     private int generationCounter = 0;
-    private int noChangeLimit = 250;
-    private int maximumIterations = 1000;
+    private int noChangeLimit = 1000;
 
     public void startupHSQLDB() {
         HSQLDBManager.instance.startup();
@@ -59,7 +58,7 @@ public class Application {
         System.out.println("availableCities (size) : " + availableCities.size());
 
         distances = tspLibReader.getDistances();
-        printMatrix(distances);
+        // printMatrix(distances);
 
         instanceReader.close();
 
@@ -76,13 +75,18 @@ public class Application {
         // HSQLDBManager.instance.insertTest("hello world");
 
         Population population = RandomPopulationGenerator.randomPopulation(availableCities, 26);
+        for (Tour tour : population.getTours()) {
+            System.out.println(tour);
+        }
         double bestFitness = Double.MAX_VALUE;
 
-        while (testCondition(bestFitness)) {
-            Tour bestTour = MinimalTourDetector.minimalTourIn(population);
+        // Evolution Loop
+        while (hasPopulationChanged(bestFitness)) {
 
+            // Selection
             List<Tour> selectedTours = Configuration.instance.selection.doSelection(population);
 
+            // Crossover
             ListIterator<Tour> listIterator = selectedTours.listIterator();
             while (listIterator.hasNext()) {
                 Tour tour1 = listIterator.next();
@@ -95,6 +99,7 @@ public class Application {
                 }
             }
 
+            // Mutation
             listIterator = population.getTours().listIterator();
             while (listIterator.hasNext()) {
                 Tour tour = listIterator.next();
@@ -103,13 +108,19 @@ public class Application {
                 }
             }
 
+            // Evaluation
+            Tour bestTour = MinimalTourDetector.minimalTourIn(population);
+            minimalFitness = bestTour.getFitness();
+            System.out.println("Minimal Fitness in generation " + generationCounter + ": " + minimalFitness);
+            System.out.println("Population:");
+
             generationCounter++;
         }
 
     }
 
-    private boolean testCondition(double populationMinimalFitness) {
-        if (generationCounter > maximumIterations) {
+    private boolean hasPopulationChanged(double populationMinimalFitness) {
+        if (generationCounter > Configuration.instance.numberOfIterations) {
             return false;
         }
 
@@ -137,6 +148,7 @@ public class Application {
             }
 
             BruteForce bruteForceApplication = new BruteForce(application.availableCities);
+            bruteForceApplication.generateRandomTours();
             Tour bestFoundTour = bruteForceApplication.minimalTourAll();
             System.out.println("\nFitness of best tour: " + bestFoundTour.getFitness());
 

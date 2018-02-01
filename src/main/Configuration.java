@@ -1,9 +1,9 @@
 package main;
 
 import crossover.CycleCrossover;
+import crossover.HeuristicCrossover;
 import crossover.ICrossover;
-import mutation.DisplacementMutation;
-import mutation.IMutation;
+import mutation.*;
 import random.MersenneTwisterFast;
 import selection.ISelection;
 import selection.RouletteWheelSelection;
@@ -23,18 +23,19 @@ public enum Configuration {
     public MersenneTwisterFast mersenneTwister = new MersenneTwisterFast();
 
     // Parameters for the genetic algorithm
-    public double mutationRatio = 0.001;
+    public double mutationRatio = 0.0001;
     public double crossoverRatio = 0.6;
+    public int numberOfIterations = 1000000;
 
     public ISelection selection = new TournamentSelection();
-    public ICrossover crossover = new CycleCrossover();
-    public IMutation mutation = new DisplacementMutation();
+    public ICrossover crossover = new HeuristicCrossover();
+    public IMutation mutation = new InsertionMutation();
 
     // Show additional debugging information
     public boolean isDebug = false;
 
     // BruteForce
-    public boolean startBruteForce = true;
+    public boolean startBruteForce = false;
     public int numberOfTourElements = 1000;
 
     // Selection
