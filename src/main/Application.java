@@ -112,7 +112,6 @@ public class Application {
             Tour bestTour = MinimalTourDetector.minimalTourIn(population);
             minimalFitness = bestTour.getFitness();
             System.out.println("Minimal Fitness in generation " + generationCounter + ": " + minimalFitness);
-            System.out.println("Population:");
 
             generationCounter++;
         }
