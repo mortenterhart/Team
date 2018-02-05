@@ -11,13 +11,11 @@ import base.Population;
 import base.TSPScenario;
 import base.Tour;
 import bruteforce.BruteForce;
-import crossover.ICrossover;
-import crossover.PartiallyMatchedCrossover;
+import crossover.*;
 import data.HSQLDBManager;
 import data.InstanceReader;
 import data.TSPLIBReader;
-import mutation.ExchangeMutation;
-import mutation.IMutation;
+import mutation.*;
 import selection.ISelection;
 import selection.RouletteWheelSelection;
 import selection.TournamentSelection;
@@ -72,7 +70,12 @@ public class Application {
         System.out.println();
     }
 
-    public void execute(TSPScenario scenario) {
+    public void startScenario(int scenarioId, ISelection selection, ICrossover crossover,
+                              IMutation mutation, double crossoverRatio, double mutationRatio) {
+        this.executeScenario(new TSPScenario(scenarioId, selection, crossover, mutation, crossoverRatio, mutationRatio));
+    }
+
+    public void executeScenario(TSPScenario scenario) {
         System.out.println("--- GeneticAlgorithm.execute()");
 
         int generationCounter = 1;
@@ -140,7 +143,7 @@ public class Application {
         return availableCities;
     }
 
-    public static void main(String... args) {
+    public static void main(String ... args) {
         Application application = new Application();
         application.startupHSQLDB();
         application.loadData();
@@ -161,104 +164,129 @@ public class Application {
         } else {
             application.initConfiguration();
             int scenarioCounter = 1;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            // Scenario 1
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), 0.8, 0.005);
 
-            /*scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
-
+            // Scenario 2
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), 0.7, 0.005);
 
+            // Scenario 3
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), 0.6, 0.005);
 
+            // Scenario 4
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(),
+                    new PartiallyMatchedCrossover(), new ExchangeMutation(), 0.8, 0.0005);
 
+            // Scenario 5
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(),
+                    new PartiallyMatchedCrossover(), new ExchangeMutation(), 0.7, 0.0005);
 
+            // Scenario 6
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(),
+                    new PartiallyMatchedCrossover(), new ExchangeMutation(), 0.6, 0.0005);
 
+            // Scenario 7
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+                    new DisplacementMutation(), 0.7, 0.0005);
 
+            // Scenario 8
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new TournamentSelection(), new PartiallyMatchedCrossover(),
+                    new DisplacementMutation(), 0.7, 0.0005);
 
+            // Scenario 9
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+                    new HeuristicMutation(), 0.7, 0.0005);
 
+            // Scenario 10
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+                    new InsertionMutation(), 0.7, 0.0005);
 
+            // Scenario 11
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+                    new InversionMutation(), 0.7, 0.0005);
 
+            // Scenario 12
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new CycleCrossover(),
+                    new ExchangeMutation(), 0.7, 0.005);
 
+            // Scenario 13
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new CycleCrossover(),
+                    new ExchangeMutation(), 0.7, 0.0005);
 
+            // Scenario 14
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new TournamentSelection(), new CycleCrossover(),
+                    new ExchangeMutation(), 0.7, 0.0005);
 
+            // Scenario 15
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new HeuristicCrossover(),
+                    new ExchangeMutation(), 0.7, 0.0005);
 
+            // Scenario 16
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new HeuristicCrossover(),
+                    new InsertionMutation(), 0.7, 0.0005);
 
+            // Scenario 17
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new HeuristicCrossover(),
+                    new InversionMutation(), 0.7, 0.0005);
 
+            // Scenario 18
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new TournamentSelection(), new OrderedCrossover(),
+                    new ExchangeMutation(), 0.7, 0.0005);
 
+            // Scenario 19
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new OrderedCrossover(),
+                    new DisplacementMutation(), 0.7, 0.0005);
 
+            // Scenario 20
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new OrderedCrossover(),
+                    new InsertionMutation(), 0.7, 0.0005);
 
+            // Scenario 21
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new TournamentSelection(), new PositionBasedCrossover(),
+                    new ExchangeMutation(), 0.7, 0.0005);
 
+            // Scenario 22
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PositionBasedCrossover(),
+                    new HeuristicMutation(), 0.7, 0.0005);
 
+            // Scenario 23
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+            application.startScenario(scenarioCounter, new TournamentSelection(), new PositionBasedCrossover(),
+                    new InversionMutation(), 0.7, 0.0005);
 
+            // Scenario 24
             scenarioCounter++;
-            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));*/
+            application.startScenario(scenarioCounter, new TournamentSelection(), new SubTourExchangeCrossover(),
+                    new ExchangeMutation(), 0.7, 0.0005);
+
+            // Scenario 25
+            scenarioCounter++;
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new SubTourExchangeCrossover(),
+                    new DisplacementMutation(), 0.7, 0.0005);
 
         }
         application.shutdownHSQLDB();
