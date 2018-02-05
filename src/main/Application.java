@@ -8,14 +8,18 @@ import java.util.ListIterator;
 
 import base.City;
 import base.Population;
+import base.TSPScenario;
 import base.Tour;
 import bruteforce.BruteForce;
 import crossover.ICrossover;
+import crossover.PartiallyMatchedCrossover;
 import data.HSQLDBManager;
 import data.InstanceReader;
 import data.TSPLIBReader;
+import mutation.ExchangeMutation;
 import mutation.IMutation;
 import selection.ISelection;
+import selection.RouletteWheelSelection;
 import selection.TournamentSelection;
 import utilities.MinimalTourDetector;
 import utilities.RandomPopulationGenerator;
@@ -24,10 +28,8 @@ public class Application {
     private ArrayList<City> availableCities;
     private double[][] distances;
 
-    private double minimalFitness = Double.MAX_VALUE;
-    private int sameFitness = 0;
-    private int generationCounter = 0;
-    private int noChangeLimit = 1000;
+    private double previousFitness = Double.MAX_VALUE;
+    private int sameFitnessCounter = 0;
 
     public void startupHSQLDB() {
         HSQLDBManager.instance.startup();
@@ -70,21 +72,19 @@ public class Application {
         System.out.println();
     }
 
-    public void execute() {
+    public void execute(TSPScenario scenario) {
         System.out.println("--- GeneticAlgorithm.execute()");
-        // HSQLDBManager.instance.insertTest("hello world");
 
+        int generationCounter = 1;
         Population population = RandomPopulationGenerator.randomPopulation(availableCities, 26);
-        for (Tour tour : population.getTours()) {
-            System.out.println(tour);
-        }
-        double bestFitness = Double.MAX_VALUE;
+        double bestFitness = MinimalTourDetector.minimalTourIn(population).getFitness();
 
         // Evolution Loop
-        while (hasPopulationChanged(bestFitness)) {
+        while (!isIterationLimitReached(generationCounter) &&
+                minimumNotChanged(bestFitness, Configuration.instance.noChangeLimit)) {
 
             // Selection
-            List<Tour> selectedTours = Configuration.instance.selection.doSelection(population);
+            List<Tour> selectedTours = scenario.getSelection().doSelection(population);
 
             // Crossover
             ListIterator<Tour> listIterator = selectedTours.listIterator();
@@ -93,8 +93,8 @@ public class Application {
                 Tour tour2 = null;
                 if (listIterator.hasNext()) {
                     tour2 = listIterator.next();
-                    if (Configuration.instance.mersenneTwister.nextBoolean(Configuration.instance.crossoverRatio)) {
-                        population.getTours().add(Configuration.instance.crossover.doCrossover(tour1, tour2));
+                    if (Configuration.instance.mersenneTwister.nextBoolean(scenario.getCrossoverRatio())) {
+                        population.getTours().add(scenario.getCrossover().doCrossover(tour1, tour2));
                     }
                 }
             }
@@ -103,42 +103,46 @@ public class Application {
             listIterator = population.getTours().listIterator();
             while (listIterator.hasNext()) {
                 Tour tour = listIterator.next();
-                if (Configuration.instance.mersenneTwister.nextBoolean(Configuration.instance.mutationRatio)) {
-                    listIterator.set(Configuration.instance.mutation.doMutation(tour));
+                if (Configuration.instance.mersenneTwister.nextBoolean(scenario.getMutationRatio())) {
+                    listIterator.set(scenario.getMutation().doMutation(tour));
                 }
             }
 
             // Evaluation
+            previousFitness = bestFitness;
             Tour bestTour = MinimalTourDetector.minimalTourIn(population);
-            minimalFitness = bestTour.getFitness();
-            System.out.println("Minimal Fitness in generation " + generationCounter + ": " + minimalFitness);
+            bestFitness = bestTour.getFitness();
+            System.out.println("Minimal Fitness in generation " + generationCounter + ": " + bestFitness);
+            System.out.println("Same Fitness since " + sameFitnessCounter + " iterations");
+            HSQLDBManager.instance.update(HSQLDBManager.instance.buildSQLStatement(generationCounter,
+                    Configuration.instance.numberOfIterations, bestFitness, scenario.getScenarioId()));
 
             generationCounter++;
         }
-
     }
 
-    private boolean hasPopulationChanged(double populationMinimalFitness) {
-        if (generationCounter > Configuration.instance.numberOfIterations) {
-            return false;
-        }
+    private boolean isIterationLimitReached(int generation) {
+        return generation >= Configuration.instance.numberOfIterations;
+    }
 
-        if (populationMinimalFitness == minimalFitness) {
-            sameFitness++;
+    private boolean minimumNotChanged(double minimumFitness, int limit) {
+        double epsilon = 0.001;
+        if (Math.abs(minimumFitness - previousFitness) < epsilon) {
+            sameFitnessCounter++;
         } else {
-            sameFitness = 0;
+            sameFitnessCounter = 0;
         }
 
-        return sameFitness <= noChangeLimit;
+        return sameFitnessCounter < limit;
     }
 
     public List<City> getAvailableCities() {
         return availableCities;
     }
 
-    public static void main(String ... args) {
+    public static void main(String... args) {
         Application application = new Application();
-        // application.startupHSQLDB();
+        application.startupHSQLDB();
         application.loadData();
 
         if (Configuration.instance.startBruteForce) {
@@ -156,9 +160,107 @@ public class Application {
             }
         } else {
             application.initConfiguration();
-            application.execute();
-        }
-        // application.shutdownHSQLDB();
+            int scenarioCounter = 1;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
 
+            /*scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));
+
+            scenarioCounter++;
+            application.execute(new TSPScenario(scenarioCounter, new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), new RouletteWheelSelection(), 0.8, 0.005));*/
+
+        }
+        application.shutdownHSQLDB();
     }
 }

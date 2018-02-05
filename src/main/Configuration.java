@@ -1,13 +1,9 @@
 package main;
 
-import crossover.CycleCrossover;
-import crossover.HeuristicCrossover;
-import crossover.ICrossover;
+import crossover.*;
 import mutation.*;
 import random.MersenneTwisterFast;
-import selection.ISelection;
-import selection.RouletteWheelSelection;
-import selection.TournamentSelection;
+import selection.*;
 
 public enum Configuration {
     instance;
@@ -23,13 +19,8 @@ public enum Configuration {
     public MersenneTwisterFast mersenneTwister = new MersenneTwisterFast();
 
     // Parameters for the genetic algorithm
-    public double mutationRatio = 0.0001;
-    public double crossoverRatio = 0.6;
-    public int numberOfIterations = 1000000;
-
-    public ISelection selection = new TournamentSelection();
-    public ICrossover crossover = new HeuristicCrossover();
-    public IMutation mutation = new InsertionMutation();
+    public final int numberOfIterations = 10_000;
+    public final int noChangeLimit = 1_000;
 
     // Show additional debugging information
     public boolean isDebug = false;
