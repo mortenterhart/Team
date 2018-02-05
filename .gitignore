@@ -9,5 +9,6 @@ TSP.iml
 /data/datastore.db.script
 /data/datastore.db.properties
 /data/datastore.db.lck
+/data/datastore.db.log
 /out
 /build
