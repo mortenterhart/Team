@@ -28,7 +28,7 @@ public class Application {
 
     private double previousFitness = Double.MAX_VALUE;
     private int sameFitnessCounter = 0;
-    //
+
     public void startupHSQLDB() {
         HSQLDBManager.instance.startup();
         HSQLDBManager.instance.init();
