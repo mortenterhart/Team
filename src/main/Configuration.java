@@ -1,9 +1,6 @@
 package main;
 
-import crossover.*;
-import mutation.*;
 import random.MersenneTwisterFast;
-import selection.*;
 
 public enum Configuration {
     instance;
@@ -32,8 +29,6 @@ public enum Configuration {
     // Selection
     public int overPopulation = 50;
     public double choosePercentageOfTributes = 0.5;
-    //public double choosePercentageOfTributesIfOverpopulation = 0.5;
     public double choosePercentageOfWinners = 0.5;
-    //public double choosePercentageOfWinnersIfOverpopulation = 0.5;
     public boolean killDefeatedTributes = false; //is in roulettewheelselection dynamically chosen
 }

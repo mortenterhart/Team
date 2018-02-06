@@ -26,7 +26,6 @@ public class RouletteWheelSelection implements ISelection {
 
         //write chosen(& skipped) tributes back into Population
         wholePopulation.addAll(winners);
-        //if (!Configuration.instance.killDefeatedTributes) { wholePopulation.addAll(tributes); }
         if (wholePopulation.size() < Configuration.instance.overPopulation) {
             wholePopulation.addAll(tributes);
         }
@@ -45,14 +44,8 @@ public class RouletteWheelSelection implements ISelection {
      * @return winners
      */
     private ArrayList<Tour> turnRouletteWheel(int numOfTributes, ArrayList<Double> roulette, ArrayList<Tour> tributes, ArrayList<Tour> winners, ArrayList<Tour> wholePopulation) {
-        //MersenneTwisterFast mersenneTwisterFast = Configuration.instance.mersenneTwister;
         double pointer = Configuration.instance.mersenneTwister.nextDouble(true, true);
-        //double percentageOfWinning = (wholePopulation.size() > Configuration.instance.overPopulation)
-        //        ? Configuration.instance.choosePercentageOfWinnersIfOverpopulation
-        //        : Configuration.instance.choosePercentageOfWinners; //lets in Standard half of the tributes win
         for (int i = 0; i < (numOfTributes * Configuration.instance.choosePercentageOfWinners); i++) {
-        //int num = (numOfTributes < 25)? numOfTributes: 25;
-        //for (int i = 0; i < num; i++) {
             for (double r : roulette) {
                 if (r >= pointer) {
                     int pos = Configuration.instance.mersenneTwister.nextInt(0, winners.size()); //random position to add next winner to
@@ -75,12 +68,10 @@ public class RouletteWheelSelection implements ISelection {
      */
     private ArrayList<Double> setRouletteWheel(int numOfTributes, ArrayList<Double> roulette, ArrayList<Tour> tributes) {
         double allFitness = 0;
-        //double bestFitness = Double.MAX_VALUE;
         for (int i = 0; i < numOfTributes; i++) {
             double fitness = tributes.get(i).getFitness();
             roulette.add(fitness);
             allFitness += fitness;
-            //bestFitness = (fitness < bestFitness) ? fitness : bestFitness;
         }
         double current = 0;
         for (int i = 0; i < roulette.size(); i++) {
@@ -99,10 +90,6 @@ public class RouletteWheelSelection implements ISelection {
      * @return tributes
      */
     private ArrayList<Tour> getTributes(ArrayList<Tour> wholePopulation, ArrayList<Tour> tributes) {
-        //MersenneTwisterFast mersenneTwisterFast = Configuration.instance.mersenneTwister;
-        //double percentage = (wholePopulation.size() > Configuration.instance.overPopulation)
-        //        ? Configuration.instance.choosePercentageOfTributesIfOverpopulation
-        //        : Configuration.instance.choosePercentageOfTributes;
         int numOfTributes = (int) (wholePopulation.size() * Configuration.instance.choosePercentageOfTributes);
         numOfTributes = (numOfTributes < 20)? numOfTributes: 20;
 
