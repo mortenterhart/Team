@@ -18,21 +18,21 @@ public class RouletteWheelSelection implements ISelection {
 
         //fill double[] roulette with border-values of segments
         ArrayList<Double> roulette = new ArrayList<Double>();
-        setRouletteWheel(numOfTributes, roulette, tributes);
+        roulette = setRouletteWheel(numOfTributes, roulette, tributes);
 
         //turn the roulette
         ArrayList<Tour> winners = new ArrayList<>();
-        winners = turnRouletteWheel(numOfTributes, roulette, tributes, winners);
+        winners = turnRouletteWheel(numOfTributes, roulette, tributes, winners, wholePopulation);
 
         //write chosen(& skipped) tributes back into Population
         wholePopulation.addAll(winners);
-        if (!Configuration.instance.killDefeatedTributes) {
+        if (wholePopulation.size() < Configuration.instance.overPopulation) {
             wholePopulation.addAll(tributes);
         }
         population.setTours(wholePopulation);
-
         return winners;
     }
+
 
     /**
      * turn the wheel and return the winners
@@ -43,19 +43,18 @@ public class RouletteWheelSelection implements ISelection {
      * @param winners
      * @return winners
      */
-    private ArrayList<Tour> turnRouletteWheel(int numOfTributes, ArrayList<Double> roulette, ArrayList<Tour> tributes, ArrayList<Tour> winners) {
-        MersenneTwisterFast mersenneTwisterFast = Configuration.instance.mersenneTwister;
-        double pointer = mersenneTwisterFast.nextDouble(true, true);
-        for (int i = 0; i < (numOfTributes / 2); i++) {  //let half of the tributes win
+    private ArrayList<Tour> turnRouletteWheel(int numOfTributes, ArrayList<Double> roulette, ArrayList<Tour> tributes, ArrayList<Tour> winners, ArrayList<Tour> wholePopulation) {
+        double pointer = Configuration.instance.mersenneTwister.nextDouble(true, true);
+        for (int i = 0; i < (numOfTributes * Configuration.instance.choosePercentageOfWinners); i++) {
             for (double r : roulette) {
                 if (r >= pointer) {
-                    int pos = mersenneTwisterFast.nextInt(0, winners.size()); //random position to add next winner to
+                    int pos = Configuration.instance.mersenneTwister.nextInt(0, winners.size()); //random position to add next winner to
                     winners.add(pos, tributes.remove(roulette.indexOf(r)));
                     roulette.remove(roulette.indexOf(r));
                     break;
                 }
             }
-            pointer = (mersenneTwisterFast.nextDouble(true, true)) % (roulette.get(roulette.size() - 1));
+            pointer = (Configuration.instance.mersenneTwister.nextDouble(true, true)) % (roulette.get(roulette.size() - 1));
         }
         return winners;
     }
@@ -69,19 +68,17 @@ public class RouletteWheelSelection implements ISelection {
      */
     private ArrayList<Double> setRouletteWheel(int numOfTributes, ArrayList<Double> roulette, ArrayList<Tour> tributes) {
         double allFitness = 0;
-        double bestFitness = Double.MAX_VALUE;
         for (int i = 0; i < numOfTributes; i++) {
             double fitness = tributes.get(i).getFitness();
             roulette.add(fitness);
             allFitness += fitness;
-            bestFitness = (fitness < bestFitness) ? fitness : bestFitness;
         }
         double current = 0;
         for (int i = 0; i < roulette.size(); i++) {
             current += roulette.get(i) / allFitness;
             roulette.set(i, current);
         }
-        roulette.set(roulette.size() - 1, 1.0);
+        roulette.set(roulette.size()-1,1.0);
         return roulette;
     }
 
@@ -93,11 +90,11 @@ public class RouletteWheelSelection implements ISelection {
      * @return tributes
      */
     private ArrayList<Tour> getTributes(ArrayList<Tour> wholePopulation, ArrayList<Tour> tributes) {
-        MersenneTwisterFast mersenneTwisterFast = Configuration.instance.mersenneTwister;
         int numOfTributes = (int) (wholePopulation.size() * Configuration.instance.choosePercentageOfTributes);
+        numOfTributes = (numOfTributes < 20)? numOfTributes: 20;
 
         for (int i = 0; i < numOfTributes; i++) {
-            int temp = mersenneTwisterFast.nextInt(0, wholePopulation.size() - 1);
+            int temp = Configuration.instance.mersenneTwister.nextInt(0, wholePopulation.size() - 1);
             tributes.add(wholePopulation.remove(temp));
         }
         return tributes;
