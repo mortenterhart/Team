@@ -30,6 +30,10 @@ public enum Configuration {
     public int numberOfTourElements = 1000;
 
     // Selection
+    public int overPopulation = 50;
     public double choosePercentageOfTributes = 0.5;
-    public boolean killDefeatedTributes = true;
+    //public double choosePercentageOfTributesIfOverpopulation = 0.5;
+    public double choosePercentageOfWinners = 0.5;
+    //public double choosePercentageOfWinnersIfOverpopulation = 0.5;
+    public boolean killDefeatedTributes = false; //is in roulettewheelselection dynamically chosen
 }
