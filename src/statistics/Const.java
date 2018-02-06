@@ -17,6 +17,7 @@ public enum Const {
 
     instance;
 
+    public static final String VAR_MINANDMAX = "\\[MINANDMAX\\]";
     public static String VAR_MFFSCENARIOS = "\\[MFFSCENARIOS\\]";
     public static String VAR_DOTPLOTSCENARIO = "\\[BOXPLOTSCENARIOS\\]";
     public static String VAR_DATADIR = "\\[DATADIR\\]";
@@ -65,7 +66,7 @@ public enum Const {
     public String createScenarioShortname(List<Integer> scenarios) {
         String text = "";
         for (int scenario : scenarios) {
-            text += "s0"+scenario+",";
+            text += "s"+scenario+",";
         }
         text = text.substring(0,text.length()-1);
         return text;
@@ -108,7 +109,7 @@ public enum Const {
     public String writeCsvInScenarios(List<Integer> scenarios) {
         String scenDesc = "";
         for (int scenario : scenarios) {
-            scenDesc += "s0"+scenario+" <- as.numeric(read.csv(\"data/data_scenario_"+scenario+".csv\",header=FALSE)) ";
+            scenDesc += "s"+scenario+" <- as.numeric(read.csv(\"data/data_scenario_"+scenario+".csv\",header=FALSE)) ";
             scenDesc += System.getProperty("line.separator");
         }
         return scenDesc;
@@ -117,8 +118,18 @@ public enum Const {
     public String createStripchartScenarios(List<Integer> scenarios) {
         String text = "";
         for (Integer scenario : scenarios) {
-            text += "stripchart(s0"+scenario+",xlim=c(2500,5000),main = \"Genetic Algorithms - TSP280 - Scenario "+scenario+"\",method=\"stack\")";
+            text += "minimum <- min(s"+scenario+")";
             text += System.getProperty("line.separator");
+            text += "maximum <- max(s"+scenario+")";
+            text += System.getProperty("line.separator");
+            text += "pdf(\"plots/s"+scenario+"_stripchart.pdf\",height = 10,width = 10,paper = \"A4r\")";
+            text += System.getProperty("line.separator");
+            text += "stripchart(s"+scenario+",xlim=c(minimum,maximum),main = \"Genetic Algorithms - TSP280 - s"+scenario+"\",method=\"stack\")";
+            text += System.getProperty("line.separator");
+            text += "dev.off()";
+            text += System.getProperty("line.separator");
+            text += System.getProperty("line.separator");
+
         }
         return text;
     }
@@ -134,18 +145,19 @@ public enum Const {
     public String createDotplotScenarios(List<Integer> scenario_ids) {
         String text = "";
         for (Integer scenario : scenario_ids) {
-            text += "plot(s0"+scenario+",col=\"black\",ylab = \"distance\",xlab = \"iterations\",cex = 0.1,main = \"Genetic Algorithms - TSP280 - Scenario "+scenario+"\")";
+            text += "plot(s"+scenario+",col=\"black\",ylab = \"distance\",xlab = \"iterations\",cex = 0.1,main = \"Genetic Algorithms - TSP280 - Scenario "+scenario+"\")";
             text += System.getProperty("line.separator");
         }
         return text;
     }
 
     public String createMffs(List<Integer> scenario_ids) {
-        String text = "";
+        String text = "c(";
         for (Integer scenario : scenario_ids) {
-            text += "sort(table(s0"+scenario+"),decreasing=TRUE)[1]";
-            text += System.getProperty("line.separator");
+            text += "sort(table(s"+scenario+"),decreasing=TRUE)[1],";
         }
+        text = text.substring(0,text.length()-1);
+        text += ")";
         return text;
     }
 
@@ -166,9 +178,9 @@ public enum Const {
         String text = "";
         for (int i = 0; i < scenario_ids.size(); i++) {
             for (int j = i+1; j < scenario_ids.size(); j++) {
-                text += "c(mean(s0"+scenario_ids.get(i)+"),mean(s0"+scenario_ids.get(j)+"))";
+                text += "c(mean(s"+scenario_ids.get(i)+"),mean(s"+scenario_ids.get(j)+"))";
                 text += System.getProperty("line.separator");
-                text += "t.test(s0"+scenario_ids.get(i)+",s0"+scenario_ids.get(j)+")";
+                text += "t.test(s"+scenario_ids.get(i)+",s"+scenario_ids.get(j)+")";
                 text += System.getProperty("line.separator");
             }
         }
@@ -176,23 +188,21 @@ public enum Const {
     }
 
     public String createMedianScenario(List<Integer> scenario_ids) {
-        String text = "";
-        for (int i = 0; i < scenario_ids.size(); i++) {
-            for (int j = i+1; j < scenario_ids.size(); j++) {
-                text += "c(median(s0"+scenario_ids.get(i)+"),median(s0"+scenario_ids.get(j)+"))";
-                text += System.getProperty("line.separator");
-            }
+        String text = "c(";
+        for (int scenario_id : scenario_ids) {
+            text += "median(s"+scenario_id+"),";
         }
+        text = text.substring(0,text.length()-1);
+        text += ")";
         return text;
     }
     public String createMeanScenario(List<Integer> scenario_ids) {
-        String text = "";
-        for (int i = 0; i < scenario_ids.size(); i++) {
-            for (int j = i+1; j < scenario_ids.size(); j++) {
-                text += "c(round(mean(s0"+scenario_ids.get(i)+"),digits = 2),round(mean(s0"+scenario_ids.get(j)+"),digits = 2))";
-                text += System.getProperty("line.separator");
-            }
+        String text = "c(";
+        for (int scenario_id : scenario_ids) {
+            text += "round(mean(s"+scenario_id+"),digits = 2),";
         }
+        text = text.substring(0,text.length()-1);
+        text += ")";
         return text;
     }
 
@@ -206,59 +216,58 @@ public enum Const {
 
     public String createHistogramScenarios(List<Integer> scenario_ids) {
         String text = "";
-        for (Integer scenario : scenario_ids) {
-            text += "hist(s0"+scenario+",xlim=c(2500,5000),ylim=c(0,200),xlab = \"distance\",breaks=100,main = \"Genetic Algorithms - TSP280\" - Scenario "+scenario+")";
-            text += System.getProperty("line.separator");
+        for (int scenario_id : scenario_ids) {
+            text += "pdf(\"plots/s"+scenario_id+"_histogram.pdf\",height = 10,width = 10,paper = \"A4r\")\n";
+            text += "hist(s"+scenario_id+",xlim=c(minimum,maximum),ylim=c(0,200),xlab = \"distance\",breaks=100,main = \"Genetic Algorithms - TSP280 - s"+scenario_id+"\")\n";
+            text += "dev.off()\n\n";
         }
         return text;
     }
 
     public String createSdScenario(List<Integer> scenario_ids) {
-        String text = "";
-        for (int i = 0; i < scenario_ids.size(); i++) {
-            for (int j = i+1; j < scenario_ids.size(); j++) {
-                text += "c(round(sd(s0"+scenario_ids.get(i)+"),digits = 2),round(sd(s0"+scenario_ids.get(j)+"),digits = 2))";
-                text += System.getProperty("line.separator");
-            }
+        String text = "c(";
+        for (int scenario_id : scenario_ids) {
+            text += "round(sd(s"+scenario_id+"),digits = 2),";
         }
+        text = text.substring(0,text.length()-1);
+        text += ")";
         return text;
     }
 
     public String createRangeScenario(List<Integer> scenario_ids) {
-        String text = "";
+        String text = "c(";
         for (Integer scenario_id : scenario_ids) {
-            text += "c(max(s0"+scenario_id+") − min(s0"+scenario_id+"))";
-            text += System.getProperty("line.separator");
+            text += "max(s"+scenario_id+") − min(s"+scenario_id+"),";
         }
+        text = text.substring(0,text.length()-1);
+        text += ")";
         return text;
     }
 
     public String createInterquartilerangeScenario(List<Integer> scenario_ids) {
-        String text = "";
-        for (int i = 0; i < scenario_ids.size(); i++) {
-            for (int j = i+1; j < scenario_ids.size(); j++) {
-                text += "c(quantile(s0"+scenario_ids.get(i)+",0.75) - quantile(s0"+scenario_ids.get(i)+",0.25),quantile(s0"+scenario_ids.get(j)+",0.75) - quantile(s0"+scenario_ids.get(j)+",0.25))";
-                text += System.getProperty("line.separator");
-            }
+        String text = "c(";
+        for (Integer scenario_id : scenario_ids) {
+            text += "quantile(s"+scenario_id+",0.75) - quantile(s"+scenario_id+",0.25),";
         }
+        text = text.substring(0,text.length()-1);
+        text += ")";
         return text;
     }
 
     public String createQuantile(List<Integer> scenario_ids,double quantileStart) {
-        String text = "";
-        for (int i = 0; i < scenario_ids.size(); i++) {
-            for (int j = i+1; j < scenario_ids.size(); j++) {
-                text += "c(quantile(s0"+scenario_ids.get(i)+","+quantileStart+"),quantile(s0"+scenario_ids.get(j)+","+quantileStart+"))";
-                text += System.getProperty("line.separator");
-            }
+        String text = "c(";
+        for (int scenario_id : scenario_ids) {
+            text += "quantile(s"+scenario_id+","+quantileStart+"),";
         }
+        text = text.substring(0,text.length()-1);
+        text += ")";
         return text;
     }
 
     public String createQuantileTo(List<Integer> scenario_ids, double quantileStart, double quantileEnd) {
         String text = "";
         for (int scenario_id : scenario_ids) {
-            text += "quantile(s0"+scenario_id+",probs = c("+quantileStart+","+quantileEnd+"))";
+            text += "quantile(s"+scenario_id+",probs = c("+quantileStart+","+quantileEnd+"))";
             text += System.getProperty("line.separator");
         }
         return text;
@@ -267,10 +276,26 @@ public enum Const {
     public String createQuantileRange(List<Integer> scenario_ids, double quantileStart, double quantileEnd) {
         String text = "";
         for (int scenario_id : scenario_ids) {
-            text += "quantile(s0"+scenario_id+",probs = c("+quantileStart+","+(quantileStart+0.25)+","+quantileEnd+"))";
+            text += "quantile(s"+scenario_id+",probs = c("+quantileStart+","+(quantileStart+0.25)+","+quantileEnd+"))";
             text += System.getProperty("line.separator");
         }
         return text;
+    }
+
+    public String createHistogramMinAndMax(List<Integer> scenario_ids) {
+        String minimumText = "minimum <- min(";
+        String maximumText = "maximum <- max(";
+
+        for (int scenario_id : scenario_ids) {
+            minimumText += "s"+scenario_id+",";
+            maximumText += "s"+scenario_id+",";
+        }
+        minimumText = minimumText.substring(0,minimumText.length()-1);
+        maximumText = maximumText.substring(0,maximumText.length()-1);
+
+        minimumText += ")\n";
+        maximumText += ")\n";
+        return minimumText+maximumText;
     }
 }
 

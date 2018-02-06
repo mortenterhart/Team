@@ -5,8 +5,6 @@ getwd()
 
 [SCENARIODESCRIPTION]
 
-pdf("plots/[FILENAME]",height = 10,width = 10,paper = "A4r")
+[MINANDMAX]
 
 [SCENARIOHISTOGRAM]
-
-dev.off()

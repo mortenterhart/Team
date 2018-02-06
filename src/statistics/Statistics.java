@@ -59,10 +59,11 @@ public class Statistics implements IStatistics {
             measurefile = range ? measurefile.replaceAll(Const.VAR_RANGE,Const.instance.createRangeScenario(scenario_ids)) : measurefile.replaceAll(Const.VAR_RANGE,"");
             measurefile = interquartilsrange ? measurefile.replaceAll(Const.VAR_INTERQUARTILERANGE,Const.instance.createInterquartilerangeScenario(scenario_ids)) : measurefile.replaceAll(Const.VAR_INTERQUARTILERANGE,"");
 
-            if (quantile) measurefile = measurefile.replaceAll(Const.VAR_QUANTILE, Const.instance.createQuantile(scenario_ids, quantileStart));
-            else if (quantileTo) measurefile = measurefile.replaceAll(Const.VAR_QUANTILE, Const.instance.createQuantileTo(scenario_ids, quantileStart, quantileEnd));
-            else if (quantileRange) measurefile = measurefile.replaceAll(Const.VAR_QUANTILE, Const.instance.createQuantileRange(scenario_ids, quantileStart, quantileEnd));
-            else measurefile = measurefile.replaceAll(Const.VAR_QUANTILE, "");
+            String quantileText = "";
+            if (quantile) quantileText += Const.instance.createQuantile(scenario_ids, quantileStart) + "\n";
+            if (quantileTo) quantileText += Const.instance.createQuantileTo(scenario_ids, quantileStart, quantileEnd)+"\n";
+            if (quantileRange) quantileText += Const.instance.createQuantileRange(scenario_ids, quantileStart, quantileEnd)+"\n";
+            measurefile = measurefile.replaceAll(Const.VAR_QUANTILE,quantileText);
 
             Const.instance.writeFile(measurefile,new File(Const.instance.measure_file));
         } catch (IOException e) {
@@ -114,7 +115,7 @@ public class Statistics implements IStatistics {
         List<Integer> scenario_ids = createScenarios();
         try {
             String stripchart = Const.instance.buildFileBeginning(scenario_ids,"src/statistics/RTemplates/stripchart.R.tpl");
-            stripchart = stripchart.replaceAll(Const.VAR_FILENAME,Const.instance.createStripchartName(scenario_ids));
+            //stripchart = stripchart.replaceAll(Const.VAR_FILENAME,Const.instance.createStripchartName(scenario_ids));
             stripchart = stripchart.replaceAll(Const.VAR_STRIPCHARTSCENARIOS,Const.instance.createStripchartScenarios(scenario_ids));
             Const.instance.writeFile(stripchart, new File(Const.instance.stripchart_file));
         } catch (IOException e) {
@@ -147,7 +148,7 @@ public class Statistics implements IStatistics {
         List<Integer> scenario_ids = createScenarios();
         try {
             String histogram = Const.instance.buildFileBeginning(scenario_ids,"src/statistics/RTemplates/histogram.R.tpl");
-            histogram = histogram.replaceAll(Const.VAR_FILENAME,Const.instance.createHistogramName(scenario_ids));
+            histogram = histogram.replaceAll(Const.VAR_MINANDMAX,Const.instance.createHistogramMinAndMax(scenario_ids));
             histogram = histogram.replaceAll(Const.VAR_HISTOGRAMSCENARIOS,Const.instance.createHistogramScenarios(scenario_ids));
             Const.instance.writeFile(histogram,new File(Const.instance.histogram_file));
         } catch (IOException e) {
@@ -178,7 +179,10 @@ public class Statistics implements IStatistics {
             if (args[i].startsWith("-d")) {
                 for (int j = i+1; j < args.length; j++) {
                     if (!args[j].startsWith("-")) {
-                        scenarios.add(args[j].replaceAll(",",""));
+                        for (String s : args[j].split(",")) {
+                            scenarios.add(s);
+                        }
+                        //scenarios.add(args[j].replaceAll(",",""));
                     } else {
                         break;
                     }
@@ -192,7 +196,6 @@ public class Statistics implements IStatistics {
                         if (args[j].startsWith("sd")) sd = true;
                         if (args[j].startsWith("iqr")) {
                             interquartilsrange = true;
-                            iqr = Double.parseDouble(args[j].substring(args[j].lastIndexOf("=")+1));
                         }
                         if (args[j].startsWith("quantile")) {
                             if (args[j].matches("quantile=0\\.[0-9]+")) {
