@@ -2,17 +2,17 @@ package crossover;
 
 import base.City;
 import base.Tour;
+import main.Configuration;
 import random.MersenneTwisterFast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PositionBasedCrossover implements ICrossover {
     public Tour doCrossover(Tour tour01,Tour tour02) {
-        MersenneTwisterFast random = new MersenneTwisterFast();
+        MersenneTwisterFast random = Configuration.instance.mersenneTwister;
 
-        ArrayList<City> tourCities1 = tour01.getCities();
-        ArrayList<City> tourCities2 = tour02.getCities();
+        ArrayList<City> tourCities1 = CloneSubListCity(tour01.getCities(), 0, tour01.getSize());
+        ArrayList<City> tourCities2 = CloneSubListCity(tour02.getCities(), 0, tour02.getSize());
         int lastIndex = tour01.getSize()-1;
 
         int firstSplit = random.nextInt(1, lastIndex-2);
@@ -39,7 +39,7 @@ public class PositionBasedCrossover implements ICrossover {
             child2.addCity(base2.get(i));
         }
 
-        for (int i = firstSplit; i < lastIndex+1; i++)
+        for (int i = firstSplit; i < tourCities1.size(); i++)
         {
             child1.addCity(tourCities2.get(i));
             child2.addCity(tourCities1.get(i));

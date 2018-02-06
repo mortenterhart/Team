@@ -1,5 +1,7 @@
 package main;
 
+import random.MersenneTwisterFast;
+
 public enum Configuration {
     instance;
 
@@ -11,7 +13,22 @@ public enum Configuration {
 
     public String databaseFile = dataDirectory + "datastore.db";
 
-    //Selection
+    public MersenneTwisterFast mersenneTwister = new MersenneTwisterFast();
+
+    // Parameters for the genetic algorithm
+    public final int numberOfIterations = 10_000;
+    public final int noChangeLimit = 1_000;
+
+    // Show additional debugging information
+    public boolean isDebug = false;
+
+    // BruteForce
+    public boolean startBruteForce = false;
+    public int numberOfTourElements = 1000;
+
+    // Selection
+    public int overPopulation = 50;
     public double choosePercentageOfTributes = 0.5;
-    public boolean killDefeatedTributes = true;
+    public double choosePercentageOfWinners = 0.5;
+    public boolean killDefeatedTributes = false; //is in roulettewheelselection dynamically chosen
 }

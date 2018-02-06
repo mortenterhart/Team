@@ -5,6 +5,15 @@ import java.util.ArrayList;
 public class Tour implements Comparable<Tour> {
     private ArrayList<City> cities = new ArrayList<>();
 
+    public Tour() { }
+
+    //crude hack, because otherwise addCity() with index would not work
+    public Tour(int size) {
+        for(int i = 0; i < size; i++) {
+            cities.add(null);
+        }
+    }
+
     public ArrayList<City> getCities() {
         return cities;
     }
@@ -21,8 +30,8 @@ public class Tour implements Comparable<Tour> {
         cities.add(city);
     }
 
-    public void addCity(int index,City city) {
-        cities.set(index,city);
+    public void addCity(int index, City city) {
+        cities.set(index, city);
     }
 
     public int getSize() {
@@ -33,15 +42,22 @@ public class Tour implements Comparable<Tour> {
         return cities.contains(city);
     }
 
+    @Override
+    public Object clone() {
+        Tour newTour = new Tour();
+        newTour.setCities(new ArrayList<>(cities));
+        return newTour;
+    }
+
     public double getFitness() {
         double distance = 0.0;
 
         for (int i = 0; i < cities.size(); i++) {
             double x1 = getCity(i).getX();
             double y1 = getCity(i).getY();
-            double x2 = getCity((i+1) % cities.size()).getX();
-            double y2 = getCity((i+1) % cities.size()).getY();
-            distance = distance + euclideanDistance(x1,y1,x2,y2);
+            double x2 = getCity((i + 1) % cities.size()).getX();
+            double y2 = getCity((i + 1) % cities.size()).getY();
+            distance = distance + euclideanDistance(x1, y1, x2, y2);
         }
 
         return distance;
@@ -51,17 +67,22 @@ public class Tour implements Comparable<Tour> {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{ Tour : ");
 
-        for (City city : cities)
+        for (City city : cities) {
+            if(city==null){
+                stringBuilder.append("NULL ");
+                continue;
+            }
             stringBuilder.append(city.getId()).append(" ");
+        }
 
         stringBuilder.append(" }");
         return stringBuilder.toString();
     }
 
-    public static double euclideanDistance(double x1,double y1,double x2,double y2) {
+    public static double euclideanDistance(double x1, double y1, double x2, double y2) {
         double xDistance = x1 - x2;
         double yDistance = y1 - y2;
-        return Math.sqrt(Math.pow(xDistance,2) + Math.pow(yDistance,2));
+        return Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
     }
 
     public int compareTo(Tour otherTour) {

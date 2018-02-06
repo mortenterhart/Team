@@ -14,11 +14,9 @@ public enum HSQLDBManager {
 
     public void startup() {
         try {
-            // java -cp hsqldb.jar org.hsqldb.util.DatabaseManager
-            // CON URL: jdbc:hsqldb:/Users/marcreinke/Documents/IdeaProjects/Team01_Travelling_Salesman/data/datastore.db
             Class.forName("org.hsqldb.jdbcDriver");
             String databaseURL = driverName + Configuration.instance.databaseFile;
-            connection = DriverManager.getConnection(databaseURL,username,password);
+            connection = DriverManager.getConnection(databaseURL, username, password);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -56,22 +54,20 @@ public enum HSQLDBManager {
         sqlStringBuilder.append("CREATE TABLE data ").append(" ( ");
         sqlStringBuilder.append("id BIGINT NOT NULL").append(",");
         sqlStringBuilder.append("iteration BIGINT NOT NULL").append(",");
-        sqlStringBuilder.append("fitness BIGINT NOT NULL").append(",");
-        sqlStringBuilder.append("algoID BIGNT NOT NULL").append(",");
-        sqlStringBuilder.append("algorithm VARCHAR(20) NOT NULL").append(",");
+        sqlStringBuilder.append("fitness DOUBLE NOT NULL").append(",");
+        sqlStringBuilder.append("scenario INT NOT NULL").append(",");
         sqlStringBuilder.append("PRIMARY KEY (id)");
         sqlStringBuilder.append(" )");
         update(sqlStringBuilder.toString());
     }
 
-    public String buildSQLStatement(long id,long iteration, long fitness,long algoID, String algorithm) {
+    public String buildSQLStatement(long id, long iteration, double fitness, int scenarioId) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("INSERT INTO data (id, iteration, fitness, algoID, algorithm) VALUES (");
+        stringBuilder.append("INSERT INTO data (id, iteration, fitness, scenario) VALUES (");
         stringBuilder.append(id).append(",");
         stringBuilder.append(iteration).append(",");
         stringBuilder.append(fitness).append(",");
-        stringBuilder.append(algoID).append(",");
-        stringBuilder.append("'").append(algorithm).append("'");
+        stringBuilder.append(scenarioId);
         stringBuilder.append(")");
         System.out.println(stringBuilder.toString());
         return stringBuilder.toString();
