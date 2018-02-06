@@ -82,9 +82,10 @@ public class Application {
         Population population = RandomPopulationGenerator.randomPopulation(availableCities, 26);
         double bestFitness = MinimalTourDetector.minimalTourIn(population).getFitness();
 
+        double generationMinimumFitness = bestFitness;
         // Evolution Loop
         while (!isIterationLimitReached(generationCounter) &&
-                minimumNotChanged(bestFitness, Configuration.instance.noChangeLimit)) {
+                minimumNotChanged(generationMinimumFitness, Configuration.instance.noChangeLimit)) {
 
             // Selection
             List<Tour> selectedTours = scenario.getSelection().doSelection(population);
@@ -112,16 +113,22 @@ public class Application {
             }
 
             // Evaluation
-            previousFitness = bestFitness;
-            Tour bestTour = MinimalTourDetector.minimalTourIn(population);
-            bestFitness = bestTour.getFitness();
-            System.out.println("Minimal Fitness in generation " + generationCounter + ": " + bestFitness);
+            previousFitness = generationMinimumFitness;
+            Tour bestGenerationTour = MinimalTourDetector.minimalTourIn(population);
+            generationMinimumFitness = bestGenerationTour.getFitness();
+            System.out.println("Minimal Fitness in generation " + generationCounter + ": " + generationMinimumFitness);
             System.out.println("Same Fitness since " + sameFitnessCounter + " iterations");
             HSQLDBManager.instance.update(HSQLDBManager.instance.buildSQLStatement(generationCounter,
                     Configuration.instance.numberOfIterations, bestFitness, scenario.getScenarioId()));
 
+            if (generationMinimumFitness < bestFitness) {
+                bestFitness = generationMinimumFitness;
+            }
+
             generationCounter++;
         }
+
+        System.out.println("\nOverall minimum fitness: " + bestFitness);
     }
 
     private boolean isIterationLimitReached(int generation) {
@@ -180,18 +187,18 @@ public class Application {
 
             // Scenario 4
             scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(),
-                    new PartiallyMatchedCrossover(), new ExchangeMutation(), 0.8, 0.0005);
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), 0.8, 0.0005);
 
             // Scenario 5
             scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(),
-                    new PartiallyMatchedCrossover(), new ExchangeMutation(), 0.7, 0.0005);
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), 0.7, 0.0005);
 
             // Scenario 6
             scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(),
-                    new PartiallyMatchedCrossover(), new ExchangeMutation(), 0.6, 0.0005);
+            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+                    new ExchangeMutation(), 0.6, 0.0005);
 
             // Scenario 7
             scenarioCounter++;
