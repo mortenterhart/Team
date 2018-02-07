@@ -23,7 +23,7 @@ public enum Configuration {
     public boolean isDebug = false;
 
     // BruteForce
-    public long numberOfTourElements = 1000;
+    public int numberOfTourElements = 1000;
 
     // Selection
     public int overPopulation = 50;
