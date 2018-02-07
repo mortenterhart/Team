@@ -174,7 +174,7 @@ public class Application {
         application.initConfiguration();
         int scenarioCounter = 1;
         // Scenario 1
-        /*application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
                 new ExchangeMutation(), 0.8, 0.005);
 
         // Scenario 2
