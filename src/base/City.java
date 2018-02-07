@@ -5,7 +5,7 @@ public class City {
     private double x;
     private double y;
 
-    public City(int id,double x,double y) {
+    public City(int id, double x, double y) {
         this.id = id;
         this.x = x;
         this.y = y;
@@ -35,7 +35,7 @@ public class City {
 
     @Override
     public boolean equals(Object object) {
-        if (object == null || ! (object instanceof City)) {
+        if (object == null || !(object instanceof City)) {
             return false;
         }
         return this.getId() == ((City) object).getId();

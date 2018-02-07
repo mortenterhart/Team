@@ -159,6 +159,7 @@ public class Application {
             // Evaluation
             previousFitness = generationMinimumFitness;
             Tour bestGenerationTour = MinimalTourDetector.minimalTourIn(population);
+            System.out.println(bestGenerationTour.toString());
             generationMinimumFitness = bestGenerationTour.getFitness();
             System.out.println("Minimal Fitness in generation " + generationCounter + ": " + generationMinimumFitness);
             System.out.println("Same Fitness since " + sameFitnessCounter + " iterations");
@@ -208,7 +209,7 @@ public class Application {
 
         // Scenario 2
         scenarioCounter++;
-        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+        /*application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
                 new ExchangeMutation(), 0.7, 0.005);
 
         // Scenario 3
@@ -327,7 +328,7 @@ public class Application {
                 new DisplacementMutation(), 0.7, 0.0005);
 
         // Bruteforce Algorithm
-        application.startBruteforce();
+        application.startBruteforce();*/
 
 
         application.shutdownHSQLDB();
