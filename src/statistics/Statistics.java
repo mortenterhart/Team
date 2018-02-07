@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import data.HSQLDBManager;
@@ -26,26 +28,36 @@ public class Statistics implements IStatistics {
     private boolean quantileRange;
 
     public void writeCSVFile() {
-        //ResultSet rs = HSQLDBManager.instance.getResultSet("SELECT * FROM DATA");
+        HSQLDBManager.instance.startup();
+        int numberScenarios = 0;
+        ResultSet rs_scenarios = HSQLDBManager.instance.getResultSet("select count(DISTINCT scenario) from data;");
         try {
-            for (int i = 0; i < 3; i++) {
-                PrintWriter writer = new PrintWriter(new File("data/data_scenario_"+i+".csv"));
-                PrintWriter barplotwriter = new PrintWriter(new File("data/data_scenario_"+i+"_barplot.csv"));
-                for (int j = 100; j > 0; j--) {
-                    writer.println(j);
-                    barplotwriter.print(j+",");
-                    //while (rs.next()) {
-                    //writer.println(rs.getString("id"));
-                }
-                writer.flush();
-                barplotwriter.flush();
-            }
+            rs_scenarios.next();
+            numberScenarios = rs_scenarios.getInt(1);
 
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+
+
+        for (int i = 1; i <= numberScenarios; i++) {
+            ResultSet rs = HSQLDBManager.instance.getResultSet("SELECT * FROM DATA WHERE scenario="+i);
+            try {
+                PrintWriter writer = new PrintWriter(new File("data/data_scenario_"+i+".csv"));
+                //PrintWriter barplotwriter = new PrintWriter(new File("data/data_scenario_"+i+"_barplot.csv"));
+                while (rs.next()) {
+                    writer.println(rs.getString("id")+";"+rs.getInt("iteration")+";"+rs.getDouble("fitness")+";"+rs.getInt("scenario"));
+                }
+                writer.flush();
+                //barplotwriter.flush();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public void buildMeasureRFile() {
@@ -115,7 +127,7 @@ public class Statistics implements IStatistics {
         List<Integer> scenario_ids = createScenarios();
         try {
             String stripchart = Const.instance.buildFileBeginning(scenario_ids,"src/statistics/RTemplates/stripchart.R.tpl");
-            //stripchart = stripchart.replaceAll(Const.VAR_FILENAME,Const.instance.createStripchartName(scenario_ids));
+            stripchart = stripchart.replaceAll(Const.VAR_FILENAME,Const.instance.createStripchartName(scenario_ids));
             stripchart = stripchart.replaceAll(Const.VAR_STRIPCHARTSCENARIOS,Const.instance.createStripchartScenarios(scenario_ids));
             Const.instance.writeFile(stripchart, new File(Const.instance.stripchart_file));
         } catch (IOException e) {
@@ -169,6 +181,7 @@ public class Statistics implements IStatistics {
 
         public static void main(String[] args){
         Statistics stats = new Statistics();
+        stats.writeCSVFile();
         stats.generateParams2(args);
         stats.startupHSQLDB();
     }
