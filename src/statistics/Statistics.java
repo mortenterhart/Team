@@ -44,12 +44,14 @@ public class Statistics implements IStatistics {
             ResultSet rs = HSQLDBManager.instance.getResultSet("SELECT * FROM DATA WHERE scenario="+i);
             try {
                 PrintWriter writer = new PrintWriter(new File("data/data_scenario_"+i+".csv"));
-                //PrintWriter barplotwriter = new PrintWriter(new File("data/data_scenario_"+i+"_barplot.csv"));
+                PrintWriter barplotwriter = new PrintWriter(new File("data/data_scenario_"+i+"_barplot.csv"));
                 while (rs.next()) {
-                    writer.println(rs.getString("id")+";"+rs.getInt("iteration")+";"+rs.getDouble("fitness")+";"+rs.getInt("scenario"));
+                    writer.print(rs.getDouble("fitness")+",");
+                    barplotwriter.print(rs.getDouble("fitness"));
+
                 }
                 writer.flush();
-                //barplotwriter.flush();
+                barplotwriter.flush();
 
             } catch (SQLException e) {
                 e.printStackTrace();
