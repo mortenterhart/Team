@@ -2,7 +2,6 @@ package main;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -28,6 +27,7 @@ public class Application {
 
     private double previousFitness = Double.MAX_VALUE;
     private int sameFitnessCounter = 0;
+    private long databaseIdCounter = 0;
 
     public void startupHSQLDB() {
         HSQLDBManager.instance.startup();
@@ -68,6 +68,21 @@ public class Application {
     public void initConfiguration() {
         System.out.println("--- GeneticAlgorithm.initConfiguration()");
         System.out.println();
+    }
+
+    public void startBruteforce() {
+        if (Configuration.instance.isDebug) {
+            System.out.println("--- Started Bruteforce");
+        }
+
+        BruteForce bruteForceApplication = new BruteForce(availableCities);
+        bruteForceApplication.generateRandomTours();
+        Tour bestFoundTour = bruteForceApplication.minimalTourAll();
+        System.out.println("\nFitness of best tour: " + bestFoundTour.getFitness());
+
+        if (Configuration.instance.isDebug) {
+            System.out.println("--- Finished Bruteforce");
+        }
     }
 
     public void startScenario(int scenarioId, ISelection selection, ICrossover crossover,
@@ -118,14 +133,15 @@ public class Application {
             generationMinimumFitness = bestGenerationTour.getFitness();
             System.out.println("Minimal Fitness in generation " + generationCounter + ": " + generationMinimumFitness);
             System.out.println("Same Fitness since " + sameFitnessCounter + " iterations");
-            HSQLDBManager.instance.update(HSQLDBManager.instance.buildSQLStatement(generationCounter,
-                    Configuration.instance.numberOfIterations, bestFitness, scenario.getScenarioId()));
+            HSQLDBManager.instance.update(HSQLDBManager.instance.buildSQLStatement(databaseIdCounter,
+                    Configuration.instance.numberOfIterations, generationMinimumFitness, scenario.getScenarioId()));
 
             if (generationMinimumFitness < bestFitness) {
                 bestFitness = generationMinimumFitness;
             }
 
             generationCounter++;
+            databaseIdCounter++;
         }
 
         System.out.println("\nOverall minimum fitness: " + bestFitness);
@@ -150,152 +166,141 @@ public class Application {
         return availableCities;
     }
 
-    public static void main(String ... args) {
+    public static void main(String... args) {
         Application application = new Application();
         application.startupHSQLDB();
         application.loadData();
 
-        if (Configuration.instance.startBruteForce) {
-            if (Configuration.instance.isDebug) {
-                System.out.println("--- Started Bruteforce");
-            }
+        application.initConfiguration();
+        int scenarioCounter = 1;
+        // Scenario 1
+        /*application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+                new ExchangeMutation(), 0.8, 0.005);
 
-            BruteForce bruteForceApplication = new BruteForce(application.availableCities);
-            bruteForceApplication.generateRandomTours();
-            Tour bestFoundTour = bruteForceApplication.minimalTourAll();
-            System.out.println("\nFitness of best tour: " + bestFoundTour.getFitness());
+        // Scenario 2
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+                new ExchangeMutation(), 0.7, 0.005);
 
-            if (Configuration.instance.isDebug) {
-                System.out.println("--- Finished Bruteforce");
-            }
-        } else {
-            application.initConfiguration();
-            int scenarioCounter = 1;
-            // Scenario 1
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), 0.8, 0.005);
+        // Scenario 3
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+                new ExchangeMutation(), 0.6, 0.005);
 
-            // Scenario 2
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), 0.7, 0.005);
+        // Scenario 4
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+                new ExchangeMutation(), 0.8, 0.0005);
 
-            // Scenario 3
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), 0.6, 0.005);
+        // Scenario 5
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+                new ExchangeMutation(), 0.7, 0.0005);
 
-            // Scenario 4
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), 0.8, 0.0005);
+        // Scenario 6
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+                new ExchangeMutation(), 0.6, 0.0005);
 
-            // Scenario 5
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), 0.7, 0.0005);
+        // Scenario 7
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+                new DisplacementMutation(), 0.7, 0.0005);
 
-            // Scenario 6
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
-                    new ExchangeMutation(), 0.6, 0.0005);
+        // Scenario 8
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new TournamentSelection(), new PartiallyMatchedCrossover(),
+                new DisplacementMutation(), 0.7, 0.0005);
 
-            // Scenario 7
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
-                    new DisplacementMutation(), 0.7, 0.0005);
+        // Scenario 9
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+                new HeuristicMutation(), 0.7, 0.0005);
 
-            // Scenario 8
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new TournamentSelection(), new PartiallyMatchedCrossover(),
-                    new DisplacementMutation(), 0.7, 0.0005);
+        // Scenario 10
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+                new InsertionMutation(), 0.7, 0.0005);
 
-            // Scenario 9
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
-                    new HeuristicMutation(), 0.7, 0.0005);
+        // Scenario 11
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+                new InversionMutation(), 0.7, 0.0005);
 
-            // Scenario 10
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
-                    new InsertionMutation(), 0.7, 0.0005);
+        // Scenario 12
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new CycleCrossover(),
+                new ExchangeMutation(), 0.7, 0.005);
 
-            // Scenario 11
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
-                    new InversionMutation(), 0.7, 0.0005);
+        // Scenario 13
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new CycleCrossover(),
+                new ExchangeMutation(), 0.7, 0.0005);
 
-            // Scenario 12
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new CycleCrossover(),
-                    new ExchangeMutation(), 0.7, 0.005);
+        // Scenario 14
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new TournamentSelection(), new CycleCrossover(),
+                new ExchangeMutation(), 0.7, 0.0005);
 
-            // Scenario 13
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new CycleCrossover(),
-                    new ExchangeMutation(), 0.7, 0.0005);
+        // Scenario 15
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new HeuristicCrossover(),
+                new ExchangeMutation(), 0.7, 0.0005);
 
-            // Scenario 14
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new TournamentSelection(), new CycleCrossover(),
-                    new ExchangeMutation(), 0.7, 0.0005);
+        // Scenario 16
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new HeuristicCrossover(),
+                new InsertionMutation(), 0.7, 0.0005);
 
-            // Scenario 15
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new HeuristicCrossover(),
-                    new ExchangeMutation(), 0.7, 0.0005);
+        // Scenario 17
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new HeuristicCrossover(),
+                new InversionMutation(), 0.7, 0.0005);
 
-            // Scenario 16
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new HeuristicCrossover(),
-                    new InsertionMutation(), 0.7, 0.0005);
+        // Scenario 18
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new TournamentSelection(), new OrderedCrossover(),
+                new ExchangeMutation(), 0.7, 0.0005);
 
-            // Scenario 17
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new HeuristicCrossover(),
-                    new InversionMutation(), 0.7, 0.0005);
+        // Scenario 19
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new OrderedCrossover(),
+                new DisplacementMutation(), 0.7, 0.0005);
 
-            // Scenario 18
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new TournamentSelection(), new OrderedCrossover(),
-                    new ExchangeMutation(), 0.7, 0.0005);
+        // Scenario 20
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new OrderedCrossover(),
+                new InsertionMutation(), 0.7, 0.0005);
 
-            // Scenario 19
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new OrderedCrossover(),
-                    new DisplacementMutation(), 0.7, 0.0005);
+        // Scenario 21
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new TournamentSelection(), new PositionBasedCrossover(),
+                new ExchangeMutation(), 0.7, 0.0005);
 
-            // Scenario 20
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new OrderedCrossover(),
-                    new InsertionMutation(), 0.7, 0.0005);
+        // Scenario 22
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PositionBasedCrossover(),
+                new HeuristicMutation(), 0.7, 0.0005);
 
-            // Scenario 21
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new TournamentSelection(), new PositionBasedCrossover(),
-                    new ExchangeMutation(), 0.7, 0.0005);
+        // Scenario 23
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new TournamentSelection(), new PositionBasedCrossover(),
+                new InversionMutation(), 0.7, 0.0005);
 
-            // Scenario 22
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PositionBasedCrossover(),
-                    new HeuristicMutation(), 0.7, 0.0005);
+        // Scenario 24
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new TournamentSelection(), new SubTourExchangeCrossover(),
+                new ExchangeMutation(), 0.7, 0.0005);
 
-            // Scenario 23
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new TournamentSelection(), new PositionBasedCrossover(),
-                    new InversionMutation(), 0.7, 0.0005);
+        // Scenario 25
+        scenarioCounter++;
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new SubTourExchangeCrossover(),
+                new DisplacementMutation(), 0.7, 0.0005);
 
-            // Scenario 24
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new TournamentSelection(), new SubTourExchangeCrossover(),
-                    new ExchangeMutation(), 0.7, 0.0005);
+        // Bruteforce Algorithm
+        application.startBruteforce();
 
-            // Scenario 25
-            scenarioCounter++;
-            application.startScenario(scenarioCounter, new RouletteWheelSelection(), new SubTourExchangeCrossover(),
-                    new DisplacementMutation(), 0.7, 0.0005);
 
-        }
         application.shutdownHSQLDB();
     }
 }
