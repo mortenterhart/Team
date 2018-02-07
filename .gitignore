@@ -12,3 +12,4 @@ TSP.iml
 /data/datastore.db.log
 /out
 /build
+/data/datastore.db.tmp/

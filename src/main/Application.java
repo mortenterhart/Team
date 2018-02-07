@@ -77,8 +77,37 @@ public class Application {
 
         BruteForce bruteForceApplication = new BruteForce(availableCities);
         bruteForceApplication.generateRandomTours();
-        Tour bestFoundTour = bruteForceApplication.minimalTourAll();
-        System.out.println("\nFitness of best tour: " + bestFoundTour.getFitness());
+        Tour bestTourAll = bruteForceApplication.minimalTourAll();
+        System.out.println("Best tour in whole list: " + bestTourAll.toString());
+        System.out.println("Fitness of all: " + bestTourAll.getFitness());
+        HSQLDBManager.instance.update(HSQLDBManager.instance.buildSQLStatement(databaseIdCounter,
+                Configuration.instance.numberOfTourElements, bestTourAll.getFitness(), 26));
+        databaseIdCounter++;
+        System.out.println();
+
+        Tour bestTourTop25 = bruteForceApplication.minimalTourTop25();
+        System.out.println("Best tour in top 25 segment: " + bestTourTop25.toString());
+        System.out.println("Fitness of top 25: " + bestTourTop25.getFitness());
+        HSQLDBManager.instance.update(HSQLDBManager.instance.buildSQLStatement(databaseIdCounter,
+                Configuration.instance.numberOfTourElements, bestTourTop25.getFitness(), 26));
+        databaseIdCounter++;
+        System.out.println();
+
+        Tour bestTourMiddle50 = bruteForceApplication.minimalTourMiddle50();
+        System.out.println("Best tour in middle 50 segment: " + bestTourMiddle50.toString());
+        System.out.println("Fitness of middle 50: " + bestTourMiddle50.getFitness());
+        HSQLDBManager.instance.update(HSQLDBManager.instance.buildSQLStatement(databaseIdCounter,
+                Configuration.instance.numberOfTourElements, bestTourMiddle50.getFitness(), 26));
+        databaseIdCounter++;
+        System.out.println();
+
+        Tour bestTourLast25 = bruteForceApplication.minimalTourLast25();
+        System.out.println("Best tour in last 25 segment: " + bestTourLast25.toString());
+        System.out.println("Fitness of last 25: " + bestTourLast25.getFitness());
+        HSQLDBManager.instance.update(HSQLDBManager.instance.buildSQLStatement(databaseIdCounter,
+                Configuration.instance.numberOfTourElements, bestTourLast25.getFitness(), 26));
+        databaseIdCounter++;
+        System.out.println();
 
         if (Configuration.instance.isDebug) {
             System.out.println("--- Finished Bruteforce");
@@ -174,7 +203,7 @@ public class Application {
         application.initConfiguration();
         int scenarioCounter = 1;
         // Scenario 1
-        /*application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
                 new ExchangeMutation(), 0.8, 0.005);
 
         // Scenario 2
