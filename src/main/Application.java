@@ -209,7 +209,7 @@ public class Application {
 
         // Scenario 2
         scenarioCounter++;
-        /*application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
+        application.startScenario(scenarioCounter, new RouletteWheelSelection(), new PartiallyMatchedCrossover(),
                 new ExchangeMutation(), 0.7, 0.005);
 
         // Scenario 3
@@ -328,7 +328,7 @@ public class Application {
                 new DisplacementMutation(), 0.7, 0.0005);
 
         // Bruteforce Algorithm
-        application.startBruteforce();*/
+        application.startBruteforce();
 
 
         application.shutdownHSQLDB();
