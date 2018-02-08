@@ -25,10 +25,10 @@ public class Statistics implements IStatistics {
     private double quantileEnd;
     private boolean quantileTo;
     private boolean quantileRange;
+    private int numberScenarios;
 
     public void writeCSVFile() {
         HSQLDBManager.instance.startup();
-        int numberScenarios = 0;
         ResultSet rs_scenarios = HSQLDBManager.instance.getResultSet("select count(DISTINCT scenario) from data;");
         try {
             rs_scenarios.next();
@@ -179,16 +179,21 @@ public class Statistics implements IStatistics {
         public static void main(String[] args){
         Statistics stats = new Statistics();
         stats.writeCSVFile();
-        stats.generateParams2(args);
+        stats.generateParams(args);
         stats.startupHSQLDB();
     }
 
-    private void generateParams2(String[] args) {
+    private void generateParams(String[] args) {
             scenarios = new ArrayList<>();
         for (int i = 0; i < args.length; i++) {
             if (args[i].startsWith("-d")) {
                 for (int j = i+1; j < args.length; j++) {
-                    if (!args[j].startsWith("-")) {
+                    if (args[j].startsWith("all")) {
+                        for (int k = 1; k <= numberScenarios; k++) {
+                            scenarios.add("s"+k);
+                        }
+                        break;
+                    } else if (!args[j].startsWith("-")) {
                         scenarios.addAll(Arrays.asList(args[j].split(",")));
                         //scenarios.add(args[j].replaceAll(",",""));
                     } else {
