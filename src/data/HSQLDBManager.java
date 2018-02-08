@@ -56,7 +56,7 @@ public enum HSQLDBManager {
         sqlStringBuilder.append("iteration BIGINT NOT NULL").append(",");
         sqlStringBuilder.append("fitness DOUBLE NOT NULL").append(",");
         sqlStringBuilder.append("scenario INT NOT NULL").append(",");
-        sqlStringBuilder.append("PRIMARY KEY (id,scenario)");
+        sqlStringBuilder.append("PRIMARY KEY (id, scenario)");
         sqlStringBuilder.append(" )");
         update(sqlStringBuilder.toString());
     }
@@ -71,9 +71,6 @@ public enum HSQLDBManager {
         stringBuilder.append(")");
         System.out.println(stringBuilder.toString());
         return stringBuilder.toString();
-    }
-
-    public void insertTest(String test) {
     }
 
     public void shutdown() {
