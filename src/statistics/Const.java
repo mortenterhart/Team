@@ -1,16 +1,11 @@
 package statistics;
 
-import data.HSQLDBManager;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public enum Const {
@@ -48,127 +43,112 @@ public enum Const {
     public String measure_file = "data/r_out/measures.r";
 
     public String createBoxplotName(List<Integer> scenarios) {
-        String name = "boxplot_scenario_";
+        StringBuilder name = new StringBuilder("boxplot_scenario_");
         for (Integer scenario : scenarios) {
-            name += scenario + "_";
+            name.append(scenario).append("_");
         }
-        name = name.substring(0,name.length()-1);
+        name = new StringBuilder(name.substring(0, name.length() - 1));
         return name + ".pdf";
     }
 
     public String createStripchartName(List<Integer> scenarios) {
-        String name = "stripchart_scenario";
+        StringBuilder name = new StringBuilder("stripchart_scenario");
         for (Integer scenario : scenarios) {
-            name += "_" + scenario;
+            name.append("_").append(scenario);
         }
         return name + ".pdf";
     }
 
     public String createScenarioShortname(List<Integer> scenarios) {
-        String text = "";
+        StringBuilder text = new StringBuilder();
         for (int scenario : scenarios) {
-            text += "s"+scenario+",";
+            text.append("s").append(scenario).append(",");
         }
-        text = text.substring(0,text.length()-1);
-        return text;
+        text = new StringBuilder(text.substring(0, text.length() - 1));
+        return text.toString();
     }
 
     public String createScenarioName(List<Integer> scenarios) {
-        String text = "";
+        StringBuilder text = new StringBuilder();
         for (int scenario : scenarios) {
-            text += "\"Szenario "+scenario+"\",";
+            text.append("\"Szenario ").append(scenario).append("\",");
         }
-        text = text.substring(0,text.length()-1);
-        return text;
+        text = new StringBuilder(text.substring(0, text.length() - 1));
+        return text.toString();
     }
 
     public String getScenariodescription_barplot(List<Integer> scenarioIds) {
-        String text = "";//2579
+        StringBuilder text = new StringBuilder();
 
         for (Integer scenarioId : scenarioIds) {
-            text += "pdf(\"plots/s"+scenarioId+"_barplot.pdf\",height = 10,width = 10,paper = \"A4r\")";
-            text += System.getProperty("line.separator");
-            text += "min <- min(s"+scenarioId+")";
-            text += System.getProperty("line.separator");
-            text += "s"+scenarioId+" <- c(round(min/s"+scenarioId+",digits = 2)*100)";
-            text += System.getProperty("line.separator");
-            text += "barplot(s"+scenarioId+",ylim=c(0,100),col=\"black\",ylab = \"solution quality (%)\",xlab = \"iterations\",width = 0.1,main = \"Genetic Algorithms - TSP280 - Scenario "+scenarioId+"\")";
-            text += System.getProperty("line.separator");
-            text += "dev.off()";
-            text += System.getProperty("line.separator");
-            text += System.getProperty("line.separator");
+            text.append("pdf(\"plots/s").append(scenarioId).append("_barplot.pdf\",height = 10,width = 10,paper = \"A4r\")");
+            text.append(System.getProperty("line.separator"));
+            text.append("min <- min(s").append(scenarioId).append(")");
+            text.append(System.getProperty("line.separator"));
+            text.append("s").append(scenarioId).append(" <- c(round(min/s").append(scenarioId).append(",digits = 2)*100)");
+            text.append(System.getProperty("line.separator"));
+            text.append("barplot(s").append(scenarioId).append(",ylim=c(0,100),col=\"black\",ylab = \"solution quality (%)\",xlab = \"iterations\",width = 0.1,main = \"Genetic Algorithms - TSP280 - Scenario ").append(scenarioId).append("\")");
+            text.append(System.getProperty("line.separator"));
+            text.append("dev.off()");
+            text.append(System.getProperty("line.separator")).append(System.getProperty("line.separator"));
         }
 
-        return text;
-    }
-
-    private List<Integer> getFitnessDataFromDB() {
-        List<Integer> list = new ArrayList<>();
-        HSQLDBManager.instance.startup();
-        ResultSet rs = HSQLDBManager.instance.getResultSet("Select * from data");
-        try {
-            while(rs.next()) {
-                list.add(rs.getInt("fitness"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return list;
+        return text.toString();
     }
 
     public String writeCsvInScenarios(List<Integer> scenarios) {
-        String scenDesc = "";
+        StringBuilder scenDesc = new StringBuilder();
         for (int scenario : scenarios) {
-            scenDesc += "s"+scenario+" <- as.numeric(read.csv(\"data/data_scenario_"+scenario+".csv\",header=FALSE)) ";
-            scenDesc += System.getProperty("line.separator");
+            scenDesc.append("s").append(scenario).append(" <- as.numeric(read.csv(\"data/data_scenario_").append(scenario).append(".csv\",header=FALSE)) ");
+            scenDesc.append(System.getProperty("line.separator"));
         }
-        return scenDesc;
+        return scenDesc.toString();
     }
 
     public String createStripchartScenarios(List<Integer> scenarios) {
-        String text = "";
+        StringBuilder text = new StringBuilder();
         for (Integer scenario : scenarios) {
-            text += "minimum <- min(s"+scenario+")";
-            text += System.getProperty("line.separator");
-            text += "maximum <- max(s"+scenario+")";
-            text += System.getProperty("line.separator");
-            text += "pdf(\"plots/s"+scenario+"_stripchart.pdf\",height = 10,width = 10,paper = \"A4r\")";
-            text += System.getProperty("line.separator");
-            text += "stripchart(s"+scenario+",xlim=c(minimum,maximum),main = \"Genetic Algorithms - TSP280 - s"+scenario+"\",method=\"stack\")";
-            text += System.getProperty("line.separator");
-            text += "dev.off()";
-            text += System.getProperty("line.separator");
-            text += System.getProperty("line.separator");
+            text.append("minimum <- min(s").append(scenario).append(")");
+            text.append(System.getProperty("line.separator"));
+            text.append("maximum <- max(s").append(scenario).append(")");
+            text.append(System.getProperty("line.separator"));
+            text.append("pdf(\"plots/s").append(scenario).append("_stripchart.pdf\",height = 10,width = 10,paper = \"A4r\")");
+            text.append(System.getProperty("line.separator"));
+            text.append("stripchart(s").append(scenario).append(",xlim=c(minimum,maximum),main = \"Genetic Algorithms - TSP280 - s").append(scenario).append("\",method=\"stack\")");
+            text.append(System.getProperty("line.separator"));
+            text.append("dev.off()");
+            text.append(System.getProperty("line.separator"));
+            text.append(System.getProperty("line.separator"));
 
         }
-        return text;
+        return text.toString();
     }
 
     public String createDotplotName(List<Integer> scenario_ids) {
-        String text = "dotplot_scenario";
+        StringBuilder text = new StringBuilder("dotplot_scenario");
         for (int scenario : scenario_ids) {
-            text += "_" + scenario;
+            text.append("_").append(scenario);
         }
         return text + ".pdf";
     }
 
     public String createDotplotScenarios(List<Integer> scenario_ids) {
-        String text = "";
+        StringBuilder text = new StringBuilder();
         for (Integer scenario : scenario_ids) {
-            text += "plot(s"+scenario+",col=\"black\",ylab = \"distance\",xlab = \"iterations\",cex = 0.1,main = \"Genetic Algorithms - TSP280 - Scenario "+scenario+"\")";
-            text += System.getProperty("line.separator");
+            text.append("plot(s").append(scenario).append(",col=\"black\",ylab = \"distance\",xlab = \"iterations\",cex = 0.1,main = \"Genetic Algorithms - TSP280 - Scenario ").append(scenario).append("\")");
+            text.append(System.getProperty("line.separator"));
         }
-        return text;
+        return text.toString();
     }
 
     public String createMffs(List<Integer> scenario_ids) {
-        String text = "c(";
+        StringBuilder text = new StringBuilder("c(");
         for (Integer scenario : scenario_ids) {
-            text += "sort(table(s"+scenario+"),decreasing=TRUE)[1],";
+            text.append("sort(table(s").append(scenario).append("),decreasing=TRUE)[1],");
         }
-        text = text.substring(0,text.length()-1);
-        text += ")";
-        return text;
+        text = new StringBuilder(text.substring(0, text.length() - 1));
+        text.append(")");
+        return text.toString();
     }
 
     public String buildFileBeginning(List<Integer> scenario_ids, String template_path) throws IOException {
@@ -185,127 +165,119 @@ public enum Const {
     }
 
     public String createTTestText(List<Integer> scenario_ids) {
-        String text = "";
+        StringBuilder text = new StringBuilder();
         for (int i = 0; i < scenario_ids.size(); i++) {
             for (int j = i+1; j < scenario_ids.size(); j++) {
-                text += "c(mean(s"+scenario_ids.get(i)+"),mean(s"+scenario_ids.get(j)+"))";
-                text += System.getProperty("line.separator");
-                text += "t.test(s"+scenario_ids.get(i)+",s"+scenario_ids.get(j)+")";
-                text += System.getProperty("line.separator");
+                text.append("c(mean(s").append(scenario_ids.get(i)).append("),mean(s").append(scenario_ids.get(j)).append("))");
+                text.append(System.getProperty("line.separator"));
+                text.append("t.test(s").append(scenario_ids.get(i)).append(",s").append(scenario_ids.get(j)).append(")");
+                text.append(System.getProperty("line.separator"));
             }
         }
-        return text;
+        return text.toString();
     }
 
     public String createMedianScenario(List<Integer> scenario_ids) {
-        String text = "c(";
+        StringBuilder text = new StringBuilder("c(");
         for (int scenario_id : scenario_ids) {
-            text += "median(s"+scenario_id+"),";
+            text.append("median(s").append(scenario_id).append("),");
         }
-        text = text.substring(0,text.length()-1);
-        text += ")";
-        return text;
+        text = new StringBuilder(text.substring(0, text.length() - 1));
+        text.append(")");
+        return text.toString();
     }
     public String createMeanScenario(List<Integer> scenario_ids) {
-        String text = "c(";
+        StringBuilder text = new StringBuilder("c(");
         for (int scenario_id : scenario_ids) {
-            text += "round(mean(s"+scenario_id+"),digits = 2),";
+            text.append("round(mean(s").append(scenario_id).append("),digits = 2),");
         }
-        text = text.substring(0,text.length()-1);
-        text += ")";
-        return text;
-    }
-
-    public String createHistogramName(List<Integer> scenario_ids) {
-        String name = "histogram_scenario";
-        for (Integer scenario : scenario_ids) {
-            name += "_" + scenario;
-        }
-        return name + ".pdf";
+        text = new StringBuilder(text.substring(0, text.length() - 1));
+        text.append(")");
+        return text.toString();
     }
 
     public String createHistogramScenarios(List<Integer> scenario_ids) {
-        String text = "";
+        StringBuilder text = new StringBuilder();
         for (int scenario_id : scenario_ids) {
-            text += "pdf(\"plots/s"+scenario_id+"_histogram.pdf\",height = 10,width = 10,paper = \"A4r\")\n";
-            text += "hist(s"+scenario_id+",xlim=c(minimum,maximum),ylim=c(0,200),xlab = \"distance\",breaks=100,main = \"Genetic Algorithms - TSP280 - s"+scenario_id+"\")\n";
-            text += "dev.off()\n\n";
+            text.append("pdf(\"plots/s").append(scenario_id).append("_histogram.pdf\",height = 10,width = 10,paper = \"A4r\")\n");
+            text.append("hist(s").append(scenario_id).append(",xlim=c(minimum,maximum),ylim=c(0,200),xlab = \"distance\",breaks=100,main = \"Genetic Algorithms - TSP280 - s").append(scenario_id).append("\")\n");
+            text.append("dev.off()\n\n");
         }
-        return text;
+        return text.toString();
     }
 
     public String createSdScenario(List<Integer> scenario_ids) {
-        String text = "c(";
+        StringBuilder text = new StringBuilder("c(");
         for (int scenario_id : scenario_ids) {
-            text += "round(sd(s"+scenario_id+"),digits = 2),";
+            text.append("round(sd(s").append(scenario_id).append("),digits = 2),");
         }
-        text = text.substring(0,text.length()-1);
-        text += ")";
-        return text;
+        text = new StringBuilder(text.substring(0, text.length() - 1));
+        text.append(")");
+        return text.toString();
     }
 
     public String createRangeScenario(List<Integer> scenario_ids) {
-        String text = "c(";
+        StringBuilder text = new StringBuilder("c(");
         for (Integer scenario_id : scenario_ids) {
-            text += "max(s"+scenario_id+") - min(s"+scenario_id+"),";
+            text.append("max(s").append(scenario_id).append(") - min(s").append(scenario_id).append("),");
         }
-        text = text.substring(0,text.length()-1);
-        text += ")";
-        return text;
+        text = new StringBuilder(text.substring(0, text.length() - 1));
+        text.append(")");
+        return text.toString();
     }
 
     public String createInterquartilerangeScenario(List<Integer> scenario_ids) {
-        String text = "c(";
+        StringBuilder text = new StringBuilder("c(");
         for (Integer scenario_id : scenario_ids) {
-            text += "quantile(s"+scenario_id+",0.75) - quantile(s"+scenario_id+",0.25),";
+            text.append("quantile(s").append(scenario_id).append(",0.75) - quantile(s").append(scenario_id).append(",0.25),");
         }
-        text = text.substring(0,text.length()-1);
-        text += ")";
-        return text;
+        text = new StringBuilder(text.substring(0, text.length() - 1));
+        text.append(")");
+        return text.toString();
     }
 
     public String createQuantile(List<Integer> scenario_ids,double quantileStart) {
-        String text = "c(";
+        StringBuilder text = new StringBuilder("c(");
         for (int scenario_id : scenario_ids) {
-            text += "quantile(s"+scenario_id+","+quantileStart+"),";
+            text.append("quantile(s").append(scenario_id).append(",").append(quantileStart).append("),");
         }
-        text = text.substring(0,text.length()-1);
-        text += ")";
-        return text;
+        text = new StringBuilder(text.substring(0, text.length() - 1));
+        text.append(")");
+        return text.toString();
     }
 
     public String createQuantileTo(List<Integer> scenario_ids, double quantileStart, double quantileEnd) {
-        String text = "";
+        StringBuilder text = new StringBuilder();
         for (int scenario_id : scenario_ids) {
-            text += "quantile(s"+scenario_id+",probs = c("+quantileStart+","+quantileEnd+"))";
-            text += System.getProperty("line.separator");
+            text.append("quantile(s").append(scenario_id).append(",probs = c(").append(quantileStart).append(",").append(quantileEnd).append("))");
+            text.append(System.getProperty("line.separator"));
         }
-        return text;
+        return text.toString();
     }
 
     public String createQuantileRange(List<Integer> scenario_ids, double quantileStart, double quantileEnd) {
-        String text = "";
+        StringBuilder text = new StringBuilder();
         for (int scenario_id : scenario_ids) {
-            text += "quantile(s"+scenario_id+",probs = c("+quantileStart+","+(quantileStart+0.25)+","+quantileEnd+"))";
-            text += System.getProperty("line.separator");
+            text.append("quantile(s").append(scenario_id).append(",probs = c(").append(quantileStart).append(",").append(quantileStart + 0.25).append(",").append(quantileEnd).append("))");
+            text.append(System.getProperty("line.separator"));
         }
-        return text;
+        return text.toString();
     }
 
     public String createHistogramMinAndMax(List<Integer> scenario_ids) {
-        String minimumText = "minimum <- min(";
-        String maximumText = "maximum <- max(";
+        StringBuilder minimumText = new StringBuilder("minimum <- min(");
+        StringBuilder maximumText = new StringBuilder("maximum <- max(");
 
         for (int scenario_id : scenario_ids) {
-            minimumText += "s"+scenario_id+",";
-            maximumText += "s"+scenario_id+",";
+            minimumText.append("s").append(scenario_id).append(",");
+            maximumText.append("s").append(scenario_id).append(",");
         }
-        minimumText = minimumText.substring(0,minimumText.length()-1);
-        maximumText = maximumText.substring(0,maximumText.length()-1);
+        minimumText = new StringBuilder(minimumText.substring(0, minimumText.length() - 1));
+        maximumText = new StringBuilder(maximumText.substring(0, maximumText.length() - 1));
 
-        minimumText += ")\n";
-        maximumText += ")\n";
-        return minimumText+maximumText;
+        minimumText.append(")\n");
+        maximumText.append(")\n");
+        return minimumText+ maximumText.toString();
     }
 }
 
