@@ -1,15 +1,15 @@
 package statistics;
 
+import data.HSQLDBManager;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import data.HSQLDBManager;
 
 
 public class Statistics implements IStatistics {
@@ -23,7 +23,6 @@ public class Statistics implements IStatistics {
     private boolean quantile;
     private double quantileStart;
     private double quantileEnd;
-    private double iqr;
     private boolean quantileTo;
     private boolean quantileRange;
 
@@ -44,16 +43,14 @@ public class Statistics implements IStatistics {
             ResultSet rs = HSQLDBManager.instance.getResultSet("SELECT * FROM DATA WHERE scenario="+i);
             try {
                 PrintWriter writer = new PrintWriter(new File("data/data/data_scenario_"+i+".csv"));
-                String text = "";
+                StringBuilder text = new StringBuilder();
                 while (rs.next()) {
-                    text+= Math.round(rs.getDouble("fitness"))+",";
+                    text.append(Math.round(rs.getDouble("fitness"))).append(",");
                 }
                 writer.print(text.substring(0,text.length()-1));
                 writer.print(System.getProperty("line.separator"));
                 writer.flush();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            } catch (SQLException | IOException e) {
                 e.printStackTrace();
             }
         }
@@ -192,9 +189,7 @@ public class Statistics implements IStatistics {
             if (args[i].startsWith("-d")) {
                 for (int j = i+1; j < args.length; j++) {
                     if (!args[j].startsWith("-")) {
-                        for (String s : args[j].split(",")) {
-                            scenarios.add(s);
-                        }
+                        scenarios.addAll(Arrays.asList(args[j].split(",")));
                         //scenarios.add(args[j].replaceAll(",",""));
                     } else {
                         break;
