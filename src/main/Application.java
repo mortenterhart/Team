@@ -133,8 +133,22 @@ public class Application {
         databaseIdCounter++;
         logNewLine();
 
+        locateBestTour(bestTourAll, bestTourTop25, bestTourMiddle50, bestTourLast25);
+
         log("--- Finished Bruteforce");
         log("==================================");
+    }
+
+    private void locateBestTour(Tour best, Tour top25, Tour middle50, Tour last25) {
+        String locatedMessage = "The best found tour by Bruteforce was located ";
+        if (best.equals(top25)) {
+            locatedMessage += "in the top 25 percent ";
+        } else if (best.equals(middle50)) {
+            locatedMessage += "in the middle 50 percent ";
+        } else if (best.equals(last25)) {
+            locatedMessage += "in the last 25 percent ";
+        }
+        log(locatedMessage + "of the list of " + Configuration.instance.numberOfTourElements + " elements.");
     }
 
     public void startScenario(int scenarioId, ISelection selection, ICrossover crossover,
