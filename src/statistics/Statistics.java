@@ -43,16 +43,14 @@ public class Statistics implements IStatistics {
         for (int i = 1; i <= numberScenarios; i++) {
             ResultSet rs = HSQLDBManager.instance.getResultSet("SELECT * FROM DATA WHERE scenario="+i);
             try {
-                PrintWriter writer = new PrintWriter(new File("data/data_scenario_"+i+".csv"));
-                PrintWriter barplotwriter = new PrintWriter(new File("data/data_scenario_"+i+"_barplot.csv"));
+                PrintWriter writer = new PrintWriter(new File("data/data/data_scenario_"+i+".csv"));
+                String text = "";
                 while (rs.next()) {
-                    writer.print(rs.getDouble("fitness")+",");
-                    barplotwriter.print(rs.getDouble("fitness"));
-
+                    text+= Math.round(rs.getDouble("fitness"))+",";
                 }
+                writer.print(text.substring(0,text.length()-1));
+                writer.print(System.getProperty("line.separator"));
                 writer.flush();
-                barplotwriter.flush();
-
             } catch (SQLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -86,10 +84,10 @@ public class Statistics implements IStatistics {
     }
 
     public void buildBarPlotFile() {
+        List<Integer> scenario_ids = createScenarios();
         try {
-            String barplot = new String(Files.readAllBytes(Paths.get("src/statistics/RTemplates/barplot.R.tpl")));
-            barplot = barplot.replaceAll(Const.VAR_FILENAME,Const.instance.path);
-            barplot = barplot.replaceAll(Const.VAR_SCENARIODESCRIPTION, Const.instance.getScenariodescription_barplot());
+            String barplot = Const.instance.buildFileBeginning(scenario_ids,"src/statistics/RTemplates/barplot.R.tpl");
+            barplot = barplot.replaceAll(Const.VAR_BARPLOTSCENARIOS, Const.instance.getScenariodescription_barplot(scenario_ids));
             Const.instance.writeFile(barplot, new File(Const.instance.barplot_file));
         } catch (IOException e) {
             e.printStackTrace();

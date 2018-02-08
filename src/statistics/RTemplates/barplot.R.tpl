@@ -1,7 +1,8 @@
-pdf("plots/[FILENAME]",height = 10,width = 10,paper = "A4r")
+cat(rep("\n",64))
 
-s01 <- [SCENARIODESCRIPTION]
+setwd("[DATADIR]")
+getwd()
 
-barplot(s01,ylim=c(0,100),col="black",ylab = "solution quality (%)",xlab = "iterations",width = 0.1,main = "Genetic Algorithms - TSP280 - [NAMES]")
+[SCENARIODESCRIPTION]
 
-dev.off()
+[BARPLOTSCENARIOS]

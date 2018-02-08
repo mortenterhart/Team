@@ -22,6 +22,7 @@ public enum Const {
     public static String VAR_DOTPLOTSCENARIO = "\\[BOXPLOTSCENARIOS\\]";
     public static String VAR_DATADIR = "\\[DATADIR\\]";
     public static String VAR_SCENARIODESCRIPTION = "\\[SCENARIODESCRIPTION\\]";
+    public static String VAR_BARPLOTSCENARIOS = "\\[BARPLOTSCENARIOS\\]";
     public static String VAR_FILENAME = "\\[FILENAME\\]";
     public static String VAR_SCENARIOSHORT = "\\[SCENARIOSSHORT\\]";
     public static String VAR_NAMES = "\\[NAMES\\]";
@@ -81,20 +82,29 @@ public enum Const {
         return text;
     }
 
-    public String getScenariodescription_barplot() {
-        List<Integer> list = getFitnessDataFromDB();
-        int lastElement = list.get(list.size()-1);
-        String scenariodescription = "c(";
-        for (int fitness : list) {
-            scenariodescription += "round("+fitness+"/"+lastElement+",digits=2)*100,";
+    public String getScenariodescription_barplot(List<Integer> scenarioIds) {
+        String text = "";//2579
+
+        for (Integer scenarioId : scenarioIds) {
+            text += "pdf(\"plots/s"+scenarioId+"_barplot.pdf\",height = 10,width = 10,paper = \"A4r\")";
+            text += System.getProperty("line.separator");
+            text += "min <- min(s"+scenarioId+")";
+            text += System.getProperty("line.separator");
+            text += "s"+scenarioId+" <- c(round(min/s"+scenarioId+",digits = 2)*100)";
+            text += System.getProperty("line.separator");
+            text += "barplot(s"+scenarioId+",ylim=c(0,100),col=\"black\",ylab = \"solution quality (%)\",xlab = \"iterations\",width = 0.1,main = \"Genetic Algorithms - TSP280 - Scenario "+scenarioId+"\")";
+            text += System.getProperty("line.separator");
+            text += "dev.off()";
+            text += System.getProperty("line.separator");
+            text += System.getProperty("line.separator");
         }
-        scenariodescription = scenariodescription.substring(0,scenariodescription.length()-1);
-        scenariodescription +=")";
-        return scenariodescription;
+
+        return text;
     }
 
     private List<Integer> getFitnessDataFromDB() {
         List<Integer> list = new ArrayList<>();
+        HSQLDBManager.instance.startup();
         ResultSet rs = HSQLDBManager.instance.getResultSet("Select * from data");
         try {
             while(rs.next()) {
@@ -135,7 +145,7 @@ public enum Const {
     }
 
     public String createDotplotName(List<Integer> scenario_ids) {
-        String text = "boxplot_scenario";
+        String text = "dotplot_scenario";
         for (int scenario : scenario_ids) {
             text += "_" + scenario;
         }
@@ -237,7 +247,7 @@ public enum Const {
     public String createRangeScenario(List<Integer> scenario_ids) {
         String text = "c(";
         for (Integer scenario_id : scenario_ids) {
-            text += "max(s"+scenario_id+") − min(s"+scenario_id+"),";
+            text += "max(s"+scenario_id+") - min(s"+scenario_id+"),";
         }
         text = text.substring(0,text.length()-1);
         text += ")";
