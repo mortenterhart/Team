@@ -73,7 +73,7 @@ public class RouletteWheelSelection {
 
     @Test
     public void countSelectedIndividuums() {
-        assertEquals(12,result.size());
+        assertEquals(10,result.size());
     }
 
 }
