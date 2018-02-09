@@ -3,14 +3,7 @@ package test.crossover;
 import base.City;
 import base.Tour;
 import crossover.ICrossover;
-import data.InstanceReader;
-import data.TSPLIBReader;
-import main.Configuration;
 import org.junit.Assert;
-import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 public abstract class CrossoverTest_Basic {
 
