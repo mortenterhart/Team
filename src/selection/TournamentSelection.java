@@ -26,7 +26,7 @@ public class TournamentSelection implements ISelection {
     private int getNumberofTributes(ArrayList<Tour> Tours) {
         double percentageOfTributes = Configuration.instance.choosePercentageOfTributes;
         int size = (int) (Tours.size() * percentageOfTributes);
-        size = size - size % 4;//suche die nächst kleinere Zahl die durch 4 ganzzahlig Teilbar ist
+        size = size - size % 4;
         return size;
     }
 
@@ -60,7 +60,7 @@ public class TournamentSelection implements ISelection {
         return false;
     }
 
-    public ArrayList<Tour> getCouples(ArrayList<Tour> winner)//1und2 ist ein couple 3und4.....
+    public ArrayList<Tour> getCouples(ArrayList<Tour> winner)
     {
         ArrayList<Tour> couples = new ArrayList<Tour>();
         while (!winner.isEmpty()) {
@@ -70,7 +70,7 @@ public class TournamentSelection implements ISelection {
     }
 
     private void setTributesfromClonedTours(ArrayList<Tour> tributes, ArrayList<Tour> clonedTours, int percentfromAllTours) {
-        for (int i = 0; i < percentfromAllTours; i++)//später variable Prozentanzahl
+        for (int i = 0; i < percentfromAllTours; i++)
         {
             int randomvalue = Configuration.instance.mersenneTwister.nextInt(0, clonedTours.size() - 1);
             tributes.add(clonedTours.remove(randomvalue));
@@ -83,7 +83,7 @@ public class TournamentSelection implements ISelection {
             int randomFighterIndex = Configuration.instance.mersenneTwister.nextInt(0, tributes.size() - 1);
             fighters.add(tributes.get(randomFighterIndex));
             tributes.remove(randomFighterIndex);
-            if (counteroffighters == 1) //man braucht immer zwei die Kämpfen sollen(verglichen)
+            if (counteroffighters == 1)
             {
                 counteroffighters = 0;
                 fight(fighters, looser, winner);
