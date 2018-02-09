@@ -1,6 +1,6 @@
 *.class
+log/
 *.csv
-data/r_out/*.r
 .idea/
 .DS_Store
 *.swp
@@ -9,5 +9,8 @@ TSP.iml
 /data/datastore.db.script
 /data/datastore.db.properties
 /data/datastore.db.lck
+/data/datastore.db.log
 /out
 /build
+/data/datastore.db.tmp/
+data/r_out/*.r

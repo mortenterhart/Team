@@ -1,0 +1,1029 @@
+[2018-02-08 10:02:09]: --- Scenario 01
+[2018-02-08 10:02:09]: selectionAlgorithm: RouletteWheelSelection
+[2018-02-08 10:02:09]: crossoverAlgorithm: PartiallyMatchedCrossover
+[2018-02-08 10:02:09]: mutationAlgorithm:  ExchangeMutation
+[2018-02-08 10:02:09]: crossoverRatio:     0.8
+[2018-02-08 10:02:09]: mutationRatio:      0.005
+[2018-02-08 10:02:09]: ==================================
+[2018-02-08 10:02:09]:   Initial best fitness: 32621.694
+[2018-02-08 10:02:21]: ==================================
+[2018-02-08 10:02:21]: Best fitness of scenario 1: 32621.69388086506
+[2018-02-08 10:02:21]: --- End Scenario 1
+[2018-02-08 10:02:21]: 
+[2018-02-08 10:02:21]: --- New global fitness in scenario 1: 32621.694
+[2018-02-08 10:02:21]: --- Scenario 02
+[2018-02-08 10:02:21]: selectionAlgorithm: RouletteWheelSelection
+[2018-02-08 10:02:21]: crossoverAlgorithm: PartiallyMatchedCrossover
+[2018-02-08 10:02:21]: mutationAlgorithm:  ExchangeMutation
+[2018-02-08 10:02:21]: crossoverRatio:     0.7
+[2018-02-08 10:02:21]: mutationRatio:      0.005
+[2018-02-08 10:02:21]: ==================================
+[2018-02-08 10:02:21]:   Initial best fitness: 31905.226
+[2018-02-08 10:02:28]: ==================================
+[2018-02-08 10:02:28]: Best fitness of scenario 2: 31905.226160005186
+[2018-02-08 10:02:28]: --- End Scenario 2
+[2018-02-08 10:02:28]: 
+[2018-02-08 10:02:28]: --- New global fitness in scenario 2: 31905.226
+[2018-02-08 10:02:28]: --- Scenario 03
+[2018-02-08 10:02:28]: selectionAlgorithm: RouletteWheelSelection
+[2018-02-08 10:02:28]: crossoverAlgorithm: PartiallyMatchedCrossover
+[2018-02-08 10:02:28]: mutationAlgorithm:  ExchangeMutation
+[2018-02-08 10:02:28]: crossoverRatio:     0.6
+[2018-02-08 10:02:28]: mutationRatio:      0.005
+[2018-02-08 10:02:28]: ==================================
+[2018-02-08 10:02:28]:   Initial best fitness: 32536.004
+[2018-02-08 10:02:36]: ==================================
+[2018-02-08 10:02:36]: Best fitness of scenario 3: 32536.003838423727
+[2018-02-08 10:02:36]: --- End Scenario 3
+[2018-02-08 10:02:36]: 
+[2018-02-08 10:02:36]: --- Scenario 04
+[2018-02-08 10:02:36]: selectionAlgorithm: RouletteWheelSelection
+[2018-02-08 10:02:36]: crossoverAlgorithm: PartiallyMatchedCrossover
+[2018-02-08 10:02:36]: mutationAlgorithm:  ExchangeMutation
+[2018-02-08 10:02:36]: crossoverRatio:     0.8
+[2018-02-08 10:02:36]: mutationRatio:      5.0E-4
+[2018-02-08 10:02:36]: ==================================
+[2018-02-08 10:02:36]:   Initial best fitness: 32584.379
+[2018-02-08 10:02:44]: ==================================
+[2018-02-08 10:02:44]: Best fitness of scenario 4: 32584.379082929056
+[2018-02-08 10:02:44]: --- End Scenario 4
+[2018-02-08 10:02:44]: 
+[2018-02-08 10:02:44]: --- Scenario 05
+[2018-02-08 10:02:44]: selectionAlgorithm: RouletteWheelSelection
+[2018-02-08 10:02:44]: crossoverAlgorithm: PartiallyMatchedCrossover
+[2018-02-08 10:02:44]: mutationAlgorithm:  ExchangeMutation
+[2018-02-08 10:02:44]: crossoverRatio:     0.7
+[2018-02-08 10:02:44]: mutationRatio:      5.0E-4
+[2018-02-08 10:02:44]: ==================================
+[2018-02-08 10:02:44]:   Initial best fitness: 32145.739
+[2018-02-08 10:02:50]: ==================================
+[2018-02-08 10:02:50]: Best fitness of scenario 5: 32145.739489399533
+[2018-02-08 10:02:50]: --- End Scenario 5
+[2018-02-08 10:02:50]: 
+[2018-02-08 10:02:50]: --- Scenario 06
+[2018-02-08 10:02:50]: selectionAlgorithm: RouletteWheelSelection
+[2018-02-08 10:02:50]: crossoverAlgorithm: PartiallyMatchedCrossover
+[2018-02-08 10:02:50]: mutationAlgorithm:  ExchangeMutation
+[2018-02-08 10:02:50]: crossoverRatio:     0.6
+[2018-02-08 10:02:50]: mutationRatio:      5.0E-4
+[2018-02-08 10:02:50]: ==================================
+[2018-02-08 10:02:50]:   Initial best fitness: 32392.513
+[2018-02-08 10:02:55]: ==================================
+[2018-02-08 10:02:55]: Best fitness of scenario 6: 32392.51346982639
+[2018-02-08 10:02:55]: --- End Scenario 6
+[2018-02-08 10:02:55]: 
+[2018-02-08 10:02:55]: --- Scenario 07
+[2018-02-08 10:02:55]: selectionAlgorithm: RouletteWheelSelection
+[2018-02-08 10:02:55]: crossoverAlgorithm: PartiallyMatchedCrossover
+[2018-02-08 10:02:55]: mutationAlgorithm:  DisplacementMutation
+[2018-02-08 10:02:55]: crossoverRatio:     0.7
+[2018-02-08 10:02:55]: mutationRatio:      5.0E-4
+[2018-02-08 10:02:55]: ==================================
+[2018-02-08 10:02:55]:   Initial best fitness: 32360.877
+[2018-02-08 10:03:02]: ==================================
+[2018-02-08 10:03:02]: Best fitness of scenario 7: 32360.87667460123
+[2018-02-08 10:03:02]: --- End Scenario 7
+[2018-02-08 10:03:02]: 
+[2018-02-08 10:03:02]: --- Scenario 08
+[2018-02-08 10:03:02]: selectionAlgorithm: TournamentSelection
+[2018-02-08 10:03:02]: crossoverAlgorithm: PartiallyMatchedCrossover
+[2018-02-08 10:03:02]: mutationAlgorithm:  DisplacementMutation
+[2018-02-08 10:03:02]: crossoverRatio:     0.7
+[2018-02-08 10:03:02]: mutationRatio:      5.0E-4
+[2018-02-08 10:03:02]: ==================================
+[2018-02-08 10:03:02]:   Initial best fitness: 32093.397
+[2018-02-08 10:03:02]: ==================================
+[2018-02-08 10:03:02]: Best fitness of scenario 8: 32093.396584518636
+[2018-02-08 10:03:02]: --- End Scenario 8
+[2018-02-08 10:03:02]: 
+[2018-02-08 10:03:02]: --- Scenario 09
+[2018-02-08 10:03:02]: selectionAlgorithm: RouletteWheelSelection
+[2018-02-08 10:03:02]: crossoverAlgorithm: PartiallyMatchedCrossover
+[2018-02-08 10:03:02]: mutationAlgorithm:  HeuristicMutation
+[2018-02-08 10:03:02]: crossoverRatio:     0.7
+[2018-02-08 10:03:02]: mutationRatio:      5.0E-4
+[2018-02-08 10:03:02]: ==================================
+[2018-02-08 10:03:02]:   Initial best fitness: 32046.786
+[2018-02-08 10:03:21]: ==================================
+[2018-02-08 10:03:21]: Best fitness of scenario 9: 32046.786158721425
+[2018-02-08 10:03:21]: --- End Scenario 9
+[2018-02-08 10:03:21]: 
+[2018-02-08 10:03:21]: --- Scenario 10
+[2018-02-08 10:03:21]: selectionAlgorithm: RouletteWheelSelection
+[2018-02-08 10:03:21]: crossoverAlgorithm: PartiallyMatchedCrossover
+[2018-02-08 10:03:21]: mutationAlgorithm:  InsertionMutation
+[2018-02-08 10:03:21]: crossoverRatio:     0.7
+[2018-02-08 10:03:21]: mutationRatio:      5.0E-4
+[2018-02-08 10:03:21]: ==================================
+[2018-02-08 10:03:21]:   Initial best fitness: 32148.302
+[2018-02-08 10:03:28]: ==================================
+[2018-02-08 10:03:28]: Best fitness of scenario 10: 32148.302006621285
+[2018-02-08 10:03:28]: --- End Scenario 10
+[2018-02-08 10:03:28]: 
+[2018-02-08 10:03:28]: --- Scenario 11
+[2018-02-08 10:03:28]: selectionAlgorithm: RouletteWheelSelection
+[2018-02-08 10:03:28]: crossoverAlgorithm: PartiallyMatchedCrossover
+[2018-02-08 10:03:28]: mutationAlgorithm:  InversionMutation
+[2018-02-08 10:03:28]: crossoverRatio:     0.7
+[2018-02-08 10:03:28]: mutationRatio:      5.0E-4
+[2018-02-08 10:03:28]: ==================================
+[2018-02-08 10:03:28]:   Initial best fitness: 30597.409
+[2018-02-08 10:03:35]: ==================================
+[2018-02-08 10:03:35]: Best fitness of scenario 11: 30597.408678675645
+[2018-02-08 10:03:35]: --- End Scenario 11
+[2018-02-08 10:03:35]: 
+[2018-02-08 10:03:35]: --- New global fitness in scenario 11: 30597.409
+[2018-02-08 10:03:35]: --- Scenario 12
+[2018-02-08 10:03:35]: selectionAlgorithm: RouletteWheelSelection
+[2018-02-08 10:03:35]: crossoverAlgorithm: CycleCrossover
+[2018-02-08 10:03:35]: mutationAlgorithm:  ExchangeMutation
+[2018-02-08 10:03:35]: crossoverRatio:     0.7
+[2018-02-08 10:03:35]: mutationRatio:      0.005
+[2018-02-08 10:03:35]: ==================================
+[2018-02-08 10:03:35]:   Initial best fitness: 32094.252
+[2018-02-08 10:03:35]:   --- New best fitness: 31194.161
+[2018-02-08 10:03:36]:   --- New best fitness: 30578.014
+[2018-02-08 10:03:36]:   --- New best fitness: 30479.279
+[2018-02-08 10:03:36]:   --- New best fitness: 30409.604
+[2018-02-08 10:03:36]:   --- New best fitness: 30241.446
+[2018-02-08 10:03:36]:   --- New best fitness: 30220.474
+[2018-02-08 10:03:36]:   --- New best fitness: 30142.545
+[2018-02-08 10:03:36]:   --- New best fitness: 30013.464
+[2018-02-08 10:03:36]:   --- New best fitness: 29916.630
+[2018-02-08 10:03:36]:   --- New best fitness: 29902.704
+[2018-02-08 10:03:36]:   --- New best fitness: 29816.116
+[2018-02-08 10:03:36]:   --- New best fitness: 29609.647
+[2018-02-08 10:03:36]:   --- New best fitness: 29574.173
+[2018-02-08 10:03:36]:   --- New best fitness: 29509.248
+[2018-02-08 10:03:36]:   --- New best fitness: 29388.346
+[2018-02-08 10:03:36]:   --- New best fitness: 29337.147
+[2018-02-08 10:03:36]:   --- New best fitness: 29244.300
+[2018-02-08 10:03:36]:   --- New best fitness: 29158.779
+[2018-02-08 10:03:36]:   --- New best fitness: 29088.081
+[2018-02-08 10:03:36]:   --- New best fitness: 29050.499
+[2018-02-08 10:03:36]:   --- New best fitness: 28960.259
+[2018-02-08 10:03:36]:   --- New best fitness: 28848.136
+[2018-02-08 10:03:36]:   --- New best fitness: 28817.623
+[2018-02-08 10:03:36]:   --- New best fitness: 28704.414
+[2018-02-08 10:03:36]:   --- New best fitness: 28685.556
+[2018-02-08 10:03:36]:   --- New best fitness: 28529.267
+[2018-02-08 10:03:37]:   --- New best fitness: 28483.514
+[2018-02-08 10:03:37]:   --- New best fitness: 28265.366
+[2018-02-08 10:03:37]:   --- New best fitness: 28250.105
+[2018-02-08 10:03:37]:   --- New best fitness: 28242.259
+[2018-02-08 10:03:37]:   --- New best fitness: 28218.289
+[2018-02-08 10:03:37]:   --- New best fitness: 28211.181
+[2018-02-08 10:03:37]:   --- New best fitness: 27830.997
+[2018-02-08 10:03:37]:   --- New best fitness: 27745.731
+[2018-02-08 10:03:37]:   --- New best fitness: 27677.621
+[2018-02-08 10:03:37]:   --- New best fitness: 27630.406
+[2018-02-08 10:03:37]:   --- New best fitness: 27610.145
+[2018-02-08 10:03:37]:   --- New best fitness: 27585.400
+[2018-02-08 10:03:37]:   --- New best fitness: 27583.543
+[2018-02-08 10:03:37]:   --- New best fitness: 27565.750
+[2018-02-08 10:03:37]:   --- New best fitness: 27420.201
+[2018-02-08 10:03:37]:   --- New best fitness: 27409.435
+[2018-02-08 10:03:37]:   --- New best fitness: 27400.306
+[2018-02-08 10:03:37]:   --- New best fitness: 27345.778
+[2018-02-08 10:03:37]:   --- New best fitness: 27206.994
+[2018-02-08 10:03:37]:   --- New best fitness: 27116.094
+[2018-02-08 10:03:37]:   --- New best fitness: 26996.676
+[2018-02-08 10:03:37]:   --- New best fitness: 26920.520
+[2018-02-08 10:03:38]:   --- New best fitness: 26847.315
+[2018-02-08 10:03:38]:   --- New best fitness: 26787.479
+[2018-02-08 10:03:38]:   --- New best fitness: 26744.881
+[2018-02-08 10:03:38]:   --- New best fitness: 26720.987
+[2018-02-08 10:03:38]:   --- New best fitness: 26666.543
+[2018-02-08 10:03:38]:   --- New best fitness: 26602.281
+[2018-02-08 10:03:38]:   --- New best fitness: 26509.894
+[2018-02-08 10:03:38]:   --- New best fitness: 26508.391
+[2018-02-08 10:03:38]:   --- New best fitness: 26443.807
+[2018-02-08 10:03:38]:   --- New best fitness: 26425.055
+[2018-02-08 10:03:38]:   --- New best fitness: 26399.731
+[2018-02-08 10:03:38]:   --- New best fitness: 26226.551
+[2018-02-08 10:03:38]:   --- New best fitness: 26151.825
+[2018-02-08 10:03:38]:   --- New best fitness: 26001.331
+[2018-02-08 10:03:38]:   --- New best fitness: 25963.458
+[2018-02-08 10:03:38]:   --- New best fitness: 25912.010
+[2018-02-08 10:03:38]:   --- New best fitness: 25711.484
+[2018-02-08 10:03:38]:   --- New best fitness: 25680.092
+[2018-02-08 10:03:38]:   --- New best fitness: 25668.578
+[2018-02-08 10:03:38]:   --- New best fitness: 25655.319
+[2018-02-08 10:03:38]:   --- New best fitness: 25601.370
+[2018-02-08 10:03:38]:   --- New best fitness: 25511.140
+[2018-02-08 10:03:38]:   --- New best fitness: 25343.360
+[2018-02-08 10:03:38]:   --- New best fitness: 25076.133
+[2018-02-08 10:03:39]:   --- New best fitness: 25058.018
+[2018-02-08 10:03:39]:   --- New best fitness: 24958.235
+[2018-02-08 10:03:39]:   --- New best fitness: 24932.456
+[2018-02-08 10:03:39]:   --- New best fitness: 24928.195
+[2018-02-08 10:03:39]:   --- New best fitness: 24879.624
+[2018-02-08 10:03:39]:   --- New best fitness: 24877.459
+[2018-02-08 10:03:39]:   --- New best fitness: 24684.002
+[2018-02-08 10:03:39]:   --- New best fitness: 24568.067
+[2018-02-08 10:03:39]:   --- New best fitness: 24383.661
+[2018-02-08 10:03:39]:   --- New best fitness: 24370.753
+[2018-02-08 10:03:39]:   --- New best fitness: 24311.314
+[2018-02-08 10:03:39]:   --- New best fitness: 24309.362
+[2018-02-08 10:03:39]:   --- New best fitness: 24278.112
+[2018-02-08 10:03:39]:   --- New best fitness: 24247.022
+[2018-02-08 10:03:39]:   --- New best fitness: 24151.077
+[2018-02-08 10:03:39]:   --- New best fitness: 24124.973
+[2018-02-08 10:03:39]:   --- New best fitness: 24074.407
+[2018-02-08 10:03:39]:   --- New best fitness: 23950.141
+[2018-02-08 10:03:40]:   --- New best fitness: 23927.286
+[2018-02-08 10:03:40]:   --- New best fitness: 23924.927
+[2018-02-08 10:03:40]:   --- New best fitness: 23734.612
+[2018-02-08 10:03:40]:   --- New best fitness: 23696.760
+[2018-02-08 10:03:40]:   --- New best fitness: 23594.931
+[2018-02-08 10:03:40]:   --- New best fitness: 23574.220
+[2018-02-08 10:03:40]:   --- New best fitness: 23562.488
+[2018-02-08 10:03:40]:   --- New best fitness: 23549.220
+[2018-02-08 10:03:40]:   --- New best fitness: 23548.478
+[2018-02-08 10:03:40]:   --- New best fitness: 23471.544
+[2018-02-08 10:03:40]:   --- New best fitness: 23376.287
+[2018-02-08 10:03:40]:   --- New best fitness: 23343.677
+[2018-02-08 10:03:40]:   --- New best fitness: 23337.328
+[2018-02-08 10:03:40]:   --- New best fitness: 23307.493
+[2018-02-08 10:03:40]:   --- New best fitness: 23206.911
+[2018-02-08 10:03:40]:   --- New best fitness: 23195.953
+[2018-02-08 10:03:40]:   --- New best fitness: 23177.120
+[2018-02-08 10:03:40]:   --- New best fitness: 23069.547
+[2018-02-08 10:03:40]:   --- New best fitness: 23027.287
+[2018-02-08 10:03:40]:   --- New best fitness: 22992.760
+[2018-02-08 10:03:40]:   --- New best fitness: 22934.471
+[2018-02-08 10:03:40]:   --- New best fitness: 22927.874
+[2018-02-08 10:03:40]:   --- New best fitness: 22919.546
+[2018-02-08 10:03:40]:   --- New best fitness: 22910.317
+[2018-02-08 10:03:40]:   --- New best fitness: 22880.138
+[2018-02-08 10:03:40]:   --- New best fitness: 22720.737
+[2018-02-08 10:03:40]:   --- New best fitness: 22518.695
+[2018-02-08 10:03:40]:   --- New best fitness: 22514.207
+[2018-02-08 10:03:40]:   --- New best fitness: 22451.197
+[2018-02-08 10:03:40]:   --- New best fitness: 22443.351
+[2018-02-08 10:03:40]:   --- New best fitness: 22414.861
+[2018-02-08 10:03:40]:   --- New best fitness: 22364.070
+[2018-02-08 10:03:40]:   --- New best fitness: 22308.654
+[2018-02-08 10:03:40]:   --- New best fitness: 22301.124
+[2018-02-08 10:03:40]:   --- New best fitness: 22300.895
+[2018-02-08 10:03:41]:   --- New best fitness: 22226.715
+[2018-02-08 10:03:41]:   --- New best fitness: 22168.403
+[2018-02-08 10:03:41]:   --- New best fitness: 22126.423
+[2018-02-08 10:03:41]:   --- New best fitness: 22114.950
+[2018-02-08 10:03:41]:   --- New best fitness: 22106.465
+[2018-02-08 10:03:41]:   --- New best fitness: 22012.041
+[2018-02-08 10:03:41]:   --- New best fitness: 21994.980
+[2018-02-08 10:03:41]:   --- New best fitness: 21969.329
+[2018-02-08 10:03:41]:   --- New best fitness: 21907.934
+[2018-02-08 10:03:41]:   --- New best fitness: 21894.800
+[2018-02-08 10:03:41]:   --- New best fitness: 21874.178
+[2018-02-08 10:03:41]:   --- New best fitness: 21839.071
+[2018-02-08 10:03:41]:   --- New best fitness: 21770.172
+[2018-02-08 10:03:41]:   --- New best fitness: 21684.514
+[2018-02-08 10:03:41]:   --- New best fitness: 21651.937
+[2018-02-08 10:03:41]:   --- New best fitness: 21651.040
+[2018-02-08 10:03:41]:   --- New best fitness: 21606.208
+[2018-02-08 10:03:41]:   --- New best fitness: 21586.964
+[2018-02-08 10:03:41]:   --- New best fitness: 21565.850
+[2018-02-08 10:03:41]:   --- New best fitness: 21529.851
+[2018-02-08 10:03:41]:   --- New best fitness: 21387.177
+[2018-02-08 10:03:41]:   --- New best fitness: 21306.068
+[2018-02-08 10:03:41]:   --- New best fitness: 21302.043
+[2018-02-08 10:03:41]:   --- New best fitness: 21289.330
+[2018-02-08 10:03:41]:   --- New best fitness: 21236.707
+[2018-02-08 10:03:41]:   --- New best fitness: 21188.209
+[2018-02-08 10:03:41]:   --- New best fitness: 21171.640
+[2018-02-08 10:03:41]:   --- New best fitness: 21152.130
+[2018-02-08 10:03:42]:   --- New best fitness: 21147.277
+[2018-02-08 10:03:42]:   --- New best fitness: 21117.354
+[2018-02-08 10:03:42]:   --- New best fitness: 21033.275
+[2018-02-08 10:03:42]:   --- New best fitness: 21014.272
+[2018-02-08 10:03:42]:   --- New best fitness: 20897.878
+[2018-02-08 10:03:42]:   --- New best fitness: 20892.154
+[2018-02-08 10:03:42]:   --- New best fitness: 20868.716
+[2018-02-08 10:03:42]:   --- New best fitness: 20865.730
+[2018-02-08 10:03:42]:   --- New best fitness: 20832.044
+[2018-02-08 10:03:42]:   --- New best fitness: 20734.514
+[2018-02-08 10:03:42]:   --- New best fitness: 20713.493
+[2018-02-08 10:03:42]:   --- New best fitness: 20684.105
+[2018-02-08 10:03:42]:   --- New best fitness: 20628.849
+[2018-02-08 10:03:42]:   --- New best fitness: 20609.486
+[2018-02-08 10:03:42]:   --- New best fitness: 20467.799
+[2018-02-08 10:03:42]:   --- New best fitness: 20441.417
+[2018-02-08 10:03:42]:   --- New best fitness: 20415.362
+[2018-02-08 10:03:42]:   --- New best fitness: 20401.183
+[2018-02-08 10:03:42]:   --- New best fitness: 20342.601
+[2018-02-08 10:03:42]:   --- New best fitness: 20341.633
+[2018-02-08 10:03:42]:   --- New best fitness: 20266.972
+[2018-02-08 10:03:42]:   --- New best fitness: 20164.535
+[2018-02-08 10:03:42]: ==================================
+[2018-02-08 10:03:42]: Best fitness of scenario 12: 20164.53545409601
+[2018-02-08 10:03:42]: --- End Scenario 12
+[2018-02-08 10:03:42]: 
+[2018-02-08 10:03:42]: --- New global fitness in scenario 12: 20164.535
+[2018-02-08 10:03:42]: --- Scenario 13
+[2018-02-08 10:03:42]: selectionAlgorithm: RouletteWheelSelection
+[2018-02-08 10:03:42]: crossoverAlgorithm: CycleCrossover
+[2018-02-08 10:03:42]: mutationAlgorithm:  ExchangeMutation
+[2018-02-08 10:03:42]: crossoverRatio:     0.7
+[2018-02-08 10:03:42]: mutationRatio:      5.0E-4
+[2018-02-08 10:03:42]: ==================================
+[2018-02-08 10:03:42]:   Initial best fitness: 31769.280
+[2018-02-08 10:03:42]:   --- New best fitness: 31489.856
+[2018-02-08 10:03:43]:   --- New best fitness: 31151.105
+[2018-02-08 10:03:43]:   --- New best fitness: 31085.315
+[2018-02-08 10:03:43]:   --- New best fitness: 30948.137
+[2018-02-08 10:03:43]:   --- New best fitness: 30918.069
+[2018-02-08 10:03:43]:   --- New best fitness: 30902.109
+[2018-02-08 10:03:43]:   --- New best fitness: 30801.147
+[2018-02-08 10:03:43]:   --- New best fitness: 30678.260
+[2018-02-08 10:03:43]:   --- New best fitness: 30418.801
+[2018-02-08 10:03:44]:   --- New best fitness: 30377.628
+[2018-02-08 10:03:44]:   --- New best fitness: 30297.890
+[2018-02-08 10:03:44]:   --- New best fitness: 30236.207
+[2018-02-08 10:03:44]:   --- New best fitness: 30153.370
+[2018-02-08 10:03:44]:   --- New best fitness: 30153.285
+[2018-02-08 10:03:44]:   --- New best fitness: 30022.696
+[2018-02-08 10:03:44]:   --- New best fitness: 29869.694
+[2018-02-08 10:03:44]:   --- New best fitness: 29801.340
+[2018-02-08 10:03:44]:   --- New best fitness: 29800.338
+[2018-02-08 10:03:44]:   --- New best fitness: 29594.563
+[2018-02-08 10:03:45]:   --- New best fitness: 29496.604
+[2018-02-08 10:03:45]:   --- New best fitness: 29441.790
+[2018-02-08 10:03:45]:   --- New best fitness: 29399.725
+[2018-02-08 10:03:45]:   --- New best fitness: 29379.254
+[2018-02-08 10:03:45]:   --- New best fitness: 29343.457
+[2018-02-08 10:03:45]:   --- New best fitness: 29031.217
+[2018-02-08 10:03:45]:   --- New best fitness: 28899.860
+[2018-02-08 10:03:45]:   --- New best fitness: 28883.052
+[2018-02-08 10:03:45]:   --- New best fitness: 28877.113
+[2018-02-08 10:03:45]:   --- New best fitness: 28673.765
+[2018-02-08 10:03:45]:   --- New best fitness: 28642.632
+[2018-02-08 10:03:46]:   --- New best fitness: 28603.468
+[2018-02-08 10:03:46]:   --- New best fitness: 28202.105
+[2018-02-08 10:03:46]:   --- New best fitness: 28193.892
+[2018-02-08 10:03:46]:   --- New best fitness: 28122.328
+[2018-02-08 10:03:46]:   --- New best fitness: 28031.343
+[2018-02-08 10:03:47]:   --- New best fitness: 27952.965
+[2018-02-08 10:03:47]:   --- New best fitness: 27929.265
+[2018-02-08 10:03:47]:   --- New best fitness: 27860.232
+[2018-02-08 10:03:47]:   --- New best fitness: 27815.080
+[2018-02-08 10:03:47]:   --- New best fitness: 27809.072
+[2018-02-08 10:03:48]:   --- New best fitness: 27798.053
+[2018-02-08 10:03:48]:   --- New best fitness: 27786.638
+[2018-02-08 10:03:48]:   --- New best fitness: 27749.428
+[2018-02-08 10:03:48]:   --- New best fitness: 27678.621
+[2018-02-08 10:03:48]:   --- New best fitness: 27652.417
+[2018-02-08 10:03:48]:   --- New best fitness: 27498.751
+[2018-02-08 10:03:48]:   --- New best fitness: 27449.163
+[2018-02-08 10:03:48]:   --- New best fitness: 27444.013
+[2018-02-08 10:03:48]:   --- New best fitness: 27357.995
+[2018-02-08 10:03:48]: ==================================
+[2018-02-08 10:03:48]: Best fitness of scenario 13: 27357.994872461026
+[2018-02-08 10:03:48]: --- End Scenario 13
+[2018-02-08 10:03:48]: 
+[2018-02-08 10:03:48]: --- Scenario 14
+[2018-02-08 10:03:48]: selectionAlgorithm: TournamentSelection
+[2018-02-08 10:03:48]: crossoverAlgorithm: CycleCrossover
+[2018-02-08 10:03:48]: mutationAlgorithm:  ExchangeMutation
+[2018-02-08 10:03:48]: crossoverRatio:     0.7
+[2018-02-08 10:03:48]: mutationRatio:      5.0E-4
+[2018-02-08 10:03:48]: ==================================
+[2018-02-08 10:03:48]:   Initial best fitness: 32161.397
+[2018-02-08 10:03:48]: ==================================
+[2018-02-08 10:03:48]: Best fitness of scenario 14: 32161.39663101246
+[2018-02-08 10:03:48]: --- End Scenario 14
+[2018-02-08 10:03:48]: 
+[2018-02-08 10:03:48]: --- Scenario 15
+[2018-02-08 10:03:48]: selectionAlgorithm: RouletteWheelSelection
+[2018-02-08 10:03:48]: crossoverAlgorithm: HeuristicCrossover
+[2018-02-08 10:03:48]: mutationAlgorithm:  ExchangeMutation
+[2018-02-08 10:03:48]: crossoverRatio:     0.7
+[2018-02-08 10:03:48]: mutationRatio:      5.0E-4
+[2018-02-08 10:03:48]: ==================================
+[2018-02-08 10:03:48]:   Initial best fitness: 31330.049
+[2018-02-08 10:03:48]:   --- New best fitness: 3231.046
+[2018-02-08 10:03:48]:   --- New best fitness: 3227.109
+[2018-02-08 10:03:48]:   --- New best fitness: 3224.536
+[2018-02-08 10:03:48]:   --- New best fitness: 3212.256
+[2018-02-08 10:03:48]:   --- New best fitness: 3175.768
+[2018-02-08 10:03:48]:   --- New best fitness: 3166.176
+[2018-02-08 10:03:48]:   --- New best fitness: 3148.397
+[2018-02-08 10:03:48]:   --- New best fitness: 3117.661
+[2018-02-08 10:03:48]:   --- New best fitness: 3101.984
+[2018-02-08 10:03:48]:   --- New best fitness: 3072.591
+[2018-02-08 10:03:49]:   --- New best fitness: 3054.593
+[2018-02-08 10:03:49]:   --- New best fitness: 3049.418
+[2018-02-08 10:03:49]:   --- New best fitness: 3047.947
+[2018-02-08 10:03:49]:   --- New best fitness: 3025.756
+[2018-02-08 10:03:49]:   --- New best fitness: 3021.023
+[2018-02-08 10:03:49]:   --- New best fitness: 3020.828
+[2018-02-08 10:03:49]:   --- New best fitness: 3017.360
+[2018-02-08 10:03:49]:   --- New best fitness: 3015.388
+[2018-02-08 10:03:49]:   --- New best fitness: 3009.607
+[2018-02-08 10:03:49]:   --- New best fitness: 2991.074
+[2018-02-08 10:03:49]:   --- New best fitness: 2985.817
+[2018-02-08 10:03:52]:   --- New best fitness: 2979.592
+[2018-02-08 10:03:52]:   --- New best fitness: 2972.193
+[2018-02-08 10:03:53]:   --- New best fitness: 2971.056
+[2018-02-08 10:03:55]:   --- New best fitness: 2970.283
+[2018-02-08 10:03:56]:   --- New best fitness: 2954.245
+[2018-02-08 10:04:00]:   --- New best fitness: 2942.353
+[2018-02-08 10:04:06]: ==================================
+[2018-02-08 10:04:06]: Best fitness of scenario 15: 2942.352661053337
+[2018-02-08 10:04:06]: --- End Scenario 15
+[2018-02-08 10:04:06]: 
+[2018-02-08 10:04:06]: --- New global fitness in scenario 15: 2942.353
+[2018-02-08 10:04:06]: --- Scenario 16
+[2018-02-08 10:04:06]: selectionAlgorithm: RouletteWheelSelection
+[2018-02-08 10:04:06]: crossoverAlgorithm: HeuristicCrossover
+[2018-02-08 10:04:06]: mutationAlgorithm:  InsertionMutation
+[2018-02-08 10:04:06]: crossoverRatio:     0.7
+[2018-02-08 10:04:06]: mutationRatio:      5.0E-4
+[2018-02-08 10:04:06]: ==================================
+[2018-02-08 10:04:06]:   Initial best fitness: 32381.021
+[2018-02-08 10:04:06]:   --- New best fitness: 3307.213
+[2018-02-08 10:04:06]:   --- New best fitness: 3193.360
+[2018-02-08 10:04:06]:   --- New best fitness: 3068.513
+[2018-02-08 10:04:07]:   --- New best fitness: 3000.160
+[2018-02-08 10:04:07]:   --- New best fitness: 2972.378
+[2018-02-08 10:04:07]:   --- New best fitness: 2962.059
+[2018-02-08 10:04:08]:   --- New best fitness: 2960.670
+[2018-02-08 10:04:09]:   --- New best fitness: 2948.333
+[2018-02-08 10:04:12]:   --- New best fitness: 2941.451
+[2018-02-08 10:04:17]:   --- New best fitness: 2937.642
+[2018-02-08 10:04:19]:   --- New best fitness: 2934.206
+[2018-02-08 10:04:22]: ==================================
+[2018-02-08 10:04:22]: Best fitness of scenario 16: 2934.206033731585
+[2018-02-08 10:04:22]: --- End Scenario 16
+[2018-02-08 10:04:22]: 
+[2018-02-08 10:04:22]: --- New global fitness in scenario 16: 2934.206
+[2018-02-08 10:04:22]: --- Scenario 17
+[2018-02-08 10:04:22]: selectionAlgorithm: RouletteWheelSelection
+[2018-02-08 10:04:22]: crossoverAlgorithm: HeuristicCrossover
+[2018-02-08 10:04:22]: mutationAlgorithm:  InversionMutation
+[2018-02-08 10:04:22]: crossoverRatio:     0.7
+[2018-02-08 10:04:22]: mutationRatio:      5.0E-4
+[2018-02-08 10:04:22]: ==================================
+[2018-02-08 10:04:22]:   Initial best fitness: 32751.546
+[2018-02-08 10:04:22]:   --- New best fitness: 3405.178
+[2018-02-08 10:04:22]:   --- New best fitness: 3291.928
+[2018-02-08 10:04:22]:   --- New best fitness: 3262.752
+[2018-02-08 10:04:22]:   --- New best fitness: 3240.788
+[2018-02-08 10:04:22]:   --- New best fitness: 3180.496
+[2018-02-08 10:04:22]:   --- New best fitness: 3136.250
+[2018-02-08 10:04:22]:   --- New best fitness: 3114.711
+[2018-02-08 10:04:22]:   --- New best fitness: 3043.912
+[2018-02-08 10:04:22]:   --- New best fitness: 2982.251
+[2018-02-08 10:04:23]:   --- New best fitness: 2980.312
+[2018-02-08 10:04:23]:   --- New best fitness: 2936.172
+[2018-02-08 10:04:38]: ==================================
+[2018-02-08 10:04:38]: Best fitness of scenario 17: 2936.171678852825
+[2018-02-08 10:04:38]: --- End Scenario 17
+[2018-02-08 10:04:38]: 
+[2018-02-08 10:04:38]: --- Scenario 18
+[2018-02-08 10:04:38]: selectionAlgorithm: TournamentSelection
+[2018-02-08 10:04:38]: crossoverAlgorithm: OrderedCrossover
+[2018-02-08 10:04:38]: mutationAlgorithm:  ExchangeMutation
+[2018-02-08 10:04:38]: crossoverRatio:     0.7
+[2018-02-08 10:04:38]: mutationRatio:      5.0E-4
+[2018-02-08 10:04:38]: ==================================
+[2018-02-08 10:04:38]:   Initial best fitness: 31918.973
+[2018-02-08 10:04:38]:   --- New best fitness: 31444.511
+[2018-02-08 10:04:38]: ==================================
+[2018-02-08 10:04:38]: Best fitness of scenario 18: 31444.510985160363
+[2018-02-08 10:04:38]: --- End Scenario 18
+[2018-02-08 10:04:38]: 
+[2018-02-08 10:04:38]: --- Scenario 19
+[2018-02-08 10:04:38]: selectionAlgorithm: RouletteWheelSelection
+[2018-02-08 10:04:38]: crossoverAlgorithm: OrderedCrossover
+[2018-02-08 10:04:38]: mutationAlgorithm:  DisplacementMutation
+[2018-02-08 10:04:38]: crossoverRatio:     0.7
+[2018-02-08 10:04:38]: mutationRatio:      5.0E-4
+[2018-02-08 10:04:38]: ==================================
+[2018-02-08 10:04:38]:   Initial best fitness: 30969.539
+[2018-02-08 10:04:38]:   --- New best fitness: 30921.961
+[2018-02-08 10:04:38]:   --- New best fitness: 30796.516
+[2018-02-08 10:04:38]:   --- New best fitness: 30717.745
+[2018-02-08 10:04:38]:   --- New best fitness: 30508.077
+[2018-02-08 10:04:38]:   --- New best fitness: 30480.448
+[2018-02-08 10:04:38]:   --- New best fitness: 30059.605
+[2018-02-08 10:04:38]:   --- New best fitness: 29544.385
+[2018-02-08 10:04:38]:   --- New best fitness: 29198.876
+[2018-02-08 10:04:38]:   --- New best fitness: 29136.830
+[2018-02-08 10:04:38]:   --- New best fitness: 29136.336
+[2018-02-08 10:04:38]:   --- New best fitness: 29122.521
+[2018-02-08 10:04:38]:   --- New best fitness: 28868.612
+[2018-02-08 10:04:38]:   --- New best fitness: 28648.339
+[2018-02-08 10:04:38]:   --- New best fitness: 28611.346
+[2018-02-08 10:04:38]:   --- New best fitness: 28586.406
+[2018-02-08 10:04:38]:   --- New best fitness: 28493.791
+[2018-02-08 10:04:38]:   --- New best fitness: 28298.868
+[2018-02-08 10:04:38]:   --- New best fitness: 28085.290
+[2018-02-08 10:04:38]:   --- New best fitness: 28059.069
+[2018-02-08 10:04:39]:   --- New best fitness: 28049.174
+[2018-02-08 10:04:39]:   --- New best fitness: 27774.087
+[2018-02-08 10:04:39]:   --- New best fitness: 27647.995
+[2018-02-08 10:04:39]:   --- New best fitness: 26910.452
+[2018-02-08 10:04:39]:   --- New best fitness: 26888.457
+[2018-02-08 10:04:39]:   --- New best fitness: 26776.589
+[2018-02-08 10:04:39]:   --- New best fitness: 26666.947
+[2018-02-08 10:04:39]:   --- New best fitness: 26400.775
+[2018-02-08 10:04:39]:   --- New best fitness: 26374.403
+[2018-02-08 10:04:39]:   --- New best fitness: 25900.475
+[2018-02-08 10:04:39]:   --- New best fitness: 25786.061
+[2018-02-08 10:04:39]:   --- New best fitness: 25589.833
+[2018-02-08 10:04:40]:   --- New best fitness: 25395.050
+[2018-02-08 10:04:40]:   --- New best fitness: 25363.058
+[2018-02-08 10:04:40]:   --- New best fitness: 25258.117
+[2018-02-08 10:04:40]:   --- New best fitness: 25096.446
+[2018-02-08 10:04:40]:   --- New best fitness: 24959.558
+[2018-02-08 10:04:40]:   --- New best fitness: 24749.456
+[2018-02-08 10:04:40]:   --- New best fitness: 24603.812
+[2018-02-08 10:04:40]:   --- New best fitness: 24432.553
+[2018-02-08 10:04:40]:   --- New best fitness: 24394.700
+[2018-02-08 10:04:40]:   --- New best fitness: 24014.240
+[2018-02-08 10:04:40]:   --- New best fitness: 23944.681
+[2018-02-08 10:04:40]:   --- New best fitness: 23866.543
+[2018-02-08 10:04:40]:   --- New best fitness: 23807.172
+[2018-02-08 10:04:40]:   --- New best fitness: 23744.484
+[2018-02-08 10:04:40]:   --- New best fitness: 23737.802
+[2018-02-08 10:04:40]:   --- New best fitness: 23470.791
+[2018-02-08 10:04:40]:   --- New best fitness: 23465.803
+[2018-02-08 10:04:40]:   --- New best fitness: 23388.258
+[2018-02-08 10:04:40]:   --- New best fitness: 23372.073
+[2018-02-08 10:04:40]:   --- New best fitness: 23282.470
+[2018-02-08 10:04:40]:   --- New best fitness: 23137.604
+[2018-02-08 10:04:40]:   --- New best fitness: 22943.432
+[2018-02-08 10:04:40]:   --- New best fitness: 22881.269
+[2018-02-08 10:04:40]:   --- New best fitness: 22867.708
+[2018-02-08 10:04:40]:   --- New best fitness: 22844.581
+[2018-02-08 10:04:41]:   --- New best fitness: 22787.021
+[2018-02-08 10:04:41]:   --- New best fitness: 22717.208
+[2018-02-08 10:04:41]:   --- New best fitness: 22691.281
+[2018-02-08 10:04:41]:   --- New best fitness: 22681.865
+[2018-02-08 10:04:41]:   --- New best fitness: 22671.077
+[2018-02-08 10:04:41]:   --- New best fitness: 22631.329
+[2018-02-08 10:04:41]:   --- New best fitness: 22595.369
+[2018-02-08 10:04:41]:   --- New best fitness: 22587.503
+[2018-02-08 10:04:41]:   --- New best fitness: 22490.024
+[2018-02-08 10:04:41]:   --- New best fitness: 22412.042
+[2018-02-08 10:04:41]:   --- New best fitness: 22372.485
+[2018-02-08 10:04:41]:   --- New best fitness: 22341.684
+[2018-02-08 10:04:41]:   --- New best fitness: 22340.212
+[2018-02-08 10:04:41]:   --- New best fitness: 22285.380
+[2018-02-08 10:04:41]:   --- New best fitness: 22259.404
+[2018-02-08 10:04:41]:   --- New best fitness: 22119.281
+[2018-02-08 10:04:41]:   --- New best fitness: 22109.194
+[2018-02-08 10:04:41]:   --- New best fitness: 22109.108
+[2018-02-08 10:04:41]:   --- New best fitness: 22102.551
+[2018-02-08 10:04:41]:   --- New best fitness: 22020.486
+[2018-02-08 10:04:41]:   --- New best fitness: 22018.404
+[2018-02-08 10:04:41]:   --- New best fitness: 22001.553
+[2018-02-08 10:04:41]:   --- New best fitness: 21977.670
+[2018-02-08 10:04:41]:   --- New best fitness: 21895.730
+[2018-02-08 10:04:41]:   --- New best fitness: 21889.955
+[2018-02-08 10:04:41]:   --- New best fitness: 21839.035
+[2018-02-08 10:04:41]:   --- New best fitness: 21828.629
+[2018-02-08 10:04:41]:   --- New best fitness: 21816.619
+[2018-02-08 10:04:41]:   --- New best fitness: 21760.539
+[2018-02-08 10:04:41]:   --- New best fitness: 21746.686
+[2018-02-08 10:04:41]:   --- New best fitness: 21731.034
+[2018-02-08 10:04:41]:   --- New best fitness: 21694.592
+[2018-02-08 10:04:41]:   --- New best fitness: 21624.401
+[2018-02-08 10:04:41]:   --- New best fitness: 21622.037
+[2018-02-08 10:04:41]:   --- New best fitness: 21476.812
+[2018-02-08 10:04:41]:   --- New best fitness: 21378.489
+[2018-02-08 10:04:41]:   --- New best fitness: 21343.494
+[2018-02-08 10:04:41]:   --- New best fitness: 21315.160
+[2018-02-08 10:04:41]:   --- New best fitness: 21154.120
+[2018-02-08 10:04:41]:   --- New best fitness: 21100.337
+[2018-02-08 10:04:41]:   --- New best fitness: 21048.466
+[2018-02-08 10:04:41]:   --- New best fitness: 20954.541
+[2018-02-08 10:04:41]:   --- New best fitness: 20936.998
+[2018-02-08 10:04:41]:   --- New best fitness: 20934.321
+[2018-02-08 10:04:42]:   --- New best fitness: 20873.651
+[2018-02-08 10:04:42]:   --- New best fitness: 20842.154
+[2018-02-08 10:04:42]:   --- New best fitness: 20762.337
+[2018-02-08 10:04:42]:   --- New best fitness: 20681.835
+[2018-02-08 10:04:42]:   --- New best fitness: 20605.478
+[2018-02-08 10:04:42]:   --- New best fitness: 20590.354
+[2018-02-08 10:04:42]:   --- New best fitness: 20535.456
+[2018-02-08 10:04:42]:   --- New best fitness: 20534.232
+[2018-02-08 10:04:42]:   --- New best fitness: 20472.212
+[2018-02-08 10:04:42]:   --- New best fitness: 20441.082
+[2018-02-08 10:04:42]:   --- New best fitness: 20328.515
+[2018-02-08 10:04:42]:   --- New best fitness: 20278.690
+[2018-02-08 10:04:42]:   --- New best fitness: 20262.653
+[2018-02-08 10:04:42]:   --- New best fitness: 20170.889
+[2018-02-08 10:04:42]:   --- New best fitness: 20123.029
+[2018-02-08 10:04:42]:   --- New best fitness: 20095.554
+[2018-02-08 10:04:42]:   --- New best fitness: 19992.015
+[2018-02-08 10:04:42]:   --- New best fitness: 19979.380
+[2018-02-08 10:04:42]:   --- New best fitness: 19884.026
+[2018-02-08 10:04:42]:   --- New best fitness: 19766.430
+[2018-02-08 10:04:42]:   --- New best fitness: 19705.397
+[2018-02-08 10:04:42]:   --- New best fitness: 19569.080
+[2018-02-08 10:04:42]:   --- New best fitness: 19517.706
+[2018-02-08 10:04:42]:   --- New best fitness: 19510.185
+[2018-02-08 10:04:43]:   --- New best fitness: 19468.317
+[2018-02-08 10:04:43]:   --- New best fitness: 19411.572
+[2018-02-08 10:04:43]:   --- New best fitness: 19313.606
+[2018-02-08 10:04:43]:   --- New best fitness: 19312.083
+[2018-02-08 10:04:43]:   --- New best fitness: 19300.845
+[2018-02-08 10:04:43]:   --- New best fitness: 19298.896
+[2018-02-08 10:04:43]:   --- New best fitness: 19272.417
+[2018-02-08 10:04:43]:   --- New best fitness: 19243.900
+[2018-02-08 10:04:43]:   --- New best fitness: 19230.097
+[2018-02-08 10:04:43]:   --- New best fitness: 19229.877
+[2018-02-08 10:04:43]:   --- New best fitness: 19196.733
+[2018-02-08 10:04:43]:   --- New best fitness: 19182.031
+[2018-02-08 10:04:43]:   --- New best fitness: 19158.911
+[2018-02-08 10:04:43]:   --- New best fitness: 19074.840
+[2018-02-08 10:04:43]:   --- New best fitness: 19029.883
+[2018-02-08 10:04:43]:   --- New best fitness: 19007.760
+[2018-02-08 10:04:43]:   --- New best fitness: 18976.724
+[2018-02-08 10:04:43]:   --- New best fitness: 18918.053
+[2018-02-08 10:04:43]:   --- New best fitness: 18911.704
+[2018-02-08 10:04:44]:   --- New best fitness: 18907.521
+[2018-02-08 10:04:44]:   --- New best fitness: 18881.624
+[2018-02-08 10:04:44]:   --- New best fitness: 18847.202
+[2018-02-08 10:04:44]:   --- New best fitness: 18813.761
+[2018-02-08 10:04:44]:   --- New best fitness: 18756.185
+[2018-02-08 10:04:44]:   --- New best fitness: 18585.763
+[2018-02-08 10:04:44]:   --- New best fitness: 18579.339
+[2018-02-08 10:04:44]:   --- New best fitness: 18570.473
+[2018-02-08 10:04:44]:   --- New best fitness: 18375.240
+[2018-02-08 10:04:44]:   --- New best fitness: 18375.019
+[2018-02-08 10:04:44]:   --- New best fitness: 18270.571
+[2018-02-08 10:04:45]:   --- New best fitness: 18236.645
+[2018-02-08 10:04:45]:   --- New best fitness: 18223.456
+[2018-02-08 10:04:45]:   --- New best fitness: 18208.281
+[2018-02-08 10:04:45]:   --- New best fitness: 18119.189
+[2018-02-08 10:04:45]:   --- New best fitness: 18022.588
+[2018-02-08 10:04:45]:   --- New best fitness: 18015.883
+[2018-02-08 10:04:45]:   --- New best fitness: 17950.500
+[2018-02-08 10:04:45]:   --- New best fitness: 17900.537
+[2018-02-08 10:04:45]:   --- New best fitness: 17832.726
+[2018-02-08 10:04:45]:   --- New best fitness: 17796.160
+[2018-02-08 10:04:45]:   --- New best fitness: 17760.148
+[2018-02-08 10:04:45]:   --- New best fitness: 17751.491
+[2018-02-08 10:04:45]:   --- New best fitness: 17710.548
+[2018-02-08 10:04:45]:   --- New best fitness: 17703.446
+[2018-02-08 10:04:45]:   --- New best fitness: 17681.516
+[2018-02-08 10:04:45]:   --- New best fitness: 17670.166
+[2018-02-08 10:04:45]:   --- New best fitness: 17578.986
+[2018-02-08 10:04:45]:   --- New best fitness: 17531.835
+[2018-02-08 10:04:45]:   --- New best fitness: 17522.353
+[2018-02-08 10:04:45]:   --- New best fitness: 17511.878
+[2018-02-08 10:04:45]:   --- New best fitness: 17442.863
+[2018-02-08 10:04:45]:   --- New best fitness: 17328.776
+[2018-02-08 10:04:45]:   --- New best fitness: 17314.168
+[2018-02-08 10:04:45]:   --- New best fitness: 17297.251
+[2018-02-08 10:04:46]:   --- New best fitness: 17227.860
+[2018-02-08 10:04:46]:   --- New best fitness: 17223.186
+[2018-02-08 10:04:46]:   --- New best fitness: 17168.707
+[2018-02-08 10:04:46]:   --- New best fitness: 17114.926
+[2018-02-08 10:04:46]:   --- New best fitness: 17109.729
+[2018-02-08 10:04:46]:   --- New best fitness: 17100.167
+[2018-02-08 10:04:46]:   --- New best fitness: 17097.900
+[2018-02-08 10:04:46]:   --- New best fitness: 17092.197
+[2018-02-08 10:04:46]:   --- New best fitness: 17074.447
+[2018-02-08 10:04:46]:   --- New best fitness: 17064.885
+[2018-02-08 10:04:46]:   --- New best fitness: 17026.980
+[2018-02-08 10:04:46]:   --- New best fitness: 17020.483
+[2018-02-08 10:04:46]:   --- New best fitness: 17000.251
+[2018-02-08 10:04:46]:   --- New best fitness: 16988.805
+[2018-02-08 10:04:46]:   --- New best fitness: 16932.414
+[2018-02-08 10:04:46]:   --- New best fitness: 16899.731
+[2018-02-08 10:04:46]:   --- New best fitness: 16881.639
+[2018-02-08 10:04:46]:   --- New best fitness: 16873.227
+[2018-02-08 10:04:46]:   --- New best fitness: 16853.993
+[2018-02-08 10:04:46]:   --- New best fitness: 16836.144
+[2018-02-08 10:04:47]:   --- New best fitness: 16752.594
+[2018-02-08 10:04:47]:   --- New best fitness: 16583.260
+[2018-02-08 10:04:47]:   --- New best fitness: 16550.267
+[2018-02-08 10:04:47]:   --- New best fitness: 16543.979
+[2018-02-08 10:04:48]:   --- New best fitness: 16454.002
+[2018-02-08 10:04:49]:   --- New best fitness: 16451.077
+[2018-02-08 10:04:49]:   --- New best fitness: 16402.297
+[2018-02-08 10:04:49]:   --- New best fitness: 16366.275
+[2018-02-08 10:04:49]:   --- New best fitness: 16278.707
+[2018-02-08 10:04:49]:   --- New best fitness: 16268.062
+[2018-02-08 10:04:49]:   --- New best fitness: 16237.686
+[2018-02-08 10:04:49]:   --- New best fitness: 16210.378
+[2018-02-08 10:04:49]:   --- New best fitness: 16198.351
+[2018-02-08 10:04:50]:   --- New best fitness: 16185.156
+[2018-02-08 10:04:50]: ==================================
+[2018-02-08 10:04:50]: Best fitness of scenario 19: 16185.15560591679
+[2018-02-08 10:04:50]: --- End Scenario 19
+[2018-02-08 10:04:50]: 
+[2018-02-08 10:04:50]: --- Scenario 20
+[2018-02-08 10:04:50]: selectionAlgorithm: RouletteWheelSelection
+[2018-02-08 10:04:50]: crossoverAlgorithm: OrderedCrossover
+[2018-02-08 10:04:50]: mutationAlgorithm:  InsertionMutation
+[2018-02-08 10:04:50]: crossoverRatio:     0.7
+[2018-02-08 10:04:50]: mutationRatio:      5.0E-4
+[2018-02-08 10:04:50]: ==================================
+[2018-02-08 10:04:50]:   Initial best fitness: 32546.503
+[2018-02-08 10:04:50]:   --- New best fitness: 32486.263
+[2018-02-08 10:04:50]:   --- New best fitness: 32339.570
+[2018-02-08 10:04:50]:   --- New best fitness: 30746.362
+[2018-02-08 10:04:50]:   --- New best fitness: 30723.045
+[2018-02-08 10:04:50]:   --- New best fitness: 30308.809
+[2018-02-08 10:04:50]:   --- New best fitness: 30068.904
+[2018-02-08 10:04:50]:   --- New best fitness: 30004.038
+[2018-02-08 10:04:50]:   --- New best fitness: 29994.220
+[2018-02-08 10:04:50]:   --- New best fitness: 29886.265
+[2018-02-08 10:04:50]:   --- New best fitness: 29841.298
+[2018-02-08 10:04:50]:   --- New best fitness: 29773.877
+[2018-02-08 10:04:50]:   --- New best fitness: 29618.831
+[2018-02-08 10:04:50]:   --- New best fitness: 29450.305
+[2018-02-08 10:04:50]:   --- New best fitness: 29271.557
+[2018-02-08 10:04:50]:   --- New best fitness: 29027.988
+[2018-02-08 10:04:50]:   --- New best fitness: 28589.247
+[2018-02-08 10:04:50]:   --- New best fitness: 28577.374
+[2018-02-08 10:04:50]:   --- New best fitness: 28508.497
+[2018-02-08 10:04:50]:   --- New best fitness: 28477.167
+[2018-02-08 10:04:50]:   --- New best fitness: 28372.931
+[2018-02-08 10:04:50]:   --- New best fitness: 28134.655
+[2018-02-08 10:04:51]:   --- New best fitness: 27925.380
+[2018-02-08 10:04:51]:   --- New best fitness: 27782.520
+[2018-02-08 10:04:51]:   --- New best fitness: 27746.244
+[2018-02-08 10:04:51]:   --- New best fitness: 27676.690
+[2018-02-08 10:04:51]:   --- New best fitness: 27420.777
+[2018-02-08 10:04:51]:   --- New best fitness: 27413.361
+[2018-02-08 10:04:51]:   --- New best fitness: 27403.964
+[2018-02-08 10:04:51]:   --- New best fitness: 26948.647
+[2018-02-08 10:04:51]:   --- New best fitness: 26877.615
+[2018-02-08 10:04:51]:   --- New best fitness: 26863.476
+[2018-02-08 10:04:51]:   --- New best fitness: 26838.022
+[2018-02-08 10:04:51]:   --- New best fitness: 26742.306
+[2018-02-08 10:04:51]:   --- New best fitness: 26581.752
+[2018-02-08 10:04:51]:   --- New best fitness: 26532.042
+[2018-02-08 10:04:51]:   --- New best fitness: 25993.262
+[2018-02-08 10:04:51]:   --- New best fitness: 25975.572
+[2018-02-08 10:04:51]:   --- New best fitness: 25880.916
+[2018-02-08 10:04:51]:   --- New best fitness: 25814.471
+[2018-02-08 10:04:51]:   --- New best fitness: 25677.209
+[2018-02-08 10:04:51]:   --- New best fitness: 25638.400
+[2018-02-08 10:04:51]:   --- New best fitness: 25591.169
+[2018-02-08 10:04:51]:   --- New best fitness: 25374.333
+[2018-02-08 10:04:51]:   --- New best fitness: 25198.212
+[2018-02-08 10:04:51]:   --- New best fitness: 24910.825
+[2018-02-08 10:04:51]:   --- New best fitness: 24812.305
+[2018-02-08 10:04:51]:   --- New best fitness: 24628.463
+[2018-02-08 10:04:51]:   --- New best fitness: 24532.591
+[2018-02-08 10:04:51]:   --- New best fitness: 24414.915
+[2018-02-08 10:04:51]:   --- New best fitness: 24414.530
+[2018-02-08 10:04:51]:   --- New best fitness: 24305.711
+[2018-02-08 10:04:51]:   --- New best fitness: 24294.637
+[2018-02-08 10:04:51]:   --- New best fitness: 24144.415
+[2018-02-08 10:04:51]:   --- New best fitness: 24096.271
+[2018-02-08 10:04:51]:   --- New best fitness: 24011.825
+[2018-02-08 10:04:51]:   --- New best fitness: 23914.450
+[2018-02-08 10:04:51]:   --- New best fitness: 23904.398
+[2018-02-08 10:04:51]:   --- New best fitness: 23847.970
+[2018-02-08 10:04:51]:   --- New best fitness: 23721.634
+[2018-02-08 10:04:51]:   --- New best fitness: 23441.641
+[2018-02-08 10:04:51]:   --- New best fitness: 23424.683
+[2018-02-08 10:04:51]:   --- New best fitness: 23350.517
+[2018-02-08 10:04:51]:   --- New best fitness: 23328.146
+[2018-02-08 10:04:51]:   --- New best fitness: 23303.475
+[2018-02-08 10:04:51]:   --- New best fitness: 23214.211
+[2018-02-08 10:04:51]:   --- New best fitness: 23140.046
+[2018-02-08 10:04:52]:   --- New best fitness: 23119.058
+[2018-02-08 10:04:52]:   --- New best fitness: 23114.712
+[2018-02-08 10:04:52]:   --- New best fitness: 23076.510
+[2018-02-08 10:04:52]:   --- New best fitness: 23054.396
+[2018-02-08 10:04:52]:   --- New best fitness: 23051.898
+[2018-02-08 10:04:52]:   --- New best fitness: 23045.467
+[2018-02-08 10:04:52]:   --- New best fitness: 23002.344
+[2018-02-08 10:04:52]:   --- New best fitness: 22926.916
+[2018-02-08 10:04:52]:   --- New best fitness: 22922.382
+[2018-02-08 10:04:52]:   --- New best fitness: 22915.339
+[2018-02-08 10:04:52]:   --- New best fitness: 22906.223
+[2018-02-08 10:04:52]:   --- New best fitness: 22884.341
+[2018-02-08 10:04:52]:   --- New best fitness: 22710.342
+[2018-02-08 10:04:52]:   --- New best fitness: 22680.692
+[2018-02-08 10:04:52]:   --- New best fitness: 22672.117
+[2018-02-08 10:04:52]:   --- New best fitness: 22667.143
+[2018-02-08 10:04:52]:   --- New best fitness: 22592.760
+[2018-02-08 10:04:52]:   --- New best fitness: 22580.788
+[2018-02-08 10:04:52]:   --- New best fitness: 22573.608
+[2018-02-08 10:04:52]:   --- New best fitness: 22561.145
+[2018-02-08 10:04:52]:   --- New best fitness: 22510.604
+[2018-02-08 10:04:52]:   --- New best fitness: 22483.843
+[2018-02-08 10:04:52]:   --- New best fitness: 22209.158
+[2018-02-08 10:04:52]:   --- New best fitness: 22008.397
+[2018-02-08 10:04:52]:   --- New best fitness: 21942.269
+[2018-02-08 10:04:52]:   --- New best fitness: 21938.552
+[2018-02-08 10:04:52]:   --- New best fitness: 21882.779
+[2018-02-08 10:04:52]:   --- New best fitness: 21881.020
+[2018-02-08 10:04:53]:   --- New best fitness: 21811.244
+[2018-02-08 10:04:53]:   --- New best fitness: 21728.103
+[2018-02-08 10:04:53]:   --- New best fitness: 21727.036
+[2018-02-08 10:04:53]:   --- New best fitness: 21669.185
+[2018-02-08 10:04:53]:   --- New best fitness: 21651.876
+[2018-02-08 10:04:53]:   --- New best fitness: 21650.169
+[2018-02-08 10:04:53]:   --- New best fitness: 21644.199
+[2018-02-08 10:04:53]:   --- New best fitness: 21600.035
+[2018-02-08 10:04:53]:   --- New best fitness: 21595.794
+[2018-02-08 10:04:53]:   --- New best fitness: 21571.543
+[2018-02-08 10:04:53]:   --- New best fitness: 21567.218
+[2018-02-08 10:04:53]:   --- New best fitness: 21535.811
+[2018-02-08 10:04:53]:   --- New best fitness: 21452.184
+[2018-02-08 10:04:53]:   --- New best fitness: 21422.754
+[2018-02-08 10:04:53]:   --- New best fitness: 21330.744
+[2018-02-08 10:04:53]:   --- New best fitness: 21228.396
+[2018-02-08 10:04:53]:   --- New best fitness: 21111.727
+[2018-02-08 10:04:53]:   --- New best fitness: 21011.379
+[2018-02-08 10:04:53]:   --- New best fitness: 20969.433
+[2018-02-08 10:04:53]:   --- New best fitness: 20915.670
+[2018-02-08 10:04:53]:   --- New best fitness: 20888.691
+[2018-02-08 10:04:53]:   --- New best fitness: 20835.040
+[2018-02-08 10:04:53]:   --- New best fitness: 20833.823
+[2018-02-08 10:04:53]:   --- New best fitness: 20788.676
+[2018-02-08 10:04:53]:   --- New best fitness: 20723.582
+[2018-02-08 10:04:53]:   --- New best fitness: 20666.363
+[2018-02-08 10:04:53]:   --- New best fitness: 20606.880
+[2018-02-08 10:04:53]:   --- New best fitness: 20594.061
+[2018-02-08 10:04:53]:   --- New best fitness: 20586.714
+[2018-02-08 10:04:53]:   --- New best fitness: 20583.043
+[2018-02-08 10:04:53]:   --- New best fitness: 20581.543
+[2018-02-08 10:04:53]:   --- New best fitness: 20553.964
+[2018-02-08 10:04:53]:   --- New best fitness: 20519.744
+[2018-02-08 10:04:53]:   --- New best fitness: 20514.896
+[2018-02-08 10:04:53]:   --- New best fitness: 20504.020
+[2018-02-08 10:04:53]:   --- New best fitness: 20497.781
+[2018-02-08 10:04:53]:   --- New best fitness: 20497.579
+[2018-02-08 10:04:53]:   --- New best fitness: 20492.933
+[2018-02-08 10:04:53]:   --- New best fitness: 20491.573
+[2018-02-08 10:04:54]:   --- New best fitness: 20322.015
+[2018-02-08 10:04:54]:   --- New best fitness: 20271.981
+[2018-02-08 10:04:54]:   --- New best fitness: 20258.527
+[2018-02-08 10:04:54]:   --- New best fitness: 20180.023
+[2018-02-08 10:04:54]:   --- New best fitness: 20177.305
+[2018-02-08 10:04:54]:   --- New best fitness: 20146.270
+[2018-02-08 10:04:54]:   --- New best fitness: 20140.264
+[2018-02-08 10:04:54]:   --- New best fitness: 20128.824
+[2018-02-08 10:04:54]:   --- New best fitness: 20111.083
+[2018-02-08 10:04:54]:   --- New best fitness: 19954.317
+[2018-02-08 10:04:54]:   --- New best fitness: 19935.230
+[2018-02-08 10:04:54]:   --- New best fitness: 19890.934
+[2018-02-08 10:04:54]:   --- New best fitness: 19886.900
+[2018-02-08 10:04:54]:   --- New best fitness: 19860.262
+[2018-02-08 10:04:54]:   --- New best fitness: 19850.578
+[2018-02-08 10:04:54]:   --- New best fitness: 19800.142
+[2018-02-08 10:04:54]:   --- New best fitness: 19759.443
+[2018-02-08 10:04:55]:   --- New best fitness: 19739.983
+[2018-02-08 10:04:55]:   --- New best fitness: 19658.237
+[2018-02-08 10:04:57]:   --- New best fitness: 19644.865
+[2018-02-08 10:04:57]:   --- New best fitness: 19642.894
+[2018-02-08 10:04:57]:   --- New best fitness: 19624.239
+[2018-02-08 10:04:57]:   --- New best fitness: 19619.655
+[2018-02-08 10:04:57]:   --- New best fitness: 19609.681
+[2018-02-08 10:04:57]:   --- New best fitness: 19590.878
+[2018-02-08 10:04:57]:   --- New best fitness: 19588.083
+[2018-02-08 10:04:57]:   --- New best fitness: 19452.383
+[2018-02-08 10:04:58]:   --- New best fitness: 19447.246
+[2018-02-08 10:04:58]:   --- New best fitness: 19446.449
+[2018-02-08 10:04:58]:   --- New best fitness: 19445.772
+[2018-02-08 10:04:58]:   --- New best fitness: 19424.493
+[2018-02-08 10:04:58]:   --- New best fitness: 19387.380
+[2018-02-08 10:04:58]:   --- New best fitness: 19167.594
+[2018-02-08 10:04:58]:   --- New best fitness: 19164.765
+[2018-02-08 10:04:58]:   --- New best fitness: 19141.074
+[2018-02-08 10:04:58]:   --- New best fitness: 19140.703
+[2018-02-08 10:04:58]:   --- New best fitness: 19132.225
+[2018-02-08 10:04:58]:   --- New best fitness: 19119.795
+[2018-02-08 10:04:58]:   --- New best fitness: 19059.450
+[2018-02-08 10:04:58]:   --- New best fitness: 19052.860
+[2018-02-08 10:04:59]:   --- New best fitness: 18914.236
+[2018-02-08 10:04:59]:   --- New best fitness: 18907.558
+[2018-02-08 10:04:59]:   --- New best fitness: 18867.359
+[2018-02-08 10:04:59]:   --- New best fitness: 18857.178
+[2018-02-08 10:04:59]:   --- New best fitness: 18847.435
+[2018-02-08 10:04:59]:   --- New best fitness: 18769.315
+[2018-02-08 10:04:59]:   --- New best fitness: 18708.789
+[2018-02-08 10:04:59]:   --- New best fitness: 18668.796
+[2018-02-08 10:04:59]:   --- New best fitness: 18577.192
+[2018-02-08 10:05:00]:   --- New best fitness: 18557.357
+[2018-02-08 10:05:00]:   --- New best fitness: 18556.716
+[2018-02-08 10:05:00]:   --- New best fitness: 18507.458
+[2018-02-08 10:05:00]:   --- New best fitness: 18407.067
+[2018-02-08 10:05:00]:   --- New best fitness: 18395.566
+[2018-02-08 10:05:00]:   --- New best fitness: 18395.259
+[2018-02-08 10:05:00]:   --- New best fitness: 18383.196
+[2018-02-08 10:05:00]:   --- New best fitness: 18358.712
+[2018-02-08 10:05:00]:   --- New best fitness: 18329.528
+[2018-02-08 10:05:00]:   --- New best fitness: 18295.574
+[2018-02-08 10:05:00]:   --- New best fitness: 18058.632
+[2018-02-08 10:05:01]:   --- New best fitness: 18012.646
+[2018-02-08 10:05:01]:   --- New best fitness: 18004.548
+[2018-02-08 10:05:01]:   --- New best fitness: 17984.567
+[2018-02-08 10:05:01]:   --- New best fitness: 17964.853
+[2018-02-08 10:05:01]:   --- New best fitness: 17937.304
+[2018-02-08 10:05:01]:   --- New best fitness: 17899.080
+[2018-02-08 10:05:01]:   --- New best fitness: 17883.669
+[2018-02-08 10:05:01]:   --- New best fitness: 17821.457
+[2018-02-08 10:05:01]:   --- New best fitness: 17812.185
+[2018-02-08 10:05:01]:   --- New best fitness: 17811.660
+[2018-02-08 10:05:01]:   --- New best fitness: 17756.440
+[2018-02-08 10:05:01]:   --- New best fitness: 17733.060
+[2018-02-08 10:05:01]:   --- New best fitness: 17686.621
+[2018-02-08 10:05:02]:   --- New best fitness: 17678.497
+[2018-02-08 10:05:02]:   --- New best fitness: 17659.112
+[2018-02-08 10:05:02]:   --- New best fitness: 17631.612
+[2018-02-08 10:05:02]:   --- New best fitness: 17585.131
+[2018-02-08 10:05:02]:   --- New best fitness: 17521.709
+[2018-02-08 10:05:02]:   --- New best fitness: 17437.068
+[2018-02-08 10:05:02]:   --- New best fitness: 17397.968
+[2018-02-08 10:05:02]:   --- New best fitness: 17310.262
+[2018-02-08 10:05:02]:   --- New best fitness: 17173.109
+[2018-02-08 10:05:02]: ==================================
+[2018-02-08 10:05:02]: Best fitness of scenario 20: 17173.10887194594
+[2018-02-08 10:05:02]: --- End Scenario 20
+[2018-02-08 10:05:02]: 
+[2018-02-08 10:05:02]: --- Scenario 21
+[2018-02-08 10:05:02]: selectionAlgorithm: TournamentSelection
+[2018-02-08 10:05:02]: crossoverAlgorithm: PositionBasedCrossover
+[2018-02-08 10:05:02]: mutationAlgorithm:  ExchangeMutation
+[2018-02-08 10:05:02]: crossoverRatio:     0.7
+[2018-02-08 10:05:02]: mutationRatio:      5.0E-4
+[2018-02-08 10:05:02]: ==================================
+[2018-02-08 10:05:02]:   Initial best fitness: 32751.034
+[2018-02-08 10:05:02]: ==================================
+[2018-02-08 10:05:02]: Best fitness of scenario 21: 32751.034224728606
+[2018-02-08 10:05:02]: --- End Scenario 21
+[2018-02-08 10:05:02]: 
+[2018-02-08 10:05:02]: --- Scenario 22
+[2018-02-08 10:05:02]: selectionAlgorithm: RouletteWheelSelection
+[2018-02-08 10:05:02]: crossoverAlgorithm: PositionBasedCrossover
+[2018-02-08 10:05:02]: mutationAlgorithm:  HeuristicMutation
+[2018-02-08 10:05:02]: crossoverRatio:     0.7
+[2018-02-08 10:05:02]: mutationRatio:      5.0E-4
+[2018-02-08 10:05:02]: ==================================
+[2018-02-08 10:05:02]:   Initial best fitness: 32206.068
+[2018-02-08 10:05:18]: ==================================
+[2018-02-08 10:05:18]: Best fitness of scenario 22: 32206.06832675676
+[2018-02-08 10:05:18]: --- End Scenario 22
+[2018-02-08 10:05:18]: 
+[2018-02-08 10:05:18]: --- Scenario 23
+[2018-02-08 10:05:18]: selectionAlgorithm: TournamentSelection
+[2018-02-08 10:05:18]: crossoverAlgorithm: PositionBasedCrossover
+[2018-02-08 10:05:18]: mutationAlgorithm:  InversionMutation
+[2018-02-08 10:05:18]: crossoverRatio:     0.7
+[2018-02-08 10:05:18]: mutationRatio:      5.0E-4
+[2018-02-08 10:05:18]: ==================================
+[2018-02-08 10:05:18]:   Initial best fitness: 32307.290
+[2018-02-08 10:05:18]: ==================================
+[2018-02-08 10:05:18]: Best fitness of scenario 23: 32307.290492286185
+[2018-02-08 10:05:18]: --- End Scenario 23
+[2018-02-08 10:05:18]: 
+[2018-02-08 10:05:18]: --- Scenario 24
+[2018-02-08 10:05:18]: selectionAlgorithm: TournamentSelection
+[2018-02-08 10:05:18]: crossoverAlgorithm: SubTourExchangeCrossover
+[2018-02-08 10:05:18]: mutationAlgorithm:  ExchangeMutation
+[2018-02-08 10:05:18]: crossoverRatio:     0.7
+[2018-02-08 10:05:18]: mutationRatio:      5.0E-4
+[2018-02-08 10:05:18]: ==================================
+[2018-02-08 10:05:18]:   Initial best fitness: 31580.953
+[2018-02-08 10:05:18]: ==================================
+[2018-02-08 10:05:18]: Best fitness of scenario 24: 31580.95343148154
+[2018-02-08 10:05:18]: --- End Scenario 24
+[2018-02-08 10:05:18]: 
+[2018-02-08 10:05:18]: --- Scenario 25
+[2018-02-08 10:05:18]: selectionAlgorithm: RouletteWheelSelection
+[2018-02-08 10:05:18]: crossoverAlgorithm: SubTourExchangeCrossover
+[2018-02-08 10:05:18]: mutationAlgorithm:  DisplacementMutation
+[2018-02-08 10:05:18]: crossoverRatio:     0.7
+[2018-02-08 10:05:18]: mutationRatio:      5.0E-4
+[2018-02-08 10:05:18]: ==================================
+[2018-02-08 10:05:18]:   Initial best fitness: 31702.639
+[2018-02-08 10:05:23]: ==================================
+[2018-02-08 10:05:23]: Best fitness of scenario 25: 31702.638851406424
+[2018-02-08 10:05:23]: --- End Scenario 25
+[2018-02-08 10:05:23]: 
+[2018-02-08 10:05:23]: ==================================
+[2018-02-08 10:05:23]: --- Started Bruteforce algorithm
+[2018-02-08 10:05:23]: numberOfTourElements: 1000000
+[2018-02-08 10:05:23]: 
+[2018-02-08 10:05:44]: Best tour in whole list:        { Tour : 23 120 30 233 8 212 254 260 141 193 107 64 50 48 103 4 203 228 215 62 275 43 68 86 44 218 192 279 206 245 51 78 163 142 145 259 47 208 113 42 126 20 152 70 210 108 99 59 33 273 176 36 37 248 239 247 110 194 73 199 207 241 272 9 151 95 98 49 66 216 214 213 172 115 158 234 134 5 276 38 198 253 97 88 25 189 156 224 101 235 35 19 17 136 171 127 31 252 278 227 3 15 7 280 231 200 105 109 80 170 168 202 270 263 244 153 84 177 265 122 138 2 204 1 128 57 225 132 81 182 148 87 114 165 195 146 266 256 21 154 124 121 135 223 125 104 181 264 137 116 53 74 268 221 211 91 28 129 12 178 150 167 112 191 106 16 13 100 123 102 190 96 76 250 147 61 183 232 209 40 77 169 249 173 149 45 92 54 58 18 72 46 222 220 139 79 133 10 11 267 29 93 89 39 117 63 111 27 179 271 236 217 219 34 226 201 277 257 262 155 75 131 157 230 185 85 242 118 41 166 24 274 119 180 162 258 196 69 261 14 52 55 161 90 243 240 65 83 205 159 32 187 229 82 174 56 237 71 144 251 246 255 197 164 67 94 269 130 60 143 6 188 238 160 26 140 184 175 22 186  }
+[2018-02-08 10:05:44]: Fitness of all:                 29533.83318334228
+[2018-02-08 10:05:44]: 
+[2018-02-08 10:05:45]: Best tour in top 25 segment:    { Tour : 205 2 237 179 57 66 233 262 41 112 279 257 274 131 30 32 126 141 185 39 99 34 263 3 121 129 149 251 8 217 136 277 142 42 189 158 234 155 260 253 20 241 9 226 111 116 75 33 128 220 135 193 113 77 92 12 213 91 23 79 228 152 48 186 246 134 35 82 122 270 46 180 215 209 200 271 211 148 25 71 38 268 137 239 83 194 95 67 97 269 203 123 1 28 127 115 93 184 49 153 151 177 199 222 45 168 275 10 146 90 62 56 108 17 248 181 154 188 218 36 166 164 125 100 68 255 52 265 240 259 14 264 86 81 40 167 110 243 63 159 132 21 170 175 178 31 256 249 219 65 61 156 236 187 16 120 272 280 201 59 29 54 74 102 221 197 147 58 247 225 119 94 162 88 70 60 84 89 245 224 204 118 254 27 174 230 182 78 5 6 150 11 173 15 276 130 124 207 278 212 104 157 250 138 18 22 169 235 223 44 7 145 232 26 198 105 165 144 266 85 24 176 196 195 106 51 133 261 258 216 80 101 55 161 114 87 43 72 64 69 109 53 231 192 214 229 208 19 13 4 171 244 98 96 191 183 140 267 107 47 103 50 202 273 227 76 73 37 190 206 238 252 210 242 163 117 172 160 143 139  }
+[2018-02-08 10:05:45]: Fitness of top 25:              29876.275621072098
+[2018-02-08 10:05:45]: 
+[2018-02-08 10:05:47]: Best tour in middle 50 segment: { Tour : 23 120 30 233 8 212 254 260 141 193 107 64 50 48 103 4 203 228 215 62 275 43 68 86 44 218 192 279 206 245 51 78 163 142 145 259 47 208 113 42 126 20 152 70 210 108 99 59 33 273 176 36 37 248 239 247 110 194 73 199 207 241 272 9 151 95 98 49 66 216 214 213 172 115 158 234 134 5 276 38 198 253 97 88 25 189 156 224 101 235 35 19 17 136 171 127 31 252 278 227 3 15 7 280 231 200 105 109 80 170 168 202 270 263 244 153 84 177 265 122 138 2 204 1 128 57 225 132 81 182 148 87 114 165 195 146 266 256 21 154 124 121 135 223 125 104 181 264 137 116 53 74 268 221 211 91 28 129 12 178 150 167 112 191 106 16 13 100 123 102 190 96 76 250 147 61 183 232 209 40 77 169 249 173 149 45 92 54 58 18 72 46 222 220 139 79 133 10 11 267 29 93 89 39 117 63 111 27 179 271 236 217 219 34 226 201 277 257 262 155 75 131 157 230 185 85 242 118 41 166 24 274 119 180 162 258 196 69 261 14 52 55 161 90 243 240 65 83 205 159 32 187 229 82 174 56 237 71 144 251 246 255 197 164 67 94 269 130 60 143 6 188 238 160 26 140 184 175 22 186  }
+[2018-02-08 10:05:47]: Fitness of middle 50:           29533.83318334228
+[2018-02-08 10:05:47]: 
+[2018-02-08 10:05:47]: Best tour in last 25 segment:   { Tour : 43 92 84 48 165 141 96 17 111 164 238 250 195 86 61 206 177 114 242 225 161 158 170 219 194 224 90 182 116 278 217 251 31 220 215 230 34 156 36 12 64 147 255 11 262 218 160 76 80 81 77 163 22 2 153 75 169 89 168 257 104 33 135 258 229 28 105 18 97 123 25 40 191 32 49 46 152 246 227 29 100 112 252 113 13 83 221 166 226 162 94 129 138 253 243 137 117 95 207 260 27 185 223 239 247 172 213 272 276 178 214 268 55 232 265 70 133 176 124 69 68 132 181 173 189 57 62 107 254 198 38 88 79 190 131 277 264 235 256 259 65 98 197 134 157 72 50 37 174 222 35 269 263 167 234 270 145 202 149 109 10 201 30 66 280 14 5 6 184 261 24 193 87 71 187 179 101 267 151 102 15 108 99 118 236 233 19 125 63 115 127 186 130 122 200 120 244 119 209 8 228 136 240 203 175 216 143 91 51 82 155 20 249 4 60 21 183 85 121 196 7 16 266 126 59 103 74 205 237 204 199 110 53 159 146 275 279 144 231 9 180 128 271 3 245 208 150 148 142 248 211 42 23 241 171 93 210 45 44 67 41 73 188 39 54 274 273 47 52 56 106 154 192 212 1 26 139 140 78 58  }
+[2018-02-08 10:05:47]: Fitness of last 25:             29579.64128580773
+[2018-02-08 10:05:47]: 
+[2018-02-08 10:05:47]: The best found tour by Bruteforce was located in the middle 50 percent of the list of 1000000 elements.
+[2018-02-08 10:05:47]: --- Finished Bruteforce
+[2018-02-08 10:05:47]: ==================================
+[2018-02-08 10:05:47]: ==================================
+[2018-02-08 10:05:47]: Best Fitness of genetic algorithm:    2934.206
+[2018-02-08 10:05:47]: Best Fitness of bruteforce algorithm: 29533.833

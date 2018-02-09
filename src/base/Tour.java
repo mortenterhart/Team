@@ -49,6 +49,15 @@ public class Tour implements Comparable<Tour> {
         return newTour;
     }
 
+    @Override
+    public boolean equals(Object compare) {
+        if (compare == null || !(compare instanceof Tour)) {
+            return false;
+        }
+
+        return this.cities.equals(((Tour) compare).getCities());
+    }
+
     public double getFitness() {
         double distance = 0.0;
 

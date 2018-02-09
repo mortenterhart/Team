@@ -13,7 +13,7 @@ public class DisplacementMutation {
     private  Tour tour;
 
     @Before
-    public void initTour(){
+    public void initTour() {
         this.tour = new Tour();
         ArrayList<City> cities = new ArrayList<City>();
         for(int i = 0; i<280; i++){
@@ -23,14 +23,14 @@ public class DisplacementMutation {
     }
 
     @Test
-    public void checkSize(){
+    public void checkSize() {
         IMutation displacementMutation = new mutation.DisplacementMutation();
         this.tour = displacementMutation.doMutation(this.tour);
         assertEquals(280, tour.getCities().size());
     }
 
     @Test
-    public void checkNotNull(){
+    public void checkNotNull() {
         IMutation displacementMutation = new mutation.DisplacementMutation();
         this.tour = displacementMutation.doMutation(this.tour);
         assertNotNull(this.tour.getCities());
