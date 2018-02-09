@@ -5,4 +5,5 @@ getwd()
 
 [SCENARIODESCRIPTION]
 
-[BARPLOTSCENARIOS]
+# most frequent fitness
+[MFFSCENARIOS]
