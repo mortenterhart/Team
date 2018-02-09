@@ -16,7 +16,7 @@ public class InversionMutation implements IMutation {
         int point1;
         int point2;
 
-        //Avoid getting the same pointss
+        //Avoid getting the same points
         do {
             point1 = mtf.nextInt(0, cities.size() - 1);
             point2 = mtf.nextInt(0, cities.size() - 1);

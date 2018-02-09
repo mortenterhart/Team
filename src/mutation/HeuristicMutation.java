@@ -41,7 +41,7 @@ public class HeuristicMutation implements IMutation {
 
         ArrayList<Integer> tempPermuatedPickedOutIndecies;
         double minFittness = 1000000;
-        ArrayList<City> minFittnessCityList = null;
+        ArrayList<City> minFitnessCityList = null;
 
         for(int i=0; i<fak;i++)
         {
@@ -57,11 +57,11 @@ public class HeuristicMutation implements IMutation {
             if(tempFittness<minFittness)
             {
                 minFittness = tempFittness;
-                minFittnessCityList = (ArrayList<City>)tempCities.clone();
+                minFitnessCityList = (ArrayList<City>)tempCities.clone();
             }
         }
 
-        tour.setCities(minFittnessCityList);
+        tour.setCities(minFitnessCityList);
 
 //        endTime = System.currentTimeMillis();
 //        System.out.println(endTime-startTime);
