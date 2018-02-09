@@ -13,3 +13,4 @@ TSP.iml
 /out
 /build
 /data/datastore.db.tmp/
+data/r_out/*.r
