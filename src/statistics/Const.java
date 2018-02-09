@@ -31,7 +31,6 @@ public enum Const {
     public static String VAR_INTERQUARTILERANGE = "\\[INTERQUARTILERANGE\\]";
     public static String VAR_QUANTILE = "\\[QUANTILE\\]";
 
-
     public String path = (new File("")).getAbsolutePath()+"/data";
     public String boxplot_file = "data/r_out/box_plot.r";
     public String barplot_file = "data/r_out/bar_plot.r";
@@ -42,21 +41,17 @@ public enum Const {
     public String histogram_file = "data/r_out/histogram.r";
     public String measure_file = "data/r_out/measures.r";
 
-    public String createBoxplotName(List<Integer> scenarios) {
-        StringBuilder name = new StringBuilder("boxplot_scenario_");
-        for (Integer scenario : scenarios) {
-            name.append(scenario).append("_");
-        }
-        name = new StringBuilder(name.substring(0, name.length() - 1));
-        return name + ".pdf";
+    public String buildFileBeginning(List<Integer> scenario_ids, String template_path) throws IOException {
+        String text = new String(Files.readAllBytes(Paths.get(template_path)));
+        text = text.replaceAll(Const.VAR_DATADIR,Const.instance.path);
+        text = text.replaceAll(Const.VAR_SCENARIODESCRIPTION,Const.instance.writeCsvInScenarios(scenario_ids));
+        return text;
     }
 
-    public String createStripchartName(List<Integer> scenarios) {
-        StringBuilder name = new StringBuilder("stripchart_scenario");
-        for (Integer scenario : scenarios) {
-            name.append("_").append(scenario);
-        }
-        return name + ".pdf";
+    public void writeFile(String ttest, File file) throws FileNotFoundException {
+        PrintWriter writer = new PrintWriter(file);
+        writer.print(ttest);
+        writer.flush();
     }
 
     public String createScenarioShortname(List<Integer> scenarios) {
@@ -77,11 +72,57 @@ public enum Const {
         return text.toString();
     }
 
+    public String writeCsvInScenarios(List<Integer> scenarios) {
+        StringBuilder scenDesc = new StringBuilder();
+        for (int scenario : scenarios) {
+            scenDesc.append("s").append(scenario).append(" <- as.numeric(read.csv(\"data/data_scenario_").append(scenario).append(".csv\",header=FALSE)) ");
+            scenDesc.append(System.getProperty("line.separator"));
+        }
+        return scenDesc.toString();
+    }
+
+    public String createBoxplotName(List<Integer> scenarios) {
+        StringBuilder name = new StringBuilder("boxplot_s_");
+        for (Integer scenario : scenarios) {
+            name.append(scenario).append("_");
+        }
+        name = new StringBuilder(name.substring(0, name.length() - 1));
+        return name + ".pdf";
+    }
+
+    public String createStripchartName(List<Integer> scenarios) {
+        StringBuilder name = new StringBuilder("stripchart_s");
+        for (Integer scenario : scenarios) {
+            name.append("_").append(scenario);
+        }
+        return name + ".pdf";
+    }
+
+    public String createStripchartScenarios(List<Integer> scenarios) {
+        StringBuilder text = new StringBuilder();
+        for (Integer scenario : scenarios) {
+            text.append("minimum <- min(s").append(scenario).append(")");
+            text.append(System.getProperty("line.separator"));
+            text.append("maximum <- max(s").append(scenario).append(")");
+            text.append(System.getProperty("line.separator"));
+            text.append("pdf(\"plots/stripchart_s").append(scenario).append(".pdf\",height = 10,width = 10,paper = \"A4r\")");
+            text.append(System.getProperty("line.separator"));
+            text.append("stripchart(s").append(scenario).append(",xlim=c(minimum,maximum),main = \"Genetic Algorithms - TSP280 - s").append(scenario).append("\",method=\"stack\")");
+            text.append(System.getProperty("line.separator"));
+            text.append("dev.off()");
+            text.append(System.getProperty("line.separator"));
+            text.append(System.getProperty("line.separator"));
+
+        }
+        return text.toString();
+    }
+
+
     public String getScenariodescription_barplot(List<Integer> scenarioIds) {
         StringBuilder text = new StringBuilder();
 
         for (Integer scenarioId : scenarioIds) {
-            text.append("pdf(\"plots/s").append(scenarioId).append("_barplot.pdf\",height = 10,width = 10,paper = \"A4r\")");
+            text.append("pdf(\"plots/barplot_s").append(scenarioId).append(".pdf\",height = 10,width = 10,paper = \"A4r\")");
             text.append(System.getProperty("line.separator"));
             text.append("min <- min(s").append(scenarioId).append(")");
             text.append(System.getProperty("line.separator"));
@@ -93,34 +134,6 @@ public enum Const {
             text.append(System.getProperty("line.separator")).append(System.getProperty("line.separator"));
         }
 
-        return text.toString();
-    }
-
-    public String writeCsvInScenarios(List<Integer> scenarios) {
-        StringBuilder scenDesc = new StringBuilder();
-        for (int scenario : scenarios) {
-            scenDesc.append("s").append(scenario).append(" <- as.numeric(read.csv(\"data/data_scenario_").append(scenario).append(".csv\",header=FALSE)) ");
-            scenDesc.append(System.getProperty("line.separator"));
-        }
-        return scenDesc.toString();
-    }
-
-    public String createStripchartScenarios(List<Integer> scenarios) {
-        StringBuilder text = new StringBuilder();
-        for (Integer scenario : scenarios) {
-            text.append("minimum <- min(s").append(scenario).append(")");
-            text.append(System.getProperty("line.separator"));
-            text.append("maximum <- max(s").append(scenario).append(")");
-            text.append(System.getProperty("line.separator"));
-            text.append("pdf(\"plots/s").append(scenario).append("_stripchart.pdf\",height = 10,width = 10,paper = \"A4r\")");
-            text.append(System.getProperty("line.separator"));
-            text.append("stripchart(s").append(scenario).append(",xlim=c(minimum,maximum),main = \"Genetic Algorithms - TSP280 - s").append(scenario).append("\",method=\"stack\")");
-            text.append(System.getProperty("line.separator"));
-            text.append("dev.off()");
-            text.append(System.getProperty("line.separator"));
-            text.append(System.getProperty("line.separator"));
-
-        }
         return text.toString();
     }
 
@@ -149,19 +162,6 @@ public enum Const {
         text = new StringBuilder(text.substring(0, text.length() - 1));
         text.append(")");
         return text.toString();
-    }
-
-    public String buildFileBeginning(List<Integer> scenario_ids, String template_path) throws IOException {
-        String text = new String(Files.readAllBytes(Paths.get(template_path)));
-        text = text.replaceAll(Const.VAR_DATADIR,Const.instance.path);
-        text = text.replaceAll(Const.VAR_SCENARIODESCRIPTION,Const.instance.writeCsvInScenarios(scenario_ids));
-        return text;
-    }
-
-    public void writeFile(String ttest, File file) throws FileNotFoundException {
-        PrintWriter writer = new PrintWriter(file);
-        writer.print(ttest);
-        writer.flush();
     }
 
     public String createTTestText(List<Integer> scenario_ids) {
@@ -199,11 +199,27 @@ public enum Const {
     public String createHistogramScenarios(List<Integer> scenario_ids) {
         StringBuilder text = new StringBuilder();
         for (int scenario_id : scenario_ids) {
-            text.append("pdf(\"plots/s").append(scenario_id).append("_histogram.pdf\",height = 10,width = 10,paper = \"A4r\")\n");
+            text.append("pdf(\"plots/histogram_s").append(scenario_id).append(".pdf\",height = 10,width = 10,paper = \"A4r\")\n");
             text.append("hist(s").append(scenario_id).append(",xlim=c(minimum,maximum),ylim=c(0,200),xlab = \"distance\",breaks=100,main = \"Genetic Algorithms - TSP280 - s").append(scenario_id).append("\")\n");
             text.append("dev.off()\n\n");
         }
         return text.toString();
+    }
+
+    public String createHistogramMinAndMax(List<Integer> scenario_ids) {
+        StringBuilder minimumText = new StringBuilder("minimum <- min(");
+        StringBuilder maximumText = new StringBuilder("maximum <- max(");
+
+        for (int scenario_id : scenario_ids) {
+            minimumText.append("s").append(scenario_id).append(",");
+            maximumText.append("s").append(scenario_id).append(",");
+        }
+        minimumText = new StringBuilder(minimumText.substring(0, minimumText.length() - 1));
+        maximumText = new StringBuilder(maximumText.substring(0, maximumText.length() - 1));
+
+        minimumText.append(")\n");
+        maximumText.append(")\n");
+        return minimumText+ maximumText.toString();
     }
 
     public String createSdScenario(List<Integer> scenario_ids) {
@@ -262,22 +278,6 @@ public enum Const {
             text.append(System.getProperty("line.separator"));
         }
         return text.toString();
-    }
-
-    public String createHistogramMinAndMax(List<Integer> scenario_ids) {
-        StringBuilder minimumText = new StringBuilder("minimum <- min(");
-        StringBuilder maximumText = new StringBuilder("maximum <- max(");
-
-        for (int scenario_id : scenario_ids) {
-            minimumText.append("s").append(scenario_id).append(",");
-            maximumText.append("s").append(scenario_id).append(",");
-        }
-        minimumText = new StringBuilder(minimumText.substring(0, minimumText.length() - 1));
-        maximumText = new StringBuilder(maximumText.substring(0, maximumText.length() - 1));
-
-        minimumText.append(")\n");
-        maximumText.append(")\n");
-        return minimumText+ maximumText.toString();
     }
 }
 

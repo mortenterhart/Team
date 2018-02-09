@@ -1,7 +1,6 @@
 *.class
 log/
 *.csv
-data/r_out/*.r
 .idea/
 .DS_Store
 *.swp
