@@ -28,7 +28,7 @@ public enum Configuration {
     public boolean writeLogFile = true;
 
     // BruteForce
-    public int numberOfTourElements = 1_000_000;
+    public int numberOfTourElements = Integer.MAX_VALUE;
 
     // Selection
     public int overPopulation = 50;
