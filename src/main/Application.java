@@ -19,8 +19,6 @@ public class Application {
     private List<City> availableCities;
     private double[][] distances;
 
-    private long databaseIdCounter = 0;
-
     public void startupHSQLDB() {
         HSQLDBManager.instance.startup();
         HSQLDBManager.instance.init();
@@ -67,17 +65,6 @@ public class Application {
         if (Configuration.instance.writeLogFile) {
             LogEngine.instance.write(message);
         }
-    }
-
-    public void logNewLine() {
-        System.out.println();
-        if (Configuration.instance.writeLogFile) {
-            LogEngine.instance.write("");
-        }
-    }
-
-    private String formatFitness(Tour tour) {
-        return formatFitness(tour.getFitness());
     }
 
     private String formatFitness(double fitness) {
