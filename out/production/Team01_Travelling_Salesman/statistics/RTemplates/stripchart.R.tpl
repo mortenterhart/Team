@@ -8,5 +8,3 @@ getwd()
 pdf("plots/[FILENAME]",height = 10,width = 10,paper = "A4r")
 
 [STRIPCHARTSCENARIO]
-
-dev.off()
