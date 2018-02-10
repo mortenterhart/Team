@@ -14,11 +14,13 @@ public enum Configuration {
 
     public String databaseFile = dataDirectory + "datastore.db";
     public String logFile = userDirectory + fileSeparator + "log" + fileSeparator + "TSPCalculation.log";
+    public String scenarioDefinitionFile = userDirectory + fileSeparator + "configuration/scenarios.xml";
 
     public MersenneTwisterFast mersenneTwister = new MersenneTwisterFast();
 
     // Parameters for the genetic algorithm
     public final int numberOfIterations = 10_000;
+    public final int initialNumberOfIndividuums = 26;
     public final int noChangeLimit = 1_000;
 
     // Show additional debugging information

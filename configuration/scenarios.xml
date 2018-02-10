@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<scenarios>
+    <!-- Scenario Schema
+      <scenario id="[int]">
+          <selection> RouletteWheel | Tournament </selection>
+          <crossover> Cycle | Heuristic | Ordered | PartiallyMatched | PositionBased | SubTourExchange </crossover>
+          <mutation> Displacement | Exchange | Heuristic | Insertion | Inversion </mutation>
+          <crossoverRatio> [double] </crossoverRatio>
+          <mutationRatio> [double] </mutationRatio>
+          <numberOfIterations> [int] </numberOfIterations>
+      </scenario>
+    -->
+    <!-- Scenario 01 -->
+    <scenario id="01">
+        <selection>RouletteWheel</selection>
+        <crossover>PartiallyMatched</crossover>
+        <mutation>Exchange</mutation>
+        <crossoverRatio>0.8</crossoverRatio>
+        <mutationRatio>0.005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 02 -->
+    <scenario id="02">
+        <selection>RouletteWheel</selection>
+        <crossover>PartiallyMatched</crossover>
+        <mutation>Exchange</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 03 -->
+    <scenario id="03">
+        <selection>RouletteWheel</selection>
+        <crossover>PartiallyMatched</crossover>
+        <mutation>Exchange</mutation>
+        <crossoverRatio>0.6</crossoverRatio>
+        <mutationRatio>0.005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 04 -->
+    <scenario id="04">
+        <selection>RouletteWheel</selection>
+        <crossover>PartiallyMatched</crossover>
+        <mutation>Exchange</mutation>
+        <crossoverRatio>0.8</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 05 -->
+    <scenario id="05">
+        <selection>RouletteWheel</selection>
+        <crossover>PartiallyMatched</crossover>
+        <mutation>Exchange</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 06 -->
+    <scenario id="06">
+        <selection>RouletteWheel</selection>
+        <crossover>PartiallyMatched</crossover>
+        <mutation>Exchange</mutation>
+        <crossoverRatio>0.6</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 07 -->
+    <scenario id="07">
+        <selection>RouletteWheel</selection>
+        <crossover>PartiallyMatched</crossover>
+        <mutation>Displacement</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 08 -->
+    <scenario id="08">
+        <selection>Tournament</selection>
+        <crossover>PartiallyMatched</crossover>
+        <mutation>Displacement</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 09 -->
+    <scenario id="09">
+        <selection>RouletteWheel</selection>
+        <crossover>PartiallyMatched</crossover>
+        <mutation>Heuristic</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 10 -->
+    <scenario id="10">
+        <selection>RouletteWheel</selection>
+        <crossover>PartiallyMatched</crossover>
+        <mutation>Insertion</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 11 -->
+    <scenario id="11">
+        <selection>RouletteWheel</selection>
+        <crossover>PartiallyMatched</crossover>
+        <mutation>Inversion</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 12 -->
+    <scenario id="12">
+        <selection>RouletteWheel</selection>
+        <crossover>Cycle</crossover>
+        <mutation>Exchange</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 13 -->
+    <scenario id="13">
+        <selection>RouletteWheel</selection>
+        <crossover>Cycle</crossover>
+        <mutation>Exchange</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 14 -->
+    <scenario id="14">
+        <selection>Tournament</selection>
+        <crossover>Cycle</crossover>
+        <mutation>Exchange</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 15 -->
+    <scenario id="15">
+        <selection>RouletteWheel</selection>
+        <crossover>Heuristic</crossover>
+        <mutation>Exchange</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 16 -->
+    <scenario id="16">
+        <selection>RouletteWheel</selection>
+        <crossover>Heuristic</crossover>
+        <mutation>Insertion</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 17 -->
+    <scenario id="17">
+        <selection>RouletteWheel</selection>
+        <crossover>Heuristic</crossover>
+        <mutation>Inversion</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 18 -->
+    <scenario id="18">
+        <selection>Tournament</selection>
+        <crossover>Ordered</crossover>
+        <mutation>Exchange</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 19 -->
+    <scenario id="19">
+        <selection>RouletteWheel</selection>
+        <crossover>Ordered</crossover>
+        <mutation>Displacement</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 20 -->
+    <scenario id="20">
+        <selection>RouletteWheel</selection>
+        <crossover>Ordered</crossover>
+        <mutation>Insertion</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 21 -->
+    <scenario id="21">
+        <selection>Tournament</selection>
+        <crossover>PositionBased</crossover>
+        <mutation>Exchange</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 22 -->
+    <scenario id="22">
+        <selection>RouletteWheel</selection>
+        <crossover>PositionBased</crossover>
+        <mutation>Heuristic</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 23 -->
+    <scenario id="23">
+        <selection>Tournament</selection>
+        <crossover>PositionBased</crossover>
+        <mutation>Inversion</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 24 -->
+    <scenario id="24">
+        <selection>Tournament</selection>
+        <crossover>SubTourExchange</crossover>
+        <mutation>Exchange</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+    <!-- Scenario 25 -->
+    <scenario id="25">
+        <selection>RouletteWheel</selection>
+        <crossover>SubTourExchange</crossover>
+        <mutation>Displacement</mutation>
+        <crossoverRatio>0.7</crossoverRatio>
+        <mutationRatio>0.0005</mutationRatio>
+        <numberOfIterations>10000</numberOfIterations>
+    </scenario>
+</scenarios>
