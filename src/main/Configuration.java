@@ -20,7 +20,7 @@ public enum Configuration {
 
     // Parameters for the genetic algorithm
     public final int numberOfIterations = 10_000;
-    public final int initialNumberOfIndividuums = 26;
+    public final int initialNumberOfIndividuals = 26;
     public final int noChangeLimit = 1_000;
 
     // Show additional debugging information

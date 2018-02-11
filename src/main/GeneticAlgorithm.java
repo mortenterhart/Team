@@ -44,7 +44,7 @@ public class GeneticAlgorithm {
         double previousFitness = Double.POSITIVE_INFINITY;
 
         Population population = RandomPopulationGenerator.randomPopulation(availableCities,
-                Configuration.instance.initialNumberOfIndividuums);
+                Configuration.instance.initialNumberOfIndividuals);
         double bestFitness = MinimalTourDetector.minimalTourIn(population).getFitness();
         log("  Initial best fitness: " + formatFitness(bestFitness));
 
